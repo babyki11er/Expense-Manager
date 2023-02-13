@@ -1,0 +1,81 @@
+<2023-02-05 23:43:39>
+[X]: what to do with items having archived category on added
+[X]: archiving a category will archive all items under that
+[ ]: update to a new name if a new version of the item was updated
+        rice(old)
+        rice(oldd)
+[ ]: Edit category
+[ ]: Edit an existing item
+[ ]: Edit a record
+DeadLine: Monday
+
+
+[ ]: see archived items, and categories, and unarchive them
+
+
+<Features>
+[ ]: Display record sort by date on default
+[ ]: insert multiple items
+[ ]: Add note on items, like warnning, and display that when adding that
+[ ]: Adding a new version of an item
+        change the older item name to '$name-old9' to '$name-old2'
+[ ]: Autosuggest item
+[ ]: Add balance
+[ ]: Brief analysis
+
+<Outcome>
+[ ]: Create type from each outcome and suggest it as they type
+<Tags>
+[ ]: Create tags, independent attributes, autosuggest, freely usable
+
+<Professional>
+[ ]: Export data to JSON format and others
+
+// TODO:
+// refactoring
+[ ]: redirect to the page without using string
+[ ]: replace string with constants
+
+
+
+// TODO:
+[!]: SIM CARD ID
+// TODO:
+[x]: Display categories without None
+// sUG:
+[x]: error at del-api
+    invalid 'attr'
+
+// TODO:
+[x]: Pause on deleting items
+[x]: Add a record
+[x]: Add a record with custom item
+    [x]: Add a new item
+    [x]: Add the record with the new item-id
+[x]: Get record with public information
+[x]: Display a record
+[x]: Delete a category
+[ ]: Delete a record
+[ ]: Delete an item
+//  discovered
+    [?]: delete not redirect at id=1
+    // item, i think
+    [x]: delete is deleting item before that id
+    [x]: delete is deleting DELETED item
+    [x] :calling getItem will malfunction
+            because the getItem cannot return string which is the case when the item has been deleted
+    [ ]: cannot be deleted if it has records
+    <N>: item with deleted category has been selected none
+
+    <?>: Fix saving category-str on item // i believe i have fixed that
+    <?>: Delete item
+// TODO
+[~]: Implement drop down for fun, and to get some dopamine, feeling like i have accomplished something
+[G]: Calculate the brief analysis on the fry
+[ ]: Add incomes.php and incomes.json
+                        [ ]: So the drop down will be used in items and category, meaning you don't have to create a new category manually from the interface
+                                add the category on the fry
+                        [ ]: build a working app to show the friends. No delete, edit stuffs, yet.
+                                Just complete all functions like calculating the remaining amount, etc.
+[ ]: will test with the real data.
+That's all for today

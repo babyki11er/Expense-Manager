@@ -1,0 +1,3 @@
+2023-02-12 Sun 12:15 AM
+	+30 mins
+	Organized the files with a related directory. Used DOCUMENT_ROOT from SERVER as relative links are not reliable and weird
