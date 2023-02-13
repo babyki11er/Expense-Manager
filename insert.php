@@ -53,7 +53,7 @@ $categories = listCategories();
         <!-- Category -->
         <div class="mb-3">
             <label class=" form-label" for="category">Category</label>
-            <select name="item-cat-id" id="item-category" class=" form-select">
+            <select name="item-cat_id" id="item-category" class=" form-select">
                 <?php foreach ($categories as $cat_id => $cat_str) : ?>
                     <option value="<?= $cat_id; ?>"><?= ucfirst($cat_str); ?></option>
                 <?php endforeach; ?>

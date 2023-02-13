@@ -3,7 +3,7 @@
     Item:
         name    string
         price   int
-        cat-id  int
+        cat_id  int
         [public view]
         cat-str string
     Interface:
@@ -14,86 +14,51 @@
 */
 
 // returns items to display
-function getItemsPublic(): array
+function getItemsPublic(mysqli $conn): array
 {
-    $items = _readAllItems();
-    // filtering archive items
-    $archive_items = _getArchiveItems();
-    foreach ($archive_items as $id) {
-        unset($items[$id]);
+    $raw_items = db_SelectItems($conn);
+    return array_map(function ($item) use ($conn) {
+        return [
+            'id' => $item['id'],
+            'name' => $item['name'],
+            'price' => $item['price'],
+            'cat-str' => getCategoryName($item['cat_id'], $conn)
+        ];
+    }, $raw_items);
+}
+
+// function getItemsByCatId(int $id): array
+// {
+//     // returns array of id, not item array
+// }
+
+function getItem(int $id, mysqli $conn): array
+{
+    $raw = db_SelectAnItem($conn, $id);
+    return $raw;
+}
+
+function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
+{
+    if ($price < 0) {
+        return VALIDATE_ERROR;
     }
-    // constructing the array to display
-    $items_public = array_map(function ($item) {
-        $item['cat-str'] = getCategory($item['cat-id']);
-        return $item;
-    }, $items);
-    return $items_public;
-}
-
-function getItemsByCatId(int $id): array
-{
-    // returns array of id, not item array
-    $all_items = _readAllItems();
-    $selected_items = array_filter($all_items, function ($v) use ($id) {
-        return $v['cat-id'] == $id;
-    });
-    return array_keys($selected_items);
-}
-
-function getItem($id): array
-{
-    if (!_validateItem($id)) {
-        return NOT_EXIST;
-    }
-    $all_items = _readAllItems();
-    return $all_items[$id];
-}
-
-function addNewItem(string $name, int $price, int $cat_id): int
-{
-    $new_item = [
-        'name' => $name,
-        'price' => $price,
-        'cat-id' => $cat_id
-    ];
-    $existing_items = _readAllItems();
-    $r_id = count($existing_items);
-    $existing_items[] = $new_item;
-    if (_saveItems($existing_items)) {
-        return $r_id;
+    if (db_InsertNewItem($conn, $name, $price, $cat_id)) {
+        return mysqli_insert_id($conn);
     } else {
-        return -1;
+        return DB_ERROR;
     }
 }
 
-function archiveItem(int $id): int
-{
-    // do some validation
-    if (!_validateItem($id)) {
-        return -4;
-    }
-    return _archive($id, ITEM);
-}
+// function archiveItem(int $id): int
+// {
+//     // do some validation
+// }
 
-function _validateItem(int $id): bool
-{
-    $active_items = _readAllItems();
-    return array_key_exists($id, $active_items);
-    // if (!array_key_exists($id, $active_items)) {
-    //     return -4;
-    // }
-}
-function _getArchiveItems(): array
-{
-    return _getArchives(ITEM);
-}
-
-function _readAllItems(): array
-{
-    return _getDataFromFileName(ITEM_FN);
-}
-
-function _saveItems(array $items): bool
-{
-    return _writeDataToFile(ITEM_FN, $items);
-}
+// function _validateItem(int $id): bool
+// {
+// }
+// function _getArchiveItems(): array
+// {
+//     return _getArchives(ITEM);
+// }

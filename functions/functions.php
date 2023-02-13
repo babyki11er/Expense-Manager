@@ -15,6 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_record.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_income.php";
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_archive.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_db.php";
 
 /* utilities */
 function error(string $message, int $status_code = 400, array $debug = null): void
@@ -116,24 +117,3 @@ function shutDownFunction()
     }
 }
 register_shutdown_function('shutDownFunction');
-
-/* internal data storage */
-function _getDataFromFileName(string $file_name): array
-{
-    $file_name = $_SERVER['DOCUMENT_ROOT'] . "/$file_name";
-    if (!file_exists($file_name)) {
-        touch($file_name);
-        noti("$file_name doesn't exist! Something is terribly wrong");
-        slayer();
-        return [];
-    }
-    $json_string = file_get_contents($file_name);
-    $array = json_decode($json_string, true);
-    return $array;
-}
-
-function _writeDataToFile(string $file_name, array $data): bool
-{
-    $json_string = json_encode($data);
-    return file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/' . $file_name, $json_string);
-}

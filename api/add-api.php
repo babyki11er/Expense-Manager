@@ -13,45 +13,33 @@ function _main()
         error("Invalid 'attr' parameter value!");
     }
 
-    if ($attribute === CATEGORY)
-    {
-        _category();
+    $conn = connectMysql();
+    if ($attribute === CATEGORY) {
+        _add_api_category($conn);
     }
 
-    if ($attribute === ITEM)
-    {
-        _item();
+    if ($attribute === ITEM) {
+        _add_api_item($conn);
     }
-
-    if ($attribute === RECORD)
-    {
-        _record();
-    }
-
-    if ($attribute === 'income')
-    {
-        _income();
-    }
-
 }
 
-function _category() : void
+function _add_api_category(mysqli $conn): void
 {
     $cat_string = $_POST['value'];
     // validate the value
     if (empty($cat_string)) {
         error("Category cannot be empty");
     }
-    if (($error_code = addNewCategory($cat_string)) > 0) {
+    if (($error_code = addNewCategory($cat_string, $conn)) > 0) {
         redirect('category.php');
-    } else if ($error_code === -4) {
+    } else if ($error_code === VALIDATE_ERROR) {
         error("Category already exist.");
-    } else if ($error_code === -1) {
-        error(("Error writing the json file!"));
+    } else if ($error_code === DB_ERROR) {
+        error(("Internal Server Error"));
     }
 }
 
-function _validateRequestParams() : void
+function _validateRequestParams(): void
 {
     // validating request parameters
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -62,96 +50,94 @@ function _validateRequestParams() : void
     }
 }
 
-function _item() : void
+function _add_api_item(mysqli $conn): void
 {
     // validation
-    if (!isset($_POST['name']) || !isset($_POST['price']) || !isset($_POST['cat-id'])) {
+    if (!isset($_POST['name']) || !isset($_POST['price']) || !isset($_POST['cat_id'])) {
         error("Certain parameters are required");
     }
     $item_name = $_POST['name'];
     $item_price = (int) $_POST['price'];
-    $item_cat_id = (int) $_POST['cat-id'];
+    $item_cat_id = (int) $_POST['cat_id'];
     // validation stuffs
     if (empty($item_name) || empty($item_price)) {
         error("Params for name and price cannot be empty!");
     }
-    if (getCategory($item_cat_id) === DELETED) {
-        error("Category is already deleted!");
-    }
     // actually adding the stuff
-    if (($id_new_item = addNewItem($item_name, $item_price, $item_cat_id)) >= 0) {
+    if (($id_new_item = addNewItem($item_name, $item_price, $item_cat_id, $conn)) >= 0) {
         redirect('item.php');
     } else {
-        error("Error saving the item!");
+        apiResponse($_POST);
+        // error("Error saving the item!");
     }
 }
 
-function _record()
-{
-    // validating the parameters
-    if (
-        !isset($_POST['item-id']) ||
-        !isset($_POST['item-name']) ||
-        !isset($_POST['item-price']) ||
-        !isset($_POST['item-cat-id']) ||
-        !isset($_POST['note']) ||
-        !isset($_POST['qty']) ||
-        !isset($_POST['date']) ||
-        !isset($_POST['coffee'])
-    )
-    {
-        $keys = array_keys($_POST);
-        error("Plese, input all parameters!", 400, $keys);
-    }
+// function _record()
+// {
+//     // validating the parameters
+//     if (
+//         !isset($_POST['item-id']) ||
+//         !isset($_POST['item-name']) ||
+//         !isset($_POST['item-price']) ||
+//         !isset($_POST['item-cat_id']) ||
+//         !isset($_POST['note']) ||
+//         !isset($_POST['qty']) ||
+//         !isset($_POST['date']) ||
+//         !isset($_POST['coffee'])
+//     ) {
+//         $keys = array_keys($_POST);
+//         error("Plese, input all parameters!", 400, $keys);
+//     }
 
-    $item_id = $_POST['item-id'];
-    $qty = $_POST['qty'];
-    $date = $_POST['date'];
-    $note = $_POST['note'];
-    $item_name = $_POST['item-name'];
-    $item_price = $_POST['item-price'];
-    $item_cat_id = $_POST['item-cat-id'];
-    if (!is_numeric($qty) || !is_numeric($item_price) || !is_numeric($item_id)) {
-        error("Invalid parameter values!\nMissing int value");
-    }
-    // do some validation
-    if ($item_id == -1) {
-        // do some validation
-        $item_id = addNewItem($item_name, $item_price, $item_cat_id);
-    } else {
-        $selected_item = getItem($item_id);
-        if ($selected_item['name'] != $item_name ||
-            $selected_item['price'] != $item_price ||
-            $selected_item['cat-id'] != $item_cat_id)
-        {
-            $item_id = addNewItem($item_name, $item_price, $item_cat_id);
-            noti("Item added because the selected one doesn't match with the input values");
-            LogConsole(implode(',', getItem($item_id)));
-        }
-        // if the item id not equal the request params
-    }
-    // actual inserting data
-    $id_added = addNewRecord($item_id, $qty, $date, $note);
-    if ($id_added === -1) {
-        error("Error addding your record", 400, $_POST);
-    } else {
-        redirect("./insert.php");
-    }
-}
+//     $item_id = $_POST['item-id'];
+//     $qty = $_POST['qty'];
+//     $date = $_POST['date'];
+//     $note = $_POST['note'];
+//     $item_name = $_POST['item-name'];
+//     $item_price = $_POST['item-price'];
+//     $item_cat_id = $_POST['item-cat_id'];
+//     if (!is_numeric($qty) || !is_numeric($item_price) || !is_numeric($item_id)) {
+//         error("Invalid parameter values!\nMissing int value");
+//     }
+//     // do some validation
+//     if ($item_id == -1) {
+//         // do some validation
+//         $item_id = addNewItem($item_name, $item_price, $item_cat_id);
+//     } else {
+//         $selected_item = getItem($item_id);
+//         if (
+//             $selected_item['name'] != $item_name ||
+//             $selected_item['price'] != $item_price ||
+//             $selected_item['cat_id'] != $item_cat_id
+//         ) {
+//             $item_id = addNewItem($item_name, $item_price, $item_cat_id);
+//             noti("Item added because the selected one doesn't match with the input values");
+//             LogConsole(implode(',', getItem($item_id)));
+//         }
+//         // if the item id not equal the request params
+//     }
+//     // actual inserting data
+//     $id_added = addNewRecord($item_id, $qty, $date, $note);
+//     if ($id_added === -1) {
+//         error("Error addding your record", 400, $_POST);
+//     } else {
+//         redirect("./insert.php");
+//     }
+// }
 
-function _income() : void
-{
-    $amount = $_POST['amount'];
-    $date = $_POST['date'];
-    $note = $_POST['note'];
-    $label = $_POST['label'];
-    // do validations
-    if (!is_numeric($amount)) {
-        error("Insert a numeric value for amount");
-    }
-    if (addIncome($label, $amount, $date, $note)) {
-        apiResponse(['message' => 'Success!']);
-    } else {
-        error("Unknown error occurred", 400, $_POST);
-    }
-}
+// function _income(): void
+// {
+//     $amount = $_POST['amount'];
+//     $date = $_POST['date'];
+//     $note = $_POST['note'];
+//     $label = $_POST['label'];
+//     // do validations
+//     if (!is_numeric($amount)) {
+//         error("Insert a numeric value for amount");
+//     }
+//     if (addIncome($label, $amount, $date, $note)) {
+//         apiResponse(['message' => 'Success!']);
+//     } else {
+//         error("Unknown error occurred", 400, $_POST);
+//     }
+// }

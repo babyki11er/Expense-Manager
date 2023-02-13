@@ -1,8 +1,11 @@
-<?php require_once "./header.php" ?>
+<?php
+require_once "./header.php";
+$conn = connectMysql();
+?>
 
 <!-- ADD NEW ITEM FORM -->
 <div class=" container">
-    <form action="add-api.php" method="post" class=" p-4">
+    <form action="./api/add-api.php" method="post" class=" p-4">
         <input name="attr" type="hidden" value="item" />
 
         <div class=" input-group mb-3">
@@ -11,17 +14,18 @@
             <input name="price" type="number" id="" placeholder="Insert Pirce" value="0" class=" form-control" />
         </div>
         <!-- displaying categories to choose for the new item -->
-        <select name="cat-id" id="" class=" form-select mb-3">
+        <select name="cat_id" id="" class=" form-select mb-3">
             <option value="0" selected>
                 None
             </option>
             <?php
-            $categories = listCategories();
-            asort($categories);
-            foreach ($categories as $id => $cat) : ?>
-                <?php if ($id === 0) continue; ?>
+            $categories = listCategories($conn);
+            foreach ($categories as $category) :
+                $id = $category['id'];
+                $cat = $category['name'];
+            ?>
                 <option value="<?= $id ?>">
-                    <?= ucfirst($cat); ?>
+                    <?= $cat ?>
                 </option>
             <?php endforeach ?>
         </select>
@@ -34,7 +38,7 @@
 
 <!-- DISPLAY ITEMS -->
 <?php
-$active_items = getItemsPublic();
+$active_items = getItemsPublic($conn);
 ?>
 <div class=" m-4 table-responsive">
     <table class="table table-bordered border-dark table-striped">

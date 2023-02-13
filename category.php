@@ -17,8 +17,8 @@
 </div>
 <!-- DISPLAY EXISTING CATEGORIES -->
 <?php
-$categories = listCategories();
-asort($categories);
+$conn = connectMysql();
+$categories = listCategories($conn);
 ?>
 <div class=" m-4">
     <h4>Categories:</h4>
@@ -26,7 +26,9 @@ asort($categories);
         <h3>EMPTY</h3>
     <?php else : ?>
         <div class=" row">
-            <?php foreach ($categories as $id => $cat) :
+            <?php foreach ($categories as $category) :
+                $id = $category['id'];
+                $cat = $category['name'];
                 $archive_link = "./api/archive-api.php?attr=category&id=$id";
             ?>
                 <?php if ($id == 0) continue; ?>
@@ -44,17 +46,6 @@ asort($categories);
     <?php endif; ?>
 
 </div>
-<!-- EDIT CATEGORY FORM
-<div class=" w-50">
-    <form action="mod-api.php" method="post" class=" w-50 mt-3" id="mod-form">
-        <input type="hidden" name="id" value="" id="mod-id">
-        <div class=" input-group">
-            <input name="value" type="text" id="" placeholder="Enter new name" class=" form-control" autofocus />
-            <button class="btn btn-dark">Rename</button>
-        </div>
-        <input type="hidden" name="attr" value="category">
-    </form>
-</div> -->
 <script src="./js/_category.js">
 </script>
 <?php require_once "./footer.php" ?>

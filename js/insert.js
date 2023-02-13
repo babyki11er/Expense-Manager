@@ -36,12 +36,12 @@ function updateDate() {
     }
 }
 function selectItem(item) {
-    let cat_id = item['cat-id'];
+    let cat_id = item['cat_id'];
     if (cat_id == 0) {
     }
     input_name_tag.setAttribute('value', item.name);
     input_price_tag.setAttribute('value', item.price);
-    input_category_tag.value = item['cat-id'];
+    input_category_tag.value = item['cat_id'];
 }
 
 initDate();

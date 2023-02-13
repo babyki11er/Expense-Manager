@@ -1,6 +1,4 @@
 <?php
-$remaining = getRemaining();
-$display = number_format($remaining);
 
 ?>
 <nav>
