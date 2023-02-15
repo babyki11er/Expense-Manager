@@ -1,14 +1,18 @@
 <?php
 /*
     Item:
+
+        id      int
         name    string
         price   int
         cat_id  int
-        [public view]
-        cat-str string
+        cat_str string
+
+
+
     Interface:
         getItemsPublic()    => item arrays, with category name for showing
-        getItem($id)        => item array, no cat-str
+        getItem($id)        => item array, no cat_str
         addNewItem($name, $price, $cat_id)  => new added id
         deleteItem($id)     => boolean on success
 */
@@ -22,7 +26,7 @@ function getItemsPublic(mysqli $conn): array
             'id' => $item['id'],
             'name' => $item['name'],
             'price' => $item['price'],
-            'cat-str' => getCategoryName($item['cat_id'], $conn)
+            'cat_str' => getCategoryName($item['cat_id'], $conn)
         ];
     }, $raw_items);
 }
@@ -35,6 +39,7 @@ function getItemsPublic(mysqli $conn): array
 function getItem(int $id, mysqli $conn): array
 {
     $raw = db_SelectAnItem($conn, $id);
+    $raw['cat_str'] = getCategoryName($raw['cat_id'], $conn);
     return $raw;
 }
 
@@ -50,10 +55,15 @@ function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
     }
 }
 
-// function archiveItem(int $id): int
-// {
-//     // do some validation
-// }
+function archiveItem(int $id, mysqli $conn): int
+{
+    if (db_ArchiveAnItem($conn, $id)) {
+        return $id;
+    } else {
+        return DB_ERROR;
+    }
+    // do some validation, then db function
+}
 
 // function _validateItem(int $id): bool
 // {

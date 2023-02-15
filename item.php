@@ -49,11 +49,12 @@ $active_items = getItemsPublic($conn);
             <th class=" table-danger">Edit/Archive</th>
         </thead>
         <tbody>
-            <?php foreach ($active_items as $id => $item) : ?>
+            <?php foreach ($active_items as $item) : ?>
                 <?php
+                $id = $item['id'];
                 $item_name = $item['name'];
                 $item_price = $item['price'];
-                $item_category = $item['cat-str'];
+                $item_category = $item['cat_str'];
                 $archive_link = "./api/archive-api.php?attr=item&id=$id&del";
                 $wipe_link = "wipe-api.php?attr=item&id=$id&wipe";
                 ?>

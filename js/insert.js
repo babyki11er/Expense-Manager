@@ -1,6 +1,6 @@
-let input_name_tag = document.getElementById('item-name');
-let input_price_tag = document.getElementById('item-price');
-let input_category_tag = document.getElementById('item-category');
+let input_name_tag = document.getElementById('item_name');
+let input_price_tag = document.getElementById('item_price');
+let input_category_tag = document.getElementById('item_category');
 let date_tag = document.getElementById('date');
 
 

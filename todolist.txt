@@ -66,7 +66,7 @@ DeadLine: Monday
 [x]: Add a record
 [x]: Add a record with custom item
     [x]: Add a new item
-    [x]: Add the record with the new item-id
+    [x]: Add the record with the new item_id
 [x]: Get record with public information
 [x]: Display a record
 [x]: Delete a category

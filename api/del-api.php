@@ -2,7 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 // html_print_r($_GET);
 // die();
-_main();
+_delete_api_main();
 
 function _validateRequestParams(): void
 {
@@ -27,16 +27,16 @@ function _validateRequestParams(): void
         error("Invalid 'attr' param.");
     }
 }
-function _record(): void
+function _delete_api_record(mysqli $conn): void
 {
     $id = (int)$_GET['id'];
     // do some validations
-    if (($e_code = deleteRecord($id)) >= 0) {
+    if (($e_code = deleteRecord($id, $conn)) >= 0) {
         redirect('./records.php');
     } else {
         switch ($e_code) {
-            case '-1':
-                error("deletion failed due to error on writing to the storage. Please, try again");
+            case DB_ERROR:
+                error("DB error!");
                 break;
             case '-4':
                 error("record you are trying to delete do not exist.");
@@ -52,29 +52,30 @@ function _record(): void
 }
 
 
-function _main(): void
+function _delete_api_main(): void
 {
+    $conn = connectMysql();
     /*
             DELETEING CATEGORY
         */
     _validateRequestParams();
     $attribute_to_del = $_GET['attr'];
 
-    if ($attribute_to_del === CATEGORY) {
-        _category();
-    }
+    // if ($attribute_to_del === CATEGORY) {
+    //     _category();
+    // }
 
-    /*
-            DELETING ITEM
-        */
-    if ($attribute_to_del === ITEM) {
-        _item();
-    }
+    // /*
+    //         DELETING ITEM
+    //     */
+    // if ($attribute_to_del === ITEM) {
+    //     _item();
+    // }
 
     /*
             DELETING RECORD
         */
     if ($attribute_to_del === RECORD) {
-        _record();
+        _delete_api_record($conn);
     }
 }

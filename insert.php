@@ -7,8 +7,9 @@
 require_once "./header.php";
 
 // getting user defined values
-$items = getItemsPublic();
-$categories = listCategories();
+$conn = connectMysql();
+$items = getItemsPublic($conn);
+$categories = listCategories($conn);
 ?>
 <div class=" p-3">
     <h4>Insert record</h4>
@@ -20,11 +21,13 @@ $categories = listCategories();
             ITEM
         </label>
         <div class="mb-3">
-            <select name="item-id" id="selected-item" class=" form-select mb-3">
+            <select name="item_id" id="selected-item" class=" form-select mb-3">
                 <option value="-1" selected="true">
                     custom
                 </option>
-                <?php foreach ($items as $id => $item) : ?>
+                <?php foreach ($items as $item) :
+                    $id = $item['id'];
+                ?>
                     <option value="<?= $id; ?>">
                         <?= ucfirst($item['name']); ?>
                     </option>
@@ -36,13 +39,13 @@ $categories = listCategories();
                 Name
             </label>
             <div class="input-group">
-                <input type="text" name="item-name" id="item-name" class=" form-control" required>
+                <input type="text" name="item_name" id="item_name" class=" form-control" required>
             </div>
         </div>
         <div class="mb-3">
             <label class=" form-label">Price</label>
             <div class=" input-group">
-                <input class="form-control" type="number" name="item-price" id="item-price" required>
+                <input class="form-control" type="number" name="item_price" id="item_price" required>
                 <span class=" input-group-text">Qty:</span>
                 <input type="number" name="qty" id="" value="1" class=" form-control">
             </div>
@@ -53,9 +56,9 @@ $categories = listCategories();
         <!-- Category -->
         <div class="mb-3">
             <label class=" form-label" for="category">Category</label>
-            <select name="item-cat_id" id="item-category" class=" form-select">
-                <?php foreach ($categories as $cat_id => $cat_str) : ?>
-                    <option value="<?= $cat_id; ?>"><?= ucfirst($cat_str); ?></option>
+            <select name="item_cat_id" id="item_category" class=" form-select">
+                <?php foreach ($categories as $category) : ?>
+                    <option value="<?= $category['id']; ?>"><?= ucfirst($category['name']); ?></option>
                 <?php endforeach; ?>
                 <!-- <option value="fee">Fee</option>
                 <option value="replace">Renew</option> -->

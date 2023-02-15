@@ -1,17 +1,8 @@
 <?php
 /*
-    Categories:
-        no attribute, it is just a dumb string
-    Properties:
-        name    string
-        price   int
-        cat_id  int (foregin key)
-    Public interface:
-        listCategories();  => array with id as index
-            filtered archive items for public view
-        getCategory($id);   => category name string
-        addNewCategory($id);    => id of the added category
-        archiveCategory($id);   => int
+    CATEGORY:
+        id  =>  int
+        name=>  string
 */
 
 
@@ -38,6 +29,15 @@ function addNewCategory(string $category, mysqli $conn): int
     $to_add = ucfirst($category);
     if (db_InsertNewCategory($conn, $to_add)) {
         return mysqli_insert_id($conn);
+    } else {
+        return DB_ERROR;
+    }
+}
+
+function archiveCategory(int $id, mysqli $conn): int
+{
+    if (db_ArchiveACategory($conn, $id)) {
+        return $id;
     } else {
         return DB_ERROR;
     }

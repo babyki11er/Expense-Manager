@@ -1,8 +1,11 @@
-<?php require_once "./header.php" ?>
+<?php
+require_once "./header.php";
+$conn = connectMysql();
+?>
 <!-- ADD NEW INCOME FORM -->
 <div class=" container">
     <h4>
-        Total Income: <?= _getTotalIncome(); ?>
+        Total Income: <?= getTotalIncome($conn); ?>
     </h4>
     <form action="./api/add-api.php" method="post" class=" p-4">
         <input type="hidden" name="attr" value="income" />

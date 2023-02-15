@@ -1,3 +1,9 @@
 2023-02-12 Sun 12:15 AM
 	+30 mins
 	Organized the files with a related directory. Used DOCUMENT_ROOT from SERVER as relative links are not reliable and weird
+<2023-02-14 18:05:25>
+[x]:	income stuffs. rows are not being inserted.
+	Analysing the code, I learned that it's easier to think the flow in terms of an execution stack.
+[ ]:	add archive functions
+[ ]:	add deleting record
+[ ]:	refactor api end points

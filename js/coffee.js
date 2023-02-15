@@ -108,9 +108,9 @@ function autocomplete(inp, arr) {
   });
 }
 
-var dd = document.getElementById("item-dd");
-dd.addEventListener("input", function (e) {});
-autocomplete(document.getElementById("item-dd"), [
+var dd = document.getElementById("item_dd");
+dd.addEventListener("input", function (e) { });
+autocomplete(document.getElementById("item_dd"), [
   "coffee",
   "sip",
   "flavour",

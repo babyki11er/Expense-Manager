@@ -2,7 +2,8 @@
 <?php require_once "./nav-bar.php" ?>
 
 <?php
-$active_records = getRecordsPublic();
+$conn = connectMysql();
+$active_records = getRecordsPublic($conn);
 ?>
 
 <table class=" table table-success table-bordered border-2 mt-3 container">
@@ -17,7 +18,8 @@ $active_records = getRecordsPublic();
     </thead>
     <tbody>
         <?php
-        foreach ($active_records as $id => $record) :
+        foreach ($active_records as $record) :
+            $id = $record['id'];
             $del_url = "api/del-api.php?attr=record&del&id=$id";
         ?>
             <tr>
@@ -25,7 +27,7 @@ $active_records = getRecordsPublic();
                     <?= $record['date'] ?>
                 </td>
                 <td>
-                    <?= $record['item-name'] ?>
+                    <?= $record['item_name'] ?>
                 </td>
                 <td>
                     <?= $record['qty'] ?>
@@ -34,7 +36,7 @@ $active_records = getRecordsPublic();
                     <?= $record['cost'] ?>
                 </td>
                 <td>
-                    <?= $record['category'] ?>
+                    <?= $record['cat_str'] ?>
                 </td>
                 <td>
                     <?= $record['note'] ?>

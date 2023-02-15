@@ -1,21 +1,22 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 
-_main();
+_archive_api_main();
 function debug()
 {
     $_GET['attr'] = CATEGORY;
     $_GET['id'] = 5;
 }
-function _main()
+function _archive_api_main()
 {
+    $conn = connectMysql();
     $attr = $_GET['attr'];
     if ($attr === CATEGORY) {
-        _category();
+        _archive_api_category($conn);
     }
 
     if ($attr === ITEM) {
-        _item();
+        _archive_api_item($conn);
     }
 }
 
@@ -35,23 +36,23 @@ function _validateRequestParams(): void
     }
 }
 
-function _category()
+function _archive_api_category($conn)
 {
     $id = (int) $_GET['id'];
     // $id = 5;
-    if (($e_code = archiveCategory($id)) > 0) {
+    if (($e_code = archiveCategory($id, $conn)) > 0) {
         redirect("./category.php");
-    } else if ($e_code === -4) {
+    } else if ($e_code === VALIDATE_ERROR) {
         error("Id doesn't exist");
-    } else if ($e_code === -1) {
-        error("Error saving file");
+    } else if ($e_code === DB_ERROR) {
+        error("Db error");
     }
 }
 
-function _item()
+function _archive_api_item(mysqli $conn)
 {
     $id = (int) $_GET['id'];
-    if (($e_code = archiveItem($id)) >= 0) {
+    if (($e_code = archiveItem($id, $conn)) >= 0) {
         redirect("./item.php");
     } else if ($e_code === -4) {
         error("Id doesn't exist");
