@@ -1,11 +1,11 @@
 <?php
+
+
 /*
     CATEGORY:
         id  =>  int
         name=>  string
 */
-
-
 function listCategories(mysqli $conn): array
 // returns categories available to use in coming items
 {
@@ -21,6 +21,7 @@ function listCategories(mysqli $conn): array
 function getCategoryName(int $id, $conn): string
 {
     return db_SelectACategory($conn, $id);
+    
 }
 
 function addNewCategory(string $category, mysqli $conn): int
@@ -33,6 +34,7 @@ function addNewCategory(string $category, mysqli $conn): int
         return DB_ERROR;
     }
 }
+
 
 function archiveCategory(int $id, mysqli $conn): int
 {

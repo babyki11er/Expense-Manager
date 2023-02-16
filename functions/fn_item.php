@@ -31,6 +31,20 @@ function getItemsPublic(mysqli $conn): array
     }, $raw_items);
 }
 
+function getItemsByCategory(int $cat_id, mysqli $conn): array
+{
+    $raw_items = db_SelectItemsByCategory($conn, $cat_id);
+    return array_map(function ($item) use ($conn) {
+        return [
+            'id' => $item['id'],
+            'name' => $item['name'],
+            'price' => $item['price'],
+            'cat_str' => getCategoryName($item['cat_id'], $conn)
+        ];
+    }, $raw_items);
+}
+
+
 // function getItemsByCatId(int $id): array
 // {
 //     // returns array of id, not item array
@@ -64,6 +78,7 @@ function archiveItem(int $id, mysqli $conn): int
     }
     // do some validation, then db function
 }
+
 
 // function _validateItem(int $id): bool
 // {

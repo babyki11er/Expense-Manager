@@ -64,6 +64,13 @@ function db_SelectAnItem($conn, int $id): array
     return mysqli_fetch_assoc($result);
 }
 
+function db_SelectItemsByCategory(mysqli $conn, int $cat_id) : array
+{
+    $sql = "SELECT * FROM item WHERE cat_id=$cat_id;";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
 function db_ArchiveAnItem($conn, int $id): bool
 {
     $sql = "update item set archive='archived' where id=$id;";

@@ -4,6 +4,11 @@
 <2023-02-14 18:05:25>
 [x]:	income stuffs. rows are not being inserted.
 	Analysing the code, I learned that it's easier to think the flow in terms of an execution stack.
-[ ]:	add archive functions
-[ ]:	add deleting record
+[%]:	add archive functions
+[x]:	add deleting record
 [ ]:	refactor api end points
+
+<2023-02-16>
+[x]:	Archiving items, categories done.
+[ ]:	Need implementing edit feature.
+		Want to organize the api end points as well!

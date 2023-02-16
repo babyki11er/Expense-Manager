@@ -1,6 +1,7 @@
 <?php
 require_once "./header.php";
 $conn = connectMysql();
+sliht;
 ?>
 <!-- ADD NEW INCOME FORM -->
 <div class=" container">

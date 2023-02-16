@@ -7,6 +7,7 @@ function debug()
     $_GET['attr'] = CATEGORY;
     $_GET['id'] = 5;
 }
+
 function _archive_api_main()
 {
     $conn = connectMysql();
@@ -39,8 +40,12 @@ function _validateRequestParams(): void
 function _archive_api_category($conn)
 {
     $id = (int) $_GET['id'];
+    $related_items = getItemsByCategory($id, $conn);
     // $id = 5;
     if (($e_code = archiveCategory($id, $conn)) > 0) {
+        foreach($related_items as $item) {
+            archiveItem($item['id'], $conn);
+        }
         redirect("./category.php");
     } else if ($e_code === VALIDATE_ERROR) {
         error("Id doesn't exist");
