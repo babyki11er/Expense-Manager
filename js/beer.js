@@ -34,7 +34,7 @@ function createList(arr) {
 }
 
 async function getItems() {
-  let url = "http://localhost:8080/get-api.php?attr=item";
+  let url = "http://localhost:8080/api/get-api.php?selected=item";
   let myObject = await fetch(url);
   let items = await myObject.json();
   dropdown(items);
@@ -46,21 +46,3 @@ function filter(text, arr) {
   return r;
 }
 getItems();
-
-// dd.addEventListener("input", function (e) {
-//   if (!this.value) {
-//     return false;
-//   }
-//   let iText = this.value;
-//   // creating a div elm that will contain the drop down items
-//   let dropdownMenu = document.createElement("ul");
-//   dropdownMenu.setAttribute("class", " dropdown-menu");
-//   this.appendChild(dropdownMenu);
-//   let arr = ["shit", "coffee", "pizza"];
-//   for (let i = 0; i < arr.length; i++) {
-//     let dropdownItem = document.createElement("li");
-//     dropdownItem.innerHTML = "<strong> " + arr[i] + " </strong>";
-//     dropdownItem.setAttribute("class", "dropdown-item");
-//     dropdownMenu.appendChild(dropdownItem);
-//   }
-// });

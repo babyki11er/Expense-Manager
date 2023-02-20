@@ -3,39 +3,44 @@ let input_price_tag = document.getElementById('item_price');
 let input_category_tag = document.getElementById('item_category');
 let date_tag = document.getElementById('date');
 
+let dom_dd = document.getElementById('dd');
+async function getItems() {
+    let url = "http://localhost:8080/api/get-many-api.php?selected=item";
+    let myObject = await fetch(url);
+    let items = await myObject.json();
+    return items;
+}
+async function setInputListener(dom_search_bar) {
+    dom_search_bar.setAttribute('autocomplete', 'off');
+    let data = await getItems();
+    dom_search_bar.addEventListener('input', function(e) {
+        let search_query = e.target.value;
+        let find_me = search_query.toLowerCase();
+        let filtered = data.filter(function(value, index) {
+            suggestion = value.name.toLowerCase();
+            return suggestion.indexOf(find_me) >= 0;
+        });
+        drawSuggestions(filtered, dom_dd);
+    })
+}
+setInputListener(input_name_tag);
 
-// if today is not set,
-//      set today to the value
-// if it's set,
-//      set date value to today
-//      if date value is updated, update the today as well
-
+date_tag.addEventListener('change', function (e) {
+    updateDate(e.target.value);
+}) 
 /*
     SessionStorage:
         today:  (to remember what the user has previously selected)
 */
-function _getSelectedDate() {
-    return sessionStorage.getItem('today');
+
+if (_getSelectedDate() === null) {
+    _setSelectedDate(date_tag.value);
+} else {
+    date_tag.value = _getSelectedDate();
 }
 
-function _setSelectedDate(chosen_date) {
-    sessionStorage.setItem('today', chosen_date);
-}
-
-function initDate() {
-    if (_getSelectedDate() === null) {
-        _setSelectedDate(date_tag.value);
-    } else {
-        date_tag.value = _getSelectedDate();
-    }
-}
-
-function updateDate() {
-    if (_getSelectedDate() !== date_tag.value) {
-        _setSelectedDate(date_tag.value);
-    }
-}
-function selectItem(item) {
+/* DOOM manipulation */
+function DOMSelectItem(item) {
     let cat_id = item['cat_id'];
     if (cat_id == 0) {
     }
@@ -44,19 +49,33 @@ function selectItem(item) {
     input_category_tag.value = item['cat_id'];
 }
 
-initDate();
-let select_e = document.getElementById('selected-item');
-select_e.addEventListener('change', function (e) {
-    let selected_item_id = e.currentTarget.value;
-    fetch_item_url = 'api/js-api.php?id=' + selected_item_id;
-    fetch(fetch_item_url)
-        .then((response) => response.json())
-        .then((item_data) => {
-            console.log('done fetching the item.');
-            selectItem(item_data);
-        })
-})
+/* sessionStorage getter and setter */
+function _getSelectedDate() {
+    return sessionStorage.getItem('today');
+}
 
-date_tag.addEventListener('change', function (e) {
-    updateDate(e.target.value);
-})
+function _setSelectedDate(chosen_date) {
+    sessionStorage.setItem('today', chosen_date);
+}
+
+function updateDate() {
+    if (_getSelectedDate() !== date_tag.value) {
+        _setSelectedDate(date_tag.value);
+    }
+}
+
+// let select_e = document.getElementById('selected-item');
+
+// /* event listeners */
+// select_e.addEventListener('change', function (e) {
+//     let selected_item_id = e.currentTarget.value;
+//     fetch_item_url = 'api/get-one-api.php?selected=category&id=' + selected_item_id;
+    
+//     /* AJAX */
+//     fetch(fetch_item_url)
+//         .then((response) => response.json())
+//         .then((item_data) => {
+//             console.log('done fetching the item.');
+//             DOMSelectItem(item_data);
+//         })
+// })

@@ -8,37 +8,23 @@ require_once "./header.php";
 
 // getting user defined values
 $conn = connectMysql();
-$items = getItemsPublic($conn);
+$items = listItems($conn);
 $categories = listCategories($conn);
 ?>
 <div class=" p-3">
     <h4>Insert record</h4>
     <form action="./api/add-api.php" method="post" enctype="multipart/form-data" class=" container-sm mt-5">
-        <input type="hidden" name="attr" value="record">
+        <input type="hidden" name="selected" value="record">
 
         <!-- FORM ITEM PART -->
         <label class=" form-label" for="">
             ITEM
         </label>
         <div class="mb-3">
-            <select name="item_id" id="selected-item" class=" form-select mb-3">
-                <option value="-1" selected="true">
-                    custom
-                </option>
-                <?php foreach ($items as $item) :
-                    $id = $item['id'];
-                ?>
-                    <option value="<?= $id; ?>">
-                        <?= ucfirst($item['name']); ?>
-                    </option>
-                <?php endforeach; ?>
-                <!-- <option value="fee">Fee</option>
-                <option value="replace">Renew</option> -->
-            </select>
             <label class=" form-label" for="">
                 Name
             </label>
-            <div class="input-group">
+            <div class="input-group" id="dd">
                 <input type="text" name="item_name" id="item_name" class=" form-control" required>
             </div>
         </div>
@@ -84,6 +70,7 @@ $categories = listCategories($conn);
         </button>
     </form>
 </div>
+<script src="./js/functions.js"></script>
 <script src="./js/insert.js">
 </script>
 <?php

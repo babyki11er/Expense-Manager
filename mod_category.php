@@ -12,7 +12,7 @@
             <input name="value" type="text" id="" placeholder="Enter new category" class=" form-control" autofocus />
             <button class="btn btn-primary col-4">Add</button>
         </div>
-        <input type="hidden" name="attr" value="category">
+        <input type="hidden" name="selected" value="category">
     </form>
 </div>
 

@@ -12,3 +12,13 @@
 [x]:	Archiving items, categories done.
 [ ]:	Need implementing edit feature.
 		Want to organize the api end points as well!
+[ ]:	allow to create a category that already exist but archived
+
+<20>
+	done editing item, still needs work for 
+	[ ]:	update but does not affect the past records, basically adding a new item and archiving the old one
+	[ ]:	update functionality on category, record.
+	[ ]:	organized the code more
+	Will focus on income, and calculating the stuffs after all this! very excited
+<Unknown Future>
+[ ]:	globals.php, create table, insert certian values

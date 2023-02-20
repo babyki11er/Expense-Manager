@@ -16,15 +16,15 @@ function _validateRequestParams(): void
     if (!isset($_GET['del'])) {
         error("Not setting del parameter. Did you call me mistakenly? Don't fuck with delete api!");
     }
-    if (!isset($_GET['attr'])) {
-        error("Not setting 'attr' param. Don't fuck with delete api!");
+    if (!isset($_GET['selected'])) {
+        error("Not setting 'selected' param. Don't fuck with delete api!");
     }
     if (!is_numeric($_GET['id'])) {
         error("id parameter has to be a number. don't fuck with delete api!");
     }
-    $attribute_to_del = $_GET['attr'];
-    if (!in_array($attribute_to_del, VALID_ATTRIBUTES)) {
-        error("Invalid 'attr' param.");
+    $selected_to_del = $_GET['selected'];
+    if (!in_array($selected_to_del, VALID_SELECTORS)) {
+        error("Invalid 'selected' param.");
     }
 }
 function _delete_api_record(mysqli $conn): void
@@ -59,23 +59,23 @@ function _delete_api_main(): void
             DELETEING CATEGORY
         */
     _validateRequestParams();
-    $attribute_to_del = $_GET['attr'];
+    $selected_to_del = $_GET['selected'];
 
-    // if ($attribute_to_del === CATEGORY) {
+    // if ($selected_to_del === CATEGORY) {
     //     _category();
     // }
 
     // /*
     //         DELETING ITEM
     //     */
-    // if ($attribute_to_del === ITEM) {
+    // if ($selected_to_del === ITEM) {
     //     _item();
     // }
 
     /*
             DELETING RECORD
         */
-    if ($attribute_to_del === RECORD) {
+    if ($selected_to_del === RECORD) {
         _delete_api_record($conn);
     }
 }

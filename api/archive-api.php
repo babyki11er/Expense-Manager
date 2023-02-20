@@ -4,21 +4,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 _archive_api_main();
 function debug()
 {
-    $_GET['attr'] = CATEGORY;
+    $_GET['selected'] = CATEGORY;
     $_GET['id'] = 5;
 }
 
 function _archive_api_main()
 {
     $conn = connectMysql();
-    $attr = $_GET['attr'];
-    if ($attr === CATEGORY) {
+    $selected = $_GET['selected'];
+    if ($selected === CATEGORY) {
         _archive_api_category($conn);
     }
-
-    if ($attr === ITEM) {
+    if ($selected === ITEM) {
         _archive_api_item($conn);
     }
+    error("Invalid api call.");
 }
 
 function _validateRequestParams(): void
@@ -27,9 +27,9 @@ function _validateRequestParams(): void
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         error("This api only accept GET method");
     }
-    $attr = $_GET['attr'];
-    if (!in_array($attr, VALID_ATTRIBUTES)) {
-        error("Invalid attribute");
+    $selected = $_GET['selected'];
+    if (!in_array($selected, VALID_SELECTORS)) {
+        error("Invalid selected");
     }
     // validations
     if (!is_numeric($_GET['id'])) {

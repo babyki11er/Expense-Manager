@@ -8,11 +8,11 @@
                 New Category
             </label>
         </div>
-        <div class=" input-group">
-            <input name="value" type="text" id="" placeholder="Enter new category" class=" form-control" autofocus />
+        <div class=" input-group" id="dd">
+            <input name="value" type="text" id="search-bar" placeholder="Enter new category" class=" form-control" autofocus />
             <button class="btn btn-primary col-4">Add</button>
         </div>
-        <input type="hidden" name="attr" value="category">
+        <input type="hidden" name="selected" value="category">
     </form>
 </div>
 <!-- DISPLAY EXISTING CATEGORIES -->
@@ -29,7 +29,7 @@ $categories = listCategories($conn);
             <?php foreach ($categories as $category) :
                 $id = $category['id'];
                 $cat = $category['name'];
-                $archive_link = "./api/archive-api.php?attr=category&id=$id";
+                $archive_link = "./api/archive-api.php?selected=category&id=$id";
             ?>
                 <?php if ($id == 0) continue; ?>
                 <div class=" mb-3">
@@ -46,6 +46,8 @@ $categories = listCategories($conn);
     <?php endif; ?>
 
 </div>
+<script src="./js/functions.js">
+</script>
 <script src="./js/_category.js">
 </script>
 <?php require_once "./footer.php" ?>

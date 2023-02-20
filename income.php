@@ -1,7 +1,6 @@
 <?php
 require_once "./header.php";
 $conn = connectMysql();
-sliht;
 ?>
 <!-- ADD NEW INCOME FORM -->
 <div class=" container">
@@ -9,7 +8,7 @@ sliht;
         Total Income: <?= getTotalIncome($conn); ?>
     </h4>
     <form action="./api/add-api.php" method="post" class=" p-4">
-        <input type="hidden" name="attr" value="income" />
+        <input type="hidden" name="selected" value="income" />
 
         <label for="" class=" form-label">
             Amount

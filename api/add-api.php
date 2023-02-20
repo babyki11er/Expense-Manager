@@ -8,25 +8,25 @@ function _main()
 {
     _validateRequestParams();
 
-    $attribute = $_POST['attr'];
-    if (!in_array($attribute, VALID_ATTRIBUTES)) {
-        error("Invalid 'attr' parameter value!");
+    $selected = $_POST['selected'];
+    if (!in_array($selected, VALID_SELECTORS)) {
+        error("Invalid 'selected' parameter value!");
     }
 
     $conn = connectMysql();
-    if ($attribute === CATEGORY) {
+    if ($selected === CATEGORY) {
         _add_api_category($conn);
     }
 
-    if ($attribute === ITEM) {
+    if ($selected === ITEM) {
         _add_api_item($conn);
     }
 
-    if ($attribute === RECORD) {
+    if ($selected === RECORD) {
         _add_api_record($conn);
     }
 
-    if ($attribute === INCOME) {
+    if ($selected === INCOME) {
         _add_api_income($conn);
     }
 }
@@ -53,8 +53,8 @@ function _validateRequestParams(): void
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         error("This is not a {$_SERVER['REQUEST_METHOD']} api!", 400, $_REQUEST);
     }
-    if (!isset($_POST['attr'])) {
-        error("Not setting 'attr' parameter. Did you call me mistakenly?");
+    if (!isset($_POST['selected'])) {
+        error("Not setting 'selected' parameter. Did you call me mistakenly?");
     }
 }
 

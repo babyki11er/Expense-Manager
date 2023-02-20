@@ -20,7 +20,7 @@ $active_records = getRecordsPublic($conn);
         <?php
         foreach ($active_records as $record) :
             $id = $record['id'];
-            $del_url = "api/del-api.php?attr=record&del&id=$id";
+            $del_url = "api/del-api.php?selected=record&del&id=$id";
         ?>
             <tr>
                 <td>

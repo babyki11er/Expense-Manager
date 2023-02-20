@@ -18,7 +18,7 @@
 */
 
 // returns items to display
-function getItemsPublic(mysqli $conn): array
+function listItems(mysqli $conn): array
 {
     $raw_items = db_SelectItems($conn);
     return array_map(function ($item) use ($conn) {
@@ -29,6 +29,12 @@ function getItemsPublic(mysqli $conn): array
             'cat_str' => getCategoryName($item['cat_id'], $conn)
         ];
     }, $raw_items);
+}
+
+function getItemNames(mysqli $conn): array
+{
+    $raw_item_names = db_SelectItemNames($conn);
+    return $raw_item_names;
 }
 
 function getItemsByCategory(int $cat_id, mysqli $conn): array
@@ -53,6 +59,9 @@ function getItemsByCategory(int $cat_id, mysqli $conn): array
 function getItem(int $id, mysqli $conn): array
 {
     $raw = db_SelectAnItem($conn, $id);
+    if ($raw === false) {
+        return [];
+    }
     $raw['cat_str'] = getCategoryName($raw['cat_id'], $conn);
     return $raw;
 }
@@ -67,6 +76,24 @@ function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
     } else {
         return DB_ERROR;
     }
+}
+
+function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn) : int
+{
+    if (!_checkItem($id, $conn)) {
+        return VALIDATE_ERROR;
+    }
+    if (db_UpdateItem($conn, $id, $name, $price, $cat_id)) {
+        return $id;
+    } else {
+        return DB_ERROR;
+    }
+}
+
+function _checkItem(int $id, mysqli $conn) : bool
+{
+    // do some vaildations? idk
+    return db_SelectExistenceItem($conn, $id);
 }
 
 function archiveItem(int $id, mysqli $conn): int

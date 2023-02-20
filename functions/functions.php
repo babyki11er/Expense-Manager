@@ -3,7 +3,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/globals.php";
 
-// $valid_attributes = ['item', 'category', 'record'];
+// $valid_selecteds = ['item', 'category', 'record'];
 /* data structure */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_category.php";
@@ -31,15 +31,15 @@ function error(string $message, int $status_code = 400, array $debug = null): vo
     die(json_encode($array));
 }
 
-function _getColumnNameFromAttribute(string $attribute): string
+function _getColumnNameFromAttribute(string $selected): string
 {
-    if ($attribute === 'item') {
-        return $attribute;
+    if ($selected === 'item') {
+        return $selected;
     }
-    if ($attribute === 'category') {
+    if ($selected === 'category') {
         return 'cat';
     }
-    if ($attribute === 'record') {
+    if ($selected === 'record') {
         return 'rcrd';
     }
 }
@@ -62,6 +62,18 @@ function redirect(string $php_file): void
 
 /* dev */
 
+function dd($data, $showType = false): void
+{
+    echo "<pre style='background-color: #1d1d1d;color: #cdcdcd; padding: 20px; margin: 10px; border-radius: 10px; line-height: 1.2rem;'>";
+    if ($showType) {
+        var_dump($data);
+    } else {
+        print_r($data);
+    }
+    echo  "</pre>";
+    die();
+}
+
 function LogConsole(string $message): void
 {
     noti($message);
@@ -73,20 +85,6 @@ function apiResponse(array $arr): void
 {
     _api_header();
     die(json_encode($arr));
-}
-
-function html_var_dump($var): void
-{
-    echo "<pre >";
-    var_dump($var);
-    echo "</pre>";
-}
-
-function html_print_r(array $arr): void
-{
-    echo "<pre >";
-    var_dump($arr);
-    echo "</pre>";
 }
 
 function html_h4(string $s): void

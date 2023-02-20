@@ -14,6 +14,8 @@ $conn = connectMysql();
 
 // $id = addIncome(1000000, 'fix', '11-21-11000', 'hello world', $conn);
 // echo $id;
+// $total = getTotalOutcome($conn);
+// echo $total;
 
-$total = getTotalOutcome($conn);
-echo $total;
+$id = $_GET['id'];
+db_SelectExistenceItem($conn, $id);

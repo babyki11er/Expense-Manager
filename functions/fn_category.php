@@ -35,6 +35,11 @@ function addNewCategory(string $category, mysqli $conn): int
     }
 }
 
+function updateCategory(int $id, string $category, mysqli $conn) : int
+{
+
+}
+
 
 function archiveCategory(int $id, mysqli $conn): int
 {

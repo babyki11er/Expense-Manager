@@ -7,6 +7,6 @@ const RECORD = 'record';
 const INCOME = 'income';
 const NOT_EXIST = 'idk';
 const DELETED = 'dracula';
-const VALID_ATTRIBUTES = [CATEGORY, ITEM, RECORD, INCOME];
+const VALID_SELECTORS = [CATEGORY, ITEM, RECORD, INCOME];
 const VALIDATE_ERROR = -4;
 const DB_ERROR = -1;

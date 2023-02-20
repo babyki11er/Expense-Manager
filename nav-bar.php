@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/functions.php';
 $conn = connectMysql();
 $total_income = getTotalIncome($conn);
 $total_outcome = getTotalOutcome($conn);
@@ -17,6 +18,7 @@ $remaining_amount = $total_income - $total_outcome;
         <a href="records.php" class=" btn btn-sm btn-primary">Records</a>
         <a href="records.php" class=" btn btn-sm btn-primary"><?= $display ?> Kyats Left</a>
         <a href="test.php" class=" btn btn-sm btn-dark">TEST</a>
+        <a href="beer.php" class=" btn btn-sm btn-primary">BEER </a>
     </div>
 </nav>
 <p>
