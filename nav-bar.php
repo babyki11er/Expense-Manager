@@ -4,6 +4,7 @@ $conn = connectMysql();
 $total_income = getTotalIncome($conn);
 $total_outcome = getTotalOutcome($conn);
 $remaining_amount = $total_income - $total_outcome;
+$display = $remaining_amount;
 
 /*
 */
@@ -21,8 +22,3 @@ $remaining_amount = $total_income - $total_outcome;
         <a href="beer.php" class=" btn btn-sm btn-primary">BEER </a>
     </div>
 </nav>
-<p>
-    Total Income: <?= $total_income; ?> |
-    Total Outcome: <?= $total_outcome; ?> |
-    Remaining: <?= $remaining_amount; ?>
-</p>

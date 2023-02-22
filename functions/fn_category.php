@@ -21,7 +21,6 @@ function listCategories(mysqli $conn): array
 function getCategoryName(int $id, $conn): string
 {
     return db_SelectACategory($conn, $id);
-    
 }
 
 function addNewCategory(string $category, mysqli $conn): int
@@ -37,7 +36,19 @@ function addNewCategory(string $category, mysqli $conn): int
 
 function updateCategory(int $id, string $category, mysqli $conn) : int
 {
+    if (!_checkCategory($id, $conn)) {
+        return VALIDATE_ERROR;
+    }
+    if (db_UpdateCategory($conn, $id, $category)) {
+        return $id;
+    } else {
+        return DB_ERROR;
+    }
+}
 
+function _checkCategory(int $id, mysqli $conn) : bool
+{
+    return db_SelectExistenceCategory($conn, $id);
 }
 
 

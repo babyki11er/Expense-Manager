@@ -15,6 +15,7 @@ $categories = listCategories($conn);
     <h4>Insert record</h4>
     <form action="./api/add-api.php" method="post" enctype="multipart/form-data" class=" container-sm mt-5">
         <input type="hidden" name="selected" value="record">
+        <input type="hidden" name="item_id" id="item_id">
 
         <!-- FORM ITEM PART -->
         <label class=" form-label" for="">
@@ -25,7 +26,12 @@ $categories = listCategories($conn);
                 Name
             </label>
             <div class="input-group" id="dd">
-                <input type="text" name="item_name" id="item_name" class=" form-control" required>
+                <input list="suggestionMenu" type="text" name="item_name" id="item_name" class=" form-control" required autocomplete="off">
+                <datalist id="suggestionMenu">
+                    <?php foreach($items as $item): ?>
+                        <option value="<?= $item['name'] ?>" data-itemId="<?= $item['id'] ?>" class="suggestion"></option>
+                    <?php endforeach; ?>
+                </datalist>
             </div>
         </div>
         <div class="mb-3">
@@ -65,12 +71,12 @@ $categories = listCategories($conn);
             <label class="form-label" for="note">Addional Note</label>
             <textarea class=" form-control" name="note" id=""></textarea>
         </div>
-        <button class=" btn btn-primary w-100" name="coffee">
+        <button class=" btn btn-success w-100" name="coffee">
             Submit
         </button>
     </form>
 </div>
-<script src="./js/functions.js"></script>
+<!-- <script src="./js/functions.js"></script> -->
 <script src="./js/insert.js">
 </script>
 <?php

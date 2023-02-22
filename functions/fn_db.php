@@ -34,6 +34,12 @@ function db_SelectCategories($conn, $ordered_by = "id"): array
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
+function db_SelectExistenceCategory($conn, int $id) : bool
+{
+    $sql = "SELECT id FROM category WHERE id=$id AND archive='active'";
+    return _db_SelectExistence($conn, $sql);
+}
+
 function db_ArchiveACategory($conn, int $id): bool
 {
     $sql = "update category set archive='archived' where id=$id;";
@@ -71,12 +77,7 @@ function db_UpdateItem(mysqli $conn, int $id, string $name, int $price, int $cat
 function db_SelectExistenceItem(mysqli $conn, int $id) : bool
 {
     $sql = "SELECT id FROM item WHERE id=$id AND archive='active';";
-    $result = mysqli_query($conn, $sql);
-    $id = mysqli_fetch_assoc($result);
-    if (is_null($id)) {
-        return false;
-    }
-    return true;
+    return !is_null(mysqli_fetch_assoc(mysqli_query($conn, $sql)));
 }
 
 function db_SelectItems($conn): array
@@ -135,6 +136,12 @@ function db_UpdateRecord(mysqli $conn, int $id, int $item_id, int $qty, string $
     return mysqli_query($conn, $sql);
 }
 
+function db_SelectExistenceRecord(mysqli $conn, int $id) : bool
+{
+    $sql = "SELECT id FROM record WHERE id=$id AND archive='active';";
+    return _db_SelectExistence($conn, $sql);
+}
+
 function db_SelectRecords(mysqli $conn, string $order = "date"): array
 {
     // one query for selecting all active records, nothing else to mess shit up
@@ -177,4 +184,16 @@ function db_DeleteIncome(mysqli $conn, int $id): bool
 {
     $sql = "DELETE FROM income WHERE id=$id;";
     return mysqli_query($conn, $sql);
+}
+
+
+/* private functions */
+function _db_SelectExistence(mysqli $conn, string $sql) : bool
+{
+    $result = mysqli_query($conn, $sql);
+    $id = mysqli_fetch_assoc($result);
+    if (is_null($id)) {
+        return false;
+    }
+    return true;
 }

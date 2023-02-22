@@ -44,11 +44,22 @@ function addNewRecord(int $item_id, int $qty, string $date, string $note, mysqli
     }
 }
 
-// function addNewRecordNewItem(string $item_name, int $item_price, int $item_cat_id, int $qty, string $date, string $note) : int
-// {
-//     $new_item_id = addNewItem($item_name, $item_price, $item_cat_id);
-//     return addNewRecord($new_item_id, $qty, $date, $note);
-// }
+function updateRecord(int $id, int $item_id, int $qty, string $date, string $note, mysqli $conn): int
+{
+    if (!_checkRecord($id, $conn)) {
+        return VALIDATE_ERROR;
+    }
+    if (db_UpdateRecord($conn, $id, $item_id, $qty, $note, $date)) {
+        return $id;
+    } else {
+        return DB_ERROR;
+    }
+}
+
+function _checkRecord(int $id, mysqli $conn) : bool
+{
+    return db_SelectExistenceRecord($conn, $id);
+}
 
 function deleteRecord(int $id, mysqli $conn): int
 {

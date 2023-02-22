@@ -52,11 +52,15 @@ if (isset($_GET['update']))
                 <label for="" class=" form-check-label">Apply on past records</label>
                 <input type="checkbox" name="overwrite" id="" class=" form-check-input" checked>
             </div>
-            <button class="btn btn-dark form-control">
+            <div class="form-check">
+                <label for="" class=" form-check-label">Add as a new version</label>
+                <input type="checkbox" name="keep" id="" class=" form-check-input" checked>
+            </div>
+            <button class="btn btn-primary form-control">
                 Update
             </button>
         <?php else: ?>
-            <button class=" btn btn-dark form-control">
+            <button class=" btn btn-success form-control">
                 Add
             </button>
         <?php endif; ?>
@@ -92,7 +96,7 @@ $active_items = listItems($conn);
                     <td><?= $item_price; ?></td>
                     <td><?= $item_category; ?></td>
                     <td>
-                        <a href="<?= $update_link; ?>" class=" btn btn-success">Update</a>
+                        <a href="<?= $update_link; ?>" class=" btn btn-primary">Update</a>
                         <a href="<?= $archive_link; ?>" class=" btn btn-warning">Archive</a>
                         <a href="#" class=" btn btn-danger">Wipe Related Data</a>
                     </td>

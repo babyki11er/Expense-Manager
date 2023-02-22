@@ -1,3 +1,8 @@
+x	completed
+X 	failed or canceled
+% 	completed but due date
+!	more important task
+
 2023-02-12 Sun 12:15 AM
 	+30 mins
 	Organized the files with a related directory. Used DOCUMENT_ROOT from SERVER as relative links are not reliable and weird
@@ -10,15 +15,48 @@
 
 <2023-02-16>
 [x]:	Archiving items, categories done.
-[ ]:	Need implementing edit feature.
+[%]:	Need implementing edit feature.
 		Want to organize the api end points as well!
 [ ]:	allow to create a category that already exist but archived
 
 <20>
 	done editing item, still needs work for 
-	[ ]:	update but does not affect the past records, basically adding a new item and archiving the old one
-	[ ]:	update functionality on category, record.
-	[ ]:	organized the code more
+	[x]:	update but does not affect the past records, basically adding a new item and archiving the old one
+	[x]:	update functionality on category, record.
+	[*]:	organized the code more
+	[%]:	click listener on item suggestions
 	Will focus on income, and calculating the stuffs after all this! very excited
+	[ ]:	want to show income history below the form
+<21>
+	[ ]:	show income in records.php
+	[ ]:	show archived resources, to unarchive
+	[ ]:	display unique item names, my approach will be item#1 item#2, etc
+	[ ]:	show incomes on incomes.php and records.php
+	[ ]:	picture for the particular resource, will stand independent in its own table
+	[ ]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
+
+[ item.php ]
+	[ ]:	default category has to be None
+[ insert.php ]
+	[ ]:	item-id has to be 0 if the input value is new and has to be created first
+	[ ]:	add tags as datalist to be searched quickly and label informal way
+	[ ]:	update a record
+[ delete-api ]
+	[ ]:	change to POST method for deleting instead of GET
+	[ ]:	change all api that are not retrieving data to POST
+
+	[!]:	implement the briefing in index page
+
+[ UI ]
+	[ ]:	change the button color to blue for update, green for add, warnning for arhive, danger for delete, but i am using dark for actual inserting the record, want this color to be a status of how well his wallet is doing, from black, orange, yellow, red ? not sure about this feature
+	[ ]:	don't show the year for date in records.php
+	[ ]:	insert.php
+			Name | Qty
+			Price | Category
+			Date should be the first thing
+	[ ]:	records.php
+			sort by item, cost, category
+			filter by each of them
+
 <Unknown Future>
 [ ]:	globals.php, create table, insert certian values

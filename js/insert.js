@@ -1,33 +1,9 @@
-let input_name_tag = document.getElementById('item_name');
 let input_price_tag = document.getElementById('item_price');
+let input_name_tag = document.getElementById('item_name');
 let input_category_tag = document.getElementById('item_category');
 let date_tag = document.getElementById('date');
 
 let dom_dd = document.getElementById('dd');
-async function getItems() {
-    let url = "http://localhost:8080/api/get-many-api.php?selected=item";
-    let myObject = await fetch(url);
-    let items = await myObject.json();
-    return items;
-}
-async function setInputListener(dom_search_bar) {
-    dom_search_bar.setAttribute('autocomplete', 'off');
-    let data = await getItems();
-    dom_search_bar.addEventListener('input', function(e) {
-        let search_query = e.target.value;
-        let find_me = search_query.toLowerCase();
-        let filtered = data.filter(function(value, index) {
-            suggestion = value.name.toLowerCase();
-            return suggestion.indexOf(find_me) >= 0;
-        });
-        drawSuggestions(filtered, dom_dd);
-    })
-}
-setInputListener(input_name_tag);
-
-date_tag.addEventListener('change', function (e) {
-    updateDate(e.target.value);
-}) 
 /*
     SessionStorage:
         today:  (to remember what the user has previously selected)
@@ -41,13 +17,17 @@ if (_getSelectedDate() === null) {
 
 /* DOOM manipulation */
 function DOMSelectItem(item) {
-    let cat_id = item['cat_id'];
-    if (cat_id == 0) {
-    }
-    input_name_tag.setAttribute('value', item.name);
+    // input_name_tag.setAttribute('value', item.name);
+    let item_id_parameter = document.getElementById('item_id');
+    // console.log(item);
+    item_id_parameter.setAttribute('value', item.id);
     input_price_tag.setAttribute('value', item.price);
     input_category_tag.value = item['cat_id'];
 }
+
+date_tag.addEventListener('change', function (e) {
+    updateDate(e.target.value);
+}) 
 
 /* sessionStorage getter and setter */
 function _getSelectedDate() {
@@ -63,6 +43,43 @@ function updateDate() {
         _setSelectedDate(date_tag.value);
     }
 }
+async function getItem(id) {
+    let url = "http://localhost:8080/api/get-one-api.php?selected=item&id=" + id;
+    let myObject = await fetch(url);
+    let item = await myObject.json();
+    return item;
+}
+
+async function coffee(e) {
+    let suggestions = document.getElementById('suggestionMenu').options;
+    let inputValue = e.target.value;
+    for(let i = 0; i < suggestions.length; i++) {
+        let suggestion = suggestions[i];
+        if (inputValue == suggestion.value) {
+            console.log('coffee!')
+            let item_id = suggestion.dataset.itemid;
+            let item = await getItem(item_id);
+            console.log(item);
+            DOMSelectItem(item);
+        } else {
+            let item_id_parameter = document.getElementById('item_id');
+            item_id_parameter.setAttribute('value', -1);
+        }
+    }
+}
+
+async function addAutocomplete() {
+    input_name_tag.addEventListener('input', coffee)
+}
+addAutocomplete();
+
+
+// async function getItems() {
+//     let url = "http://localhost:8080/api/get-many-api.php?selected=item";
+//     let myObject = await fetch(url);
+//     let items = await myObject.json();
+//     return items;
+// }
 
 // let select_e = document.getElementById('selected-item');
 
@@ -79,3 +96,45 @@ function updateDate() {
 //             DOMSelectItem(item_data);
 //         })
 // })
+/*
+
+async function setInputListener(dom_search_bar) {
+    dom_search_bar.setAttribute('autocomplete', 'off');
+    let data = await getItems();
+    dom_search_bar.addEventListener('input', function(e) {
+        let search_query = e.target.value;
+        let find_me = search_query.toLowerCase();
+        let filtered = data.filter(function(value, index) {
+            suggestion = value.name.toLowerCase();
+            return suggestion.indexOf(find_me) >= 0;
+        });
+        drawSuggestions(filtered, dom_dd);
+    })
+}
+
+setInputListener(input_name_tag);
+
+async function drawSuggestions(suggestions, root) {
+    _clearSuggestions();
+    let menu = document.createElement('div');
+    menu.setAttribute('id', 'menu');
+    root.parentNode.appendChild(menu);
+    for (let i = 0; i < suggestions.length; i ++) {
+        let suggestion_div = document.createElement('div');
+        suggestion_div.setAttribute('class', 'suggestion');
+        suggestion_div.setAttribute('id', 'suggest-' + suggestions[i].id);
+        suggestion_div.innerHTML = suggestions[i].name;
+        suggestion_div.addEventListener('click', function(e) {
+            console.log(e);
+        });
+        menu.appendChild(suggestion_div);
+    }
+}
+
+function _clearSuggestions() {
+    let menu = document.getElementById('menu');
+    if (menu != null) {
+        menu.remove();
+    }
+}
+*/

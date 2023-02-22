@@ -17,5 +17,7 @@ $conn = connectMysql();
 // $total = getTotalOutcome($conn);
 // echo $total;
 
+// $id = $_GET['id'];
+// db_SelectExistenceItem($conn, $id);
 $id = $_GET['id'];
-db_SelectExistenceItem($conn, $id);
+dd(_checkItem($id, $conn));

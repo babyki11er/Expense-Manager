@@ -105,7 +105,8 @@ function _add_api_record(mysqli $conn)
     $item_price = $_POST['item_price'];
     $item_cat_id = $_POST['item_cat_id'];
     if (!is_numeric($qty) || !is_numeric($item_price) || !is_numeric($item_id)) {
-        error("Invalid parameter values!\nMissing int value");
+        dd($_POST);
+        // error("Invalid parameter values!\nMissing int value");
     }
     // do some validation
     if ($item_id == -1) {
