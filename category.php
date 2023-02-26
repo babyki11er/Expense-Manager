@@ -57,7 +57,7 @@ if (isset($_GET['update']))
                 $archive_link = "./api/archive-api.php?selected=category&id=$id";
                 $rename_link = "./category.php?update&id=$id";
             ?>
-                <?php if ($id == 0) continue; ?>
+                <?php if ($cat === 'None') continue; ?>
                 <div class=" mb-3">
                     <label class=" col-2 col-md-4" id="<?= "label-$id"; ?>">
                         <?= $cat; ?>

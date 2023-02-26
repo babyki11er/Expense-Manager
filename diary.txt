@@ -2,6 +2,7 @@ x	completed
 X 	failed or canceled
 % 	completed but due date
 !	more important task
+l 	attention after all the tasks complete
 
 2023-02-12 Sun 12:15 AM
 	+30 mins
@@ -11,13 +12,13 @@ X 	failed or canceled
 	Analysing the code, I learned that it's easier to think the flow in terms of an execution stack.
 [%]:	add archive functions
 [x]:	add deleting record
-[ ]:	refactor api end points
+[l]:	refactor api end points
 
 <2023-02-16>
 [x]:	Archiving items, categories done.
 [%]:	Need implementing edit feature.
 		Want to organize the api end points as well!
-[ ]:	allow to create a category that already exist but archived
+[l]:	allow to create a category that already exist but archived
 
 <20>
 	done editing item, still needs work for 
@@ -32,7 +33,7 @@ X 	failed or canceled
 	[X]:	show income in records.php
 	[ ]:	show archived resources, to unarchive
 	[ ]:	display unique item names, my approach will be item#1 item#2, etc
-	[ ]:	show incomes on incomes.php and records.php
+	[X]:	show incomes on incomes.php and records.php
 	[ ]:	picture for the particular resource, will stand independent in its own table
 	[ ]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
 	[ ]:	show alerts after redirecting from api
@@ -43,8 +44,8 @@ X 	failed or canceled
 	[x]:	pass the resource name as the second argument, and the array as the third
 	[x]:	checkResource function
 
-[ BUG ]:	renaming a category resulting in creating a new one
-	[ ]:	error with get-one.api, and insert.php not selecting on choosing the item
+[ xxx ]:	renaming a category resulting in creating a new one
+	[x]:	error with get-one.api, and insert.php not selecting on choosing the item
 
 [ item.php ]
 	[ ]:	default category has to be None

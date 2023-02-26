@@ -10,12 +10,7 @@ function listCategories(mysqli $conn): array
 // returns categories available to use in coming items
 {
     $raw_categories = db_SelectActive($conn, CATEGORY);
-    return array_map(function ($val) {
-        return [
-            'id' => $val['id'],
-            'name' => $val['name']
-        ];
-    }, $raw_categories);
+    return $raw_categories;
 }
 
 function getCategoryName(int $id, $conn): string
@@ -28,11 +23,7 @@ function addNewCategory(string $category, mysqli $conn): int
 {
     // ? some validations not to end up with fucked objects ?
     $to_add = ucfirst($category);
-    if (($id = db_InsertNew($conn, CATEGORY, ['name' => $to_add]))) {
-        return $id;
-    } else {
-        return DB_ERROR;
-    }
+    return db_InsertNew($conn, CATEGORY, ['name' => $to_add]);
 }
 
 function updateCategory(int $id, string $category, mysqli $conn) : int

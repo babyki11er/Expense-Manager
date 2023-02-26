@@ -58,7 +58,7 @@ function db_Update(mysqli $conn, string $selected, int $id, array $value) : bool
     // NOT CHECKING IF THE id EXISTS OR NOT
     switch($selected) {
         case CATEGORY:
-            $sql = "INSERT INTO " . CATEGORY . " (name) VALUES ('". $value['name'] . "'); ";
+            $sql = "UPDATE category SET name='{$value['name']}' WHERE id=$id";
             break;
         case ITEM:
             $name = $value['name'];
@@ -66,22 +66,22 @@ function db_Update(mysqli $conn, string $selected, int $id, array $value) : bool
             $cat_id = $value['cat_id'];
             $sql = "UPDATE item SET name='$name', price=$price, cat_id=$cat_id WHERE id=$id;";
             break;
-            case RECORD:
-                $item_id = $value['item_id'];
-                $qty = $value['qty'];
-                $note = $value['note'];
-                $date = $value['date'];
-                $sql = "UPDATE record SET item_id=$item_id, qty=$qty, note='$note', date='$date' WHERE id=$id;";
-                break;
-            case INCOME:
-                $amount = $value['amount'];
-                $label = $value['label'];
-                $date = $value['date'];
-                $note = $value['note'];
-                $sql = "UPDATE income SET amount=$amount, label='$label', date='$date', note='$note' WHERE id=$id;";
-                break;
-            default:
-                return VALIDATE_ERROR;
+        case RECORD:
+            $item_id = $value['item_id'];
+            $qty = $value['qty'];
+            $note = $value['note'];
+            $date = $value['date'];
+            $sql = "UPDATE record SET item_id=$item_id, qty=$qty, note='$note', date='$date' WHERE id=$id;";
+            break;
+        case INCOME:
+            $amount = $value['amount'];
+            $label = $value['label'];
+            $date = $value['date'];
+            $note = $value['note'];
+            $sql = "UPDATE income SET amount=$amount, label='$label', date='$date', note='$note' WHERE id=$id;";
+            break;
+        default:
+            return VALIDATE_ERROR;
         }
         if (_execQuery($conn, $sql)) {
             return $id;
@@ -232,7 +232,7 @@ function db_Delete(mysqli $conn, string $selected, int $id) : int
 
 function _execQuery(mysqli $conn, string $sql, bool $close=true)
 {
-    _html_log($sql);
+    // _html_log($sql);
     $query_result = mysqli_query($conn, $sql);
     if ($query_result === false) {
         noti("MySql Error: $sql");
