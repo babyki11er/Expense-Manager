@@ -46,6 +46,7 @@ function _archive_api_category($conn)
         foreach($related_items as $item) {
             archiveItem($item['id'], $conn);
         }
+        // dd($_POST);
         redirect("./category.php");
     } else if ($e_code === VALIDATE_ERROR) {
         error("Id doesn't exist");

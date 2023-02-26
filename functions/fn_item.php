@@ -20,14 +20,10 @@
 // returns items to display
 function listItems(mysqli $conn): array
 {
-    $raw_items = db_SelectItems($conn);
+    $raw_items = db_SelectActive($conn, ITEM);
     return array_map(function ($item) use ($conn) {
-        return [
-            'id' => $item['id'],
-            'name' => $item['name'],
-            'price' => $item['price'],
-            'cat_str' => getCategoryName($item['cat_id'], $conn)
-        ];
+        $item['cat_str'] = getCategoryName($item['cat_id'], $conn);
+        return $item;
     }, $raw_items);
 }
 
@@ -58,7 +54,7 @@ function getItemsByCategory(int $cat_id, mysqli $conn): array
 
 function getItem(int $id, mysqli $conn): array
 {
-    $raw = db_SelectAnItem($conn, $id);
+    $raw = db_SelectOne($conn, ITEM, $id);
     if ($raw === false) {
         return [];
     }
@@ -71,11 +67,8 @@ function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
     if ($price < 0) {
         return VALIDATE_ERROR;
     }
-    if (db_InsertNewItem($conn, $name, $price, $cat_id)) {
-        return mysqli_insert_id($conn);
-    } else {
-        return DB_ERROR;
-    }
+    $item_to_add = _makeItem($name, $price, $cat_id);
+    return db_InsertNew($conn, ITEM, $item_to_add);
 }
 
 function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn) : int
@@ -83,22 +76,19 @@ function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn
     if (!_checkItem($id, $conn)) {
         return VALIDATE_ERROR;
     }
-    if (db_UpdateItem($conn, $id, $name, $price, $cat_id)) {
-        return $id;
-    } else {
-        return DB_ERROR;
-    }
+    $item_to_add = _makeItem($name, $price, $cat_id);
+    return db_Update($conn, ITEM, $id, $item_to_add);
 }
 
 function _checkItem(int $id, mysqli $conn) : bool
 {
     // do some vaildations? idk
-    return db_SelectExistenceItem($conn, $id);
+    return db_CheckExistence($conn, ITEM, $id);
 }
 
 function archiveItem(int $id, mysqli $conn): int
 {
-    if (db_ArchiveAnItem($conn, $id)) {
+    if (db_Archive($conn, ITEM, $id)) {
         return $id;
     } else {
         return DB_ERROR;
@@ -106,6 +96,14 @@ function archiveItem(int $id, mysqli $conn): int
     // do some validation, then db function
 }
 
+function _makeItem(string $name, int $price, int $cat_id) : array
+{
+    return [
+        'name' => $name,
+        'price' => $price,
+        'cat_id' => $cat_id
+    ];
+}
 
 // function _validateItem(int $id): bool
 // {

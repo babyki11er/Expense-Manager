@@ -145,7 +145,7 @@ function _add_api_income(mysqli $conn): void
         error("Insert a numeric value for amount");
     }
     if (addIncome($amount, $label, $date, $note, $conn) >= 0) {
-        apiResponse(['message' => 'Success!']);
+        redirect("./income.php");
     } else {
         error("Unknown error occurred", 400, $_POST);
     }

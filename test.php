@@ -19,5 +19,13 @@ $conn = connectMysql();
 
 // $id = $_GET['id'];
 // db_SelectExistenceItem($conn, $id);
-$id = $_GET['id'];
-dd(_checkItem($id, $conn));
+// $id = $_GET['id'];
+// dd(_checkItem($id, $conn));
+// $incomes = getTotalOutcome($conn);
+// $items = listItems($conn);
+?>
+<link rel="stylesheet" href="./css/style.css">
+<?php
+$categories = listItems($conn);
+_html_log("hello world");
+dd($categories);

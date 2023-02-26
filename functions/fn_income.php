@@ -19,18 +19,73 @@ function addIncome(int $amount, string $label, string $date, string $note, mysql
     if ($amount <= 0) {
         return VALIDATE_ERROR;
     }
-    if (db_InsertNewIncome($conn, $amount, $label, $date, $note)) {
+
+    $income_to_add = _makeIncome($amount, $label, $date, $note);
+    if (db_InsertNew($conn, INCOME, $income_to_add)) {
         return mysqli_insert_id($conn);
     } else {
         return DB_ERROR;
     }
 }
 
+function _makeIncome(int $amount, string $label, string $date, string $note) : array
+{
+    return [
+        'amount' => $amount,
+        'label' => $label,
+        'date' => $date,
+        'note' => $note
+    ];
+}
+
+function updateIncome(int $id, int $amount, string $label, string $date, string $note, mysqli $conn) : int
+{
+    $income_to_update = _makeIncome($amount, $label, $date, $note);
+    if (_checkIncome($id, $conn)) {
+        if (db_Update($conn, INCOME, $id, $income_to_update)) {
+            return $id;
+        } else {
+            return DB_ERROR;
+        }
+    } else {
+        return VALIDATE_ERROR;
+    }
+}
+
+function deleteIncome(int $id, mysqli $conn) : int
+{
+    if (_checkIncome($id, $conn)) {
+        if (db_Delete($conn, INCOME , $id)) {
+            return $id;
+        } else {
+            return DB_ERROR;
+        }
+    } else {
+        return VALIDATE_ERROR;
+    }
+}
+
+function listIncomes(mysqli $conn) : array
+{
+    $raw_incomes = db_SelectActive($conn, INCOME, "date");
+    return $raw_incomes;
+}
+
+function getIncome(int $id, mysqli $conn) : array
+{
+    return db_SelectOne($conn, INCOME, $id);
+}
+
 function getTotalIncome(mysqli $conn): int
 {
-    $raw_incomes = db_SelectIncomes($conn);
+    $raw_incomes = db_SelectActive($conn, INCOME);
     $total = array_reduce($raw_incomes, function ($carry, $raw) {
         return $carry + $raw['amount'];
     }, 0);
     return $total;
+}
+
+function _checkIncome(int $id, mysqli $conn) : bool
+{
+    return db_CheckExistence($conn, INCOME, $id);
 }

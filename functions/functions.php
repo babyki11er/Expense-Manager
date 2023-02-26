@@ -54,6 +54,13 @@ function _html_header(): void
     header("Content-type: text/html");
 }
 
+function _html_log(string $s) : void
+{
+    echo '<h4 class="log">';
+    echo $s;
+    echo "</h4>";
+}
+
 function redirect(string $php_file): void
 {
     header("Location: /$php_file");

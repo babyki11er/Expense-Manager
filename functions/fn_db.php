@@ -11,189 +11,235 @@ function connectMysql()
     return $conn;
 }
 
+
 /*
     CATEGORY:
 */
-function db_InsertNewCategory($conn, string $name): bool
+function db_InsertNew(mysqli $conn, string $selected, array $value): int
 {
     // do validation for SQL injection, XSS, security stuffs
-    $sql = "INSERT INTO " . CATEGORY . " (name) VALUES ('$name'); ";
-    return mysqli_query($conn, $sql);
+    switch($selected) {
+        case CATEGORY:
+            $sql = "INSERT INTO " . CATEGORY . " (name) VALUES ('". $value['name'] . "'); ";
+            break;
+        case ITEM:
+            $name = $value['name'];
+            $price = $value['price'];
+            $cat_id = $value['cat_id'];
+            $sql = "INSERT INTO " . ITEM . " (name, price, cat_id) VALUES ('$name', $price, $cat_id);";
+            break;
+        case RECORD:
+            $item_id = $value['item_id'];
+            $qty = $value['qty'];
+            $note = $value['note'];
+            $date = $value['date'];
+            $sql = "INSERT INTO record (item_id, qty, note, date) VALUES ($item_id, $qty, '$note', '$date') ";
+            break;
+        case INCOME:
+            $amount = $value['amount'];
+            $label = $value['label'];
+            $date = $value['date'];
+            $note = $value['note'];
+            $sql = "INSERT INTO income (amount, label, date, note) VALUES ($amount, '$label', '$date', '$note');";
+            break;
+        default:
+            return VALIDATE_ERROR;
+    }
+    if (_execQuery($conn, $sql, false)) {
+        return mysqli_insert_id($conn);
+    } else {
+        return DB_ERROR;
+    }
 }
 
-function db_UpdateCategory(mysqli $conn, int $id, string $new_name) : bool
+function db_Update(mysqli $conn, string $selected, int $id, array $value) : bool
 {
-    $sql = "UPDATE category SET name='$new_name' WHERE id=$id;";
-    return mysqli_query($conn, $sql);
-}
-
-function db_SelectCategories($conn, $ordered_by = "id"): array
-{
-    $sql = "SELECT * FROM " . CATEGORY . " WHERE archive='active' order by $ordered_by;";
-    $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
-function db_SelectExistenceCategory($conn, int $id) : bool
-{
-    $sql = "SELECT id FROM category WHERE id=$id AND archive='active'";
-    return _db_SelectExistence($conn, $sql);
-}
-
-function db_ArchiveACategory($conn, int $id): bool
-{
-    $sql = "update category set archive='archived' where id=$id;";
-    return mysqli_query($conn, $sql);
-}
-
-function db_SelectACategory($conn, int $id): string
-{
-    $sql = "SELECT * FROM " . CATEGORY . " WHERE id = $id;";
-    $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_assoc($result)['name'];
-}
-
-function db_DeleteCategory(mysqli $conn, int $id) : bool
-{
-    $sql = "DELETE FROM category WHERE id=$id;";
-    return mysqli_query($conn, $sql);
-}
-/*
-ITEM
-*/
-function db_InsertNewItem($conn, string $name, int $price, int $cat_id): bool
-{
-    // do some validations
-    $sql = "INSERT INTO " . ITEM . " (name, price, cat_id) VALUES ('$name', $price, $cat_id);";
-    return mysqli_query($conn, $sql);
-}
-
-function db_UpdateItem(mysqli $conn, int $id, string $name, int $price, int $cat_id) : bool
-{
-    $sql = "UPDATE item SET name='$name', price=$price, cat_id=$cat_id WHERE id=$id;";
-    return mysqli_query($conn, $sql);
-}
-
-function db_SelectExistenceItem(mysqli $conn, int $id) : bool
-{
-    $sql = "SELECT id FROM item WHERE id=$id AND archive='active';";
-    return !is_null(mysqli_fetch_assoc(mysqli_query($conn, $sql)));
-}
-
-function db_SelectItems($conn): array
-{
-    $sql = "SELECT * FROM " . ITEM . " WHERE archive='active';";
-    $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // do validation for SQL injection, XSS, security stuffs
+    // NOT CHECKING IF THE id EXISTS OR NOT
+    switch($selected) {
+        case CATEGORY:
+            $sql = "INSERT INTO " . CATEGORY . " (name) VALUES ('". $value['name'] . "'); ";
+            break;
+        case ITEM:
+            $name = $value['name'];
+            $price = $value['price'];
+            $cat_id = $value['cat_id'];
+            $sql = "UPDATE item SET name='$name', price=$price, cat_id=$cat_id WHERE id=$id;";
+            break;
+            case RECORD:
+                $item_id = $value['item_id'];
+                $qty = $value['qty'];
+                $note = $value['note'];
+                $date = $value['date'];
+                $sql = "UPDATE record SET item_id=$item_id, qty=$qty, note='$note', date='$date' WHERE id=$id;";
+                break;
+            case INCOME:
+                $amount = $value['amount'];
+                $label = $value['label'];
+                $date = $value['date'];
+                $note = $value['note'];
+                $sql = "UPDATE income SET amount=$amount, label='$label', date='$date', note='$note' WHERE id=$id;";
+                break;
+            default:
+                return VALIDATE_ERROR;
+        }
+        if (_execQuery($conn, $sql)) {
+            return $id;
+    } else {
+        return DB_ERROR;
+    }
 }
 
 function db_SelectItemNames(mysqli $conn) : array
 {
-    $sql = "SELECT id,name FROM item WHERE archive='active';";
-    $result = mysqli_query($conn, $sql);
+    $sql = "SELECT name FROM item WHERE archive='active'";
+    $result = _execQuery($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
-function db_SelectAnItem($conn, int $id): array
-{
-    $sql = "SELECT * FROM " . ITEM . " WHERE id = $id;";
-    $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_assoc($result);
 }
 
 function db_SelectItemsByCategory(mysqli $conn, int $cat_id) : array
 {
-    $sql = "SELECT * FROM item WHERE cat_id=$cat_id;";
-    $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM item WHERE archive='active' AND cat_id=$cat_id";
+    $result = _execQuery($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function db_ArchiveAnItem($conn, int $id): bool
+function db_SelectActive(mysqli $conn, string $selected, string $ordered_by = "id"): array
 {
-    $sql = "update item set archive='archived' where id=$id;";
-    return mysqli_query($conn, $sql);
-}
-
-function db_DeleteItem(mysqli $conn, int $id) : bool
-{
-    $sql = "DELETE FROM item WHERE id=$id;";
-    return mysqli_query($conn, $sql);
-}
-/*
-RECORD
-*/
-function db_InsertNewRecord($conn, int $item_id, int $qty, string $note, string $date): int
-{
-    // do some validations
-    $sql = "INSERT INTO record (item_id, qty, note, date) VALUES ($item_id, $qty, '$note', '$date') ";
-    return mysqli_query($conn, $sql);
-}
-
-function db_UpdateRecord(mysqli $conn, int $id, int $item_id, int $qty, string $note, string $date) : int
-{
-    // do some validations
-    $sql = "UPDATE record SET item_id=$item_id, qty=$qty, note='$note', date='$date' WHERE id=$id;";
-    return mysqli_query($conn, $sql);
-}
-
-function db_SelectExistenceRecord(mysqli $conn, int $id) : bool
-{
-    $sql = "SELECT id FROM record WHERE id=$id AND archive='active';";
-    return _db_SelectExistence($conn, $sql);
-}
-
-function db_SelectRecords(mysqli $conn, string $order = "date"): array
-{
-    // one query for selecting all active records, nothing else to mess shit up
-    $sql = "SELECT * FROM record ORDER BY $order;";
-    $result = mysqli_query($conn, $sql);
+    switch($selected) {
+        case CATEGORY:
+            $sql = "SELECT * FROM " . CATEGORY . " WHERE archive='active' ORDER BY $ordered_by";
+            break;
+        case ITEM:
+            $sql = "SELECT * FROM " . ITEM . " WHERE archive='active' ORDER BY $ordered_by";
+            break;
+        case RECORD:
+            $sql = "SELECT * FROM " . RECORD . " ORDER BY $ordered_by";
+            break;
+        case INCOME:
+            $sql = "SELECT * FROM " . INCOME . " ORDER BY $ordered_by";
+            break;
+    }
+    $result = _execQuery($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function db_DeleteRecord($conn, int $record_id): bool
+function db_SelectOne(mysqli $conn, string $selected, int $id) : array
 {
-    $sql = "DELETE FROM record WHERE id=$record_id;";
-    return mysqli_query($conn, $sql);
-}
-/*
-    Income
-*/
-
-function db_InsertNewIncome(mysqli $conn, int $amount, string $label, string $date, string $note): bool
-{
-    $sql = "INSERT INTO income (amount, label, date, note) VALUES ($amount, '$label', '$date', '$note');";
-    // echo $sql;
-    // return false;
-    return mysqli_query($conn, $sql);
-}
-
-function db_UpdateIncome(mysqli $conn, int $id, int $amount, string $label, string $date, string $note) : bool
-{
-    $sql = "UPDATE income SET amount=$amount, label='$label', date='$date', note='$note';";
-    return mysqli_query($conn, $sql);
-}
-
-function db_SelectIncomes(mysqli $conn): array
-{
-    $sql = "SELECT * FROM income;";
-    $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
-function db_DeleteIncome(mysqli $conn, int $id): bool
-{
-    $sql = "DELETE FROM income WHERE id=$id;";
-    return mysqli_query($conn, $sql);
+    switch($selected) {
+        case CATEGORY:
+            $sql = "SELECT * FROM " . CATEGORY . " WHERE id=$id;";
+            break;
+        case ITEM:
+            $sql = "SELECT * FROM " . ITEM . " WHERE id=$id;";
+            break;
+        case RECORD:
+            $sql = "SELECT * FROM " . RECORD . " WHERE id=$id;";
+            break;
+        case INCOME:
+            $sql = "SELECT * FROM " . INCOME . " WHERE id=$id;";
+            break;
+        default:
+            return [];
+    }
+    $result = _execQuery($conn, $sql);
+    $fetched = mysqli_fetch_assoc($result);
+    if (is_null($fetched)) {
+        slayer();
+        dd($result);
+        dd($sql);
+        return [];
+    }
+    return $fetched;
 }
 
+function db_Archive(mysqli $conn, string $selected, int $id) : bool
+{
+    switch($selected) {
+        case CATEGORY:
+            $sql = "UPDATE " . CATEGORY . " SET archive='archived' WHERE id=$id";
+            break;
+        case ITEM:
+            $sql = "UPDATE " . ITEM . " SET archive='archived' WHERE id=$id";
+            break;
+        // case RECORD:
+        //     $sql = "UPDATE SET " . RECORD . " archive='archived' WHERE id=$id";
+        //     break;
+        // case INCOME:
+        //     $sql = "UPDATE SET " . INCOME . " archive='archived' WHERE id=$id";
+        //     break;
+        default:
+            return DB_ERROR;
+    }
+    if (_execQuery($conn, $sql)) {
+        return $id;
+    } else {
+        return DB_ERROR;
+    }
+}
+
+
+function db_CheckExistence(mysqli $conn, string $selected, int $id) : bool
+{
+    switch($selected) {
+        case CATEGORY:
+            $sql = "SELECT id FROM " . CATEGORY . " WHERE id=$id;";
+            break;
+        case ITEM:
+            $sql = "SELECT id FROM " . ITEM . " WHERE id=$id;";
+            break;
+        case RECORD:
+            $sql = "SELECT id FROM " . RECORD . " WHERE id=$id";
+            break;
+        case INCOME:
+            $sql = "SELECT id FROM " . INCOME . " WHERE id=$id";
+            break;
+    }
+    $result = _execQuery($conn, $sql);
+    if (is_null(mysqli_fetch_assoc($result))) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function db_Delete(mysqli $conn, string $selected, int $id) : int
+{
+    switch($selected) {
+        case CATEGORY:
+            $sql = "DELETE FROM " . CATEGORY . " WHERE id=$id;";
+            break;
+        case ITEM:
+            $sql = "DELETE FROM " . ITEM . " WHERE id=$id;";
+            break;
+        case RECORD:
+            $sql = "DELETE FROM " . RECORD . " WHERE id=$id;";
+            break;
+        case INCOME:
+            $sql = "DELETE FROM " . INCOME . " WHERE id=$id;";
+            break;
+        default:
+            return VALIDATE_ERROR;
+    }
+    if (_execQuery($conn, $sql)) {
+        return $id;
+    } else {
+        return DB_ERROR;
+    }
+}
 
 /* private functions */
-function _db_SelectExistence(mysqli $conn, string $sql) : bool
+
+function _execQuery(mysqli $conn, string $sql, bool $close=true)
 {
-    $result = mysqli_query($conn, $sql);
-    $id = mysqli_fetch_assoc($result);
-    if (is_null($id)) {
-        return false;
+    _html_log($sql);
+    $query_result = mysqli_query($conn, $sql);
+    if ($query_result === false) {
+        noti("MySql Error: $sql");
+        LogConsole("MySql Error: $sql");
     }
-    return true;
+    // if ($close) {
+    //     mysqli_close($conn);
+    // }
+    return $query_result;
 }

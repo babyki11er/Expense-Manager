@@ -75,7 +75,32 @@ function _delete_api_main(): void
     /*
             DELETING RECORD
         */
-    if ($selected_to_del === RECORD) {
-        _delete_api_record($conn);
+    switch($selected_to_del) {
+        case RECORD:
+            _delete_api_record($conn);
+            break;
+        case INCOME:
+            _delete_api_income($conn);
+            break;
+        default:
+            error("Invalid api call. Don't fuck with del api, pls.");
+    }
+}
+
+function _delete_api_income(mysqli $conn) : void
+{
+    $id = (int)$_GET['id'];
+    // do some validations
+    if (($e_code = deleteIncome($id, $conn)) >= 0) {
+        redirect('./income.php');
+    } else {
+        switch ($e_code) {
+            case DB_ERROR:
+                error("DB error!");
+                break;
+            case VALIDATE_ERROR:
+                error("record you are trying to delete do not exist.");
+                break;
+        }
     }
 }
