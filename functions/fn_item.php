@@ -20,7 +20,7 @@
 // returns items to display
 function listItems(mysqli $conn): array
 {
-    $raw_items = db_SelectActive($conn, ITEM);
+    $raw_items = db_SelectAll($conn, ITEM, ['status' => 'active']);
     return array_map(function ($item) use ($conn) {
         $item['cat_str'] = getCategoryName($item['cat_id'], $conn);
         return $item;
@@ -29,33 +29,28 @@ function listItems(mysqli $conn): array
 
 function getItemNames(mysqli $conn): array
 {
-    $raw_item_names = db_SelectItemNames($conn);
+    $raw_item_names = db_SelectAll($conn, ITEM, ['status' => 'active'], 'name');
     return $raw_item_names;
 }
 
 function getItemsByCategory(int $cat_id, mysqli $conn): array
 {
-    $raw_items = db_SelectItemsByCategory($conn, $cat_id);
+    $raw_items = db_SelectAll($conn, ITEM, ['cat_id' => $cat_id]);
     return array_map(function ($item) use ($conn) {
-        return [
-            'id' => $item['id'],
-            'name' => $item['name'],
-            'price' => $item['price'],
-            'cat_str' => getCategoryName($item['cat_id'], $conn)
-        ];
+        $item['cat_str'] = getCategoryName($item['cat_id'], $conn);
+        return $item;
     }, $raw_items);
 }
-
 
 // function getItemsByCatId(int $id): array
 // {
 //     // returns array of id, not item array
 // }
 
-function getItem(int $id, mysqli $conn): array
+function getItemById(int $id, mysqli $conn): array
 {
-    $raw = db_SelectOne($conn, ITEM, $id);
-    if ($raw === false) {
+    $raw = db_SelectOne($conn, ITEM, ['id' => $id]);
+    if (is_null($raw)) {
         return [];
     }
     $raw['cat_str'] = getCategoryName($raw['cat_id'], $conn);
@@ -68,7 +63,7 @@ function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
         return VALIDATE_ERROR;
     }
     $item_to_add = _makeItem($name, $price, $cat_id);
-    return db_InsertNew($conn, ITEM, $item_to_add);
+    return db_Insert($conn, ITEM, $item_to_add);
 }
 
 function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn) : int
@@ -76,23 +71,21 @@ function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn
     if (!_checkItem($id, $conn)) {
         return VALIDATE_ERROR;
     }
-    $item_to_add = _makeItem($name, $price, $cat_id);
-    return db_Update($conn, ITEM, $id, $item_to_add);
+    $update_value = _makeItem($name, $price, $cat_id);
+    return db_Update($conn, ITEM, $id, $update_value);
 }
 
 function _checkItem(int $id, mysqli $conn) : bool
 {
     // do some vaildations? idk
-    return db_CheckExistence($conn, ITEM, $id);
+    $fetched = db_SelectOne($conn, ITEM, ['id' => $id], 'id');
+    return !is_null($fetched);
 }
 
-function archiveItem(int $id, mysqli $conn): int
+function archiveItem(int $id, mysqli $conn, bool $archived=true): int
 {
-    if (db_Archive($conn, ITEM, $id)) {
-        return $id;
-    } else {
-        return DB_ERROR;
-    }
+    $id = db_Update($conn, ITEM, $id, ['status' => 'archived']);
+    return $id;
     // do some validation, then db function
 }
 

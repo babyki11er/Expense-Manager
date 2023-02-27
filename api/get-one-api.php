@@ -34,6 +34,6 @@ function _get_api_item(mysqli $conn) : void
 {
     $item_id = $_GET['id'];
     // validating parameter values
-    $item = getItem($item_id, $conn);
+    $item = getItemById($item_id, $conn);
     apiResponse($item);
 }

@@ -46,6 +46,16 @@ l 	attention after all the tasks complete
 
 [ xxx ]:	renaming a category resulting in creating a new one
 	[x]:	error with get-one.api, and insert.php not selecting on choosing the item
+<26>
+	[X]:	convert form to grid system (UI)
+[ BUG ]:	add-api.php, creating a new item instance as you insert a new record
+<27>
+
+Note:
+	learn to remove duplicate static codes that i have put for some reason, replace with more compact dynamic ones.
+I believe code should be designed in a way it's easier to write, instead of focusing too much on reading.
+you add extra complexity in making it more maintainable, and honestly, I still have no idea on standards, therefore, it's best to write it on my own way.
+Change it later, but I need something that works first.
 
 [ item.php ]
 	[ ]:	default category has to be None
@@ -67,6 +77,7 @@ insert.php
 			Name | Qty
 			Price | Category
 			Date should be the first thing
+			add remember item checkbox
 records.php
 			sort by item, cost, category
 			filter by each of them

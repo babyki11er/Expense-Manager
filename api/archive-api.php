@@ -40,12 +40,8 @@ function _validateRequestParams(): void
 function _archive_api_category($conn)
 {
     $id = (int) $_GET['id'];
-    $related_items = getItemsByCategory($id, $conn);
     // $id = 5;
     if (($e_code = archiveCategory($id, $conn)) > 0) {
-        foreach($related_items as $item) {
-            archiveItem($item['id'], $conn);
-        }
         // dd($_POST);
         redirect("./category.php");
     } else if ($e_code === VALIDATE_ERROR) {

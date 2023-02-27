@@ -4,10 +4,9 @@ $conn = connectMysql();
 $link_form = './api/add-api.php';
 $form_label = 'Add Item';
 $update = false;
-if (isset($_GET['update']))
-{
+if (isset($_GET['update'])) {
     $id_to_update = $_GET['id'];
-    $item_to_update = getItem($id_to_update, $conn);
+    $item_to_update = getItemById($id_to_update, $conn);
     if (empty($item_to_update)) {
         echo "<h4>Item you are trying to edit is either deleted or does not exist.</h4>";
     } else {
@@ -28,38 +27,37 @@ if (isset($_GET['update']))
         <label class="form-label">
             <?= $form_label ?>
         </label>
-            <div class=" input-group mb-3">
-                <input name="name" type="text" id="" placeholder="Name for new Item" class=" form-control" required value="<?= $item_name?>" />
-                <input name="price" type="number" id="" placeholder="Insert Pirce" value="<?= $item_price; ?>" class=" form-control" />
-            </div>
-        <select name="cat_id" id="" class=" form-select mb-3">
+        <div class=" input-group mb-3">
+            <span class="input-group-text">Name</span>
+            <input name="name" type="text" id="" placeholder="Name for new Item" class=" form-control" required value="<?= $item_name ?>" />
+            <span class="input-group-text">Price</span>
+            <input name="price" type="number" id="" placeholder="Insert Pirce" value="<?= $item_price; ?>" class=" form-control" step="50" />
+            <span class="input-group-text">Category</span>
+            <select name="cat_id" id="" class=" form-select">
 
-            <?php
-            $categories = listCategories($conn);
-            foreach ($categories as $category) :
-                $id = $category['id'];
-                $cat = $category['name'];
-            ?>
-                <option value="<?= $id ?>" <?php if ($id === $item_category) echo "selected" ?>>
-                    <?= $cat ?>
-                </option>
-            <?php endforeach ?>
+                <?php
+                $categories = listCategories($conn);
+                foreach ($categories as $category) :
+                    $id = $category['id'];
+                    $cat = $category['name'];
+                ?>
+                    <option value="<?= $id ?>" <?php if ($id === $item_category) echo "selected" ?>>
+                        <?= $cat ?>
+                    </option>
+                <?php endforeach ?>
 
-        </select>
-        <?php if ($update): ?>
+            </select>
+        </div>
+        <?php if ($update) : ?>
             <input type="hidden" name="id" value="<?= $id_to_update ?>">
             <div class="form-check">
-                <label for="" class=" form-check-label">Apply on past records</label>
-                <input type="checkbox" name="overwrite" id="" class=" form-check-input" checked>
-            </div>
-            <div class="form-check">
-                <label for="" class=" form-check-label">Add as a new version</label>
-                <input type="checkbox" name="keep" id="" class=" form-check-input" checked>
+                <label for="overwrite" class=" form-check-label">Apply on past records</label>
+                <input type="checkbox" name="overwrite" id="overwrite" class=" form-check-input" checked>
             </div>
             <button class="btn btn-primary form-control">
                 Update
             </button>
-        <?php else: ?>
+        <?php else : ?>
             <button class=" btn btn-success form-control">
                 Add
             </button>

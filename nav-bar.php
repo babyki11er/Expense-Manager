@@ -1,10 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/functions.php';
 $conn = connectMysql();
-$total_income = getTotalIncome($conn);
-$total_outcome = getTotalOutcome($conn);
-$remaining_amount = $total_income - $total_outcome;
-$display = $remaining_amount;
+// $total_income = getTotalIncome($conn);
+// $total_outcome = getTotalOutcome($conn);
+// $remaining_amount = $total_income - $total_outcome;
+// $display = $remaining_amount;
 
 /*
 */

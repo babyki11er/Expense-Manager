@@ -9,38 +9,64 @@
 function listCategories(mysqli $conn): array
 // returns categories available to use in coming items
 {
-    $raw_categories = db_SelectActive($conn, CATEGORY);
+    $raw_categories = db_SelectAll($conn, CATEGORY, ['status' => 'active']);
     return $raw_categories;
 }
 
 function getCategoryName(int $id, $conn): string
 {
-    $raw_category =  db_SelectOne($conn, CATEGORY, $id);
+    $raw_category =  db_SelectOne($conn, CATEGORY, ['id' => $id], 'name');
     return $raw_category['name'];
 }
 
 function addNewCategory(string $category, mysqli $conn): int
 {
     // ? some validations not to end up with fucked objects ?
-    $to_add = ucfirst($category);
-    return db_InsertNew($conn, CATEGORY, ['name' => $to_add]);
+    return db_Insert($conn, CATEGORY, ['name' => $category]);
 }
 
 function updateCategory(int $id, string $category, mysqli $conn) : int
 {
-    if (!_checkCategory($id, $conn)) {
+    if (!_checkCatId($id, $conn)) {
         return VALIDATE_ERROR;
     }
     return db_Update($conn, CATEGORY, $id, ['name' => $category]);
 }
 
-function _checkCategory(int $id, mysqli $conn) : bool
+function _checkCatId(int $id, mysqli $conn) : bool
 {
-    return db_CheckExistence($conn, CATEGORY, $id);
+    return !is_null(db_SelectOne($conn, CATEGORY, ['id' => $id], 'id'));
+}
+
+function categoryExists(string $category_name, mysqli $conn) : int
+{
+    $category = db_SelectOne($conn, CATEGORY, ['name' => $category_name]);
+    if (is_null($category)) {
+        return VALIDATE_ERROR;
+    } else {
+        return $category['id'];
+    }
 }
 
 
 function archiveCategory(int $id, mysqli $conn): int
 {
-    return db_Archive($conn, CATEGORY, $id);
+    $e_code = db_Update($conn, CATEGORY, $id, ['status' => 'archived']);
+    if ($e_code === $id) {
+        // need refactoring
+        $sql = "UPDATE item SET status='archived' WHERE cat_id=$id";
+        _execQuery($conn, $sql);
+    }
+    return $e_code;
+}
+
+function unarchiveCategory(int $id, mysqli $conn) :int 
+{
+    $e_code = db_Update($conn, CATEGORY, $id, ['status' => 'active']);
+    if ($e_code === $id) {
+        // need refactoring
+        $sql = "UPDATE item SET status='active' WHERE cat_id=$id";
+        _execQuery($conn, $sql);
+    }
+    return $e_code;
 }

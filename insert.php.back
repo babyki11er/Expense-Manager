@@ -1,0 +1,80 @@
+<?php
+// TODOs: test changing .value to setAttribute('value', $s);
+// BUG: item_id returning 1
+// Bug: date not remembering chosen date
+
+
+require_once "./header.php";
+
+// getting user defined values
+$conn = connectMysql();
+$items = listItems($conn);
+$categories = listCategories($conn);
+?>
+<div class=" p-3">
+    <h4>Insert record</h4>
+    <form action="./api/add-api.php" method="post" enctype="multipart/form-data" class=" container-fluid mt-5">
+        <input type="hidden" name="selected" value="record">
+        <input type="hidden" name="item_id" id="item_id">
+
+        <!-- FORM ITEM PART -->
+        <div class="row">
+            <div class="col-2">
+                Item
+            </div>
+            <div class="col-2">
+                Price
+            </div>
+            <div class="col-2">
+                Category
+            </div>
+            <div class="col-2">
+
+            Qty
+            </div>
+            <div class="col-2">
+                Date
+            </div>
+            <div class="col-2">
+                Note
+
+            </div>
+            <div class="col-2">
+                <input list="suggestionMenu" type="text" name="item_name" id="item_name" class=" form-control" required autocomplete="off">
+                <datalist id="suggestionMenu">
+                    <?php foreach ($items as $item) : ?>
+                        <option value="<?= $item['name'] ?>" data-itemId="<?= $item['id'] ?>" class="suggestion"></option>
+                    <?php endforeach; ?>
+                </datalist>
+            </div>
+            <div class=" col-2">
+                <input class="form-control w-100" type="number" name="item_price" id="item_price" required>
+            </div>
+            <div class=" col-2">
+                <input type="number" name="qty" id="" value="1" class=" form-control w-100">
+            </div>
+            <div class="col-2">
+                <input class="form-control w-100" type="date" name="date" id="date" value="<?php echo date('Y-m-d'); ?>">
+            </div>
+            <div class="col-2">
+                <textarea class=" form-control w-100" name="note" id=""></textarea>
+            </div>
+            <div class="col-2">
+                <select name="item_cat_id" id="item_category" class=" form-select w-100">
+                    <?php foreach ($categories as $category) : ?>
+                        <option value="<?= $category['id']; ?>"><?= ucfirst($category['name']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <button class=" btn btn-success w-100" name="coffee">
+            Submit
+        </button>
+    </form>
+</div>
+<!-- <script src="./js/functions.js"></script> -->
+<script src="./js/insert.js">
+</script>
+<?php
+require_once "./footer.php";
+?>

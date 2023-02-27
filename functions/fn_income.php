@@ -21,11 +21,7 @@ function addIncome(int $amount, string $label, string $date, string $note, mysql
     }
 
     $income_to_add = _makeIncome($amount, $label, $date, $note);
-    if (db_InsertNew($conn, INCOME, $income_to_add)) {
-        return mysqli_insert_id($conn);
-    } else {
-        return DB_ERROR;
-    }
+    return db_Insert($conn, INCOME, []);
 }
 
 function _makeIncome(int $amount, string $label, string $date, string $note) : array
@@ -67,18 +63,18 @@ function deleteIncome(int $id, mysqli $conn) : int
 
 function listIncomes(mysqli $conn) : array
 {
-    $raw_incomes = db_SelectActive($conn, INCOME, "date");
+    $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
     return $raw_incomes;
 }
 
 function getIncome(int $id, mysqli $conn) : array
 {
-    return db_SelectOne($conn, INCOME, $id);
+    return db_SelectOne($conn, INCOME, ['id' => $id]);
 }
 
 function getTotalIncome(mysqli $conn): int
 {
-    $raw_incomes = db_SelectActive($conn, INCOME);
+    $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
     $total = array_reduce($raw_incomes, function ($carry, $raw) {
         return $carry + $raw['amount'];
     }, 0);
@@ -87,5 +83,5 @@ function getTotalIncome(mysqli $conn): int
 
 function _checkIncome(int $id, mysqli $conn) : bool
 {
-    return db_CheckExistence($conn, INCOME, $id);
+    return !is_null(db_SelectOne($conn, INCOME, ['id' => $id], 'id'));
 }

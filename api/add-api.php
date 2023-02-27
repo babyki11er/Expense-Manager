@@ -38,13 +38,21 @@ function _add_api_category(mysqli $conn): void
     if (empty($cat_string)) {
         error("Category cannot be empty");
     }
-    if (($error_code = addNewCategory($cat_string, $conn)) > 0) {
-        redirect('category.php');
+
+    if (( $id = categoryExists($cat_string, $conn)) >= 0) {
+        $error_code = unarchiveCategory($id, $conn);
+    } else {
+        $error_code = addNewCategory($cat_string, $conn);
+    }
+
+    if ($error_code >= 0) {
+        ;
     } else if ($error_code === VALIDATE_ERROR) {
-        error("Category already exist.");
+        error("Your api call is invalid. Try again.");
     } else if ($error_code === DB_ERROR) {
         error(("Internal Server Error"));
     }
+    redirect("./category.php");
 }
 
 function _validateRequestParams(): void
@@ -113,7 +121,7 @@ function _add_api_record(mysqli $conn)
         // do some validation
         $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
     } else {
-        $selected_item = getItem($item_id, $conn);
+        $selected_item = getItemById($item_id, $conn);
         if (
             $selected_item['name'] != $item_name ||
             $selected_item['price'] != $item_price ||
@@ -121,7 +129,7 @@ function _add_api_record(mysqli $conn)
         ) {
             $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
             noti("Item added because the selected one doesn't match with the input values");
-            LogConsole(implode(',', getItem($item_id, $conn)));
+            LogConsole(implode(',', getItemById($item_id, $conn)));
         }
         // if the item id not equal the request params
     }

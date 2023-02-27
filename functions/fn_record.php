@@ -27,11 +27,11 @@ function _makeRecord(int $item_id, int $qty, string $date, string $note) : array
 
 function getRecordsPublic(mysqli $conn): array
 {
-    $raw_records = db_SelectActive($conn, RECORD, "date");
+    $raw_records = db_SelectAll($conn, RECORD, [], '*', 'date');
     return array_map(function ($raw) use ($conn) {
         $record_public = $raw;
         $related_item_id = $raw['item_id'];
-        $related_item = getItem($related_item_id, $conn);
+        $related_item = getItemById($related_item_id, $conn);
         $record_public['item_name'] = $related_item['name'];
         $record_public['cost'] = $related_item['price'] * $raw['qty'];
         $record_public['cat_str'] = $related_item['cat_str'];
@@ -48,7 +48,7 @@ function addNewRecord(int $item_id, int $qty, string $date, string $note, mysqli
     // do some validation based on record rules
     // $new_record = _makeRecord($item_id, $qty, $date, $note);
     $record_to_add = _makeRecord($item_id, $qty, $date, $note);
-    if (db_InsertNew($conn, RECORD, $record_to_add)) {
+    if (db_Insert($conn, RECORD, $record_to_add)) {
         return mysqli_insert_id($conn);
     } else {
         return DB_ERROR;
@@ -70,7 +70,7 @@ function updateRecord(int $id, int $item_id, int $qty, string $date, string $not
 
 function _checkRecord(int $id, mysqli $conn) : bool
 {
-    return db_CheckExistence($conn, RECORD, $id);
+    return !is_null(db_SelectOne($conn, RECORD, ['id' => $id], 'id'));
 }
 
 function deleteRecord(int $id, mysqli $conn): int
@@ -88,9 +88,9 @@ function deleteRecord(int $id, mysqli $conn): int
 // }
 function getTotalOutcome(mysqli $conn): int
 {
-    $raw_records = db_SelectActive($conn, RECORD);
+    $raw_records = db_SelectAll($conn, RECORD, []);
     return array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
-        $related_item = getItem($raw_record['item_id'], $conn);
+        $related_item = getItemById($raw_record['item_id'], $conn);
         $cost = $related_item['price'] * $raw_record['qty'];
         return $carry + $cost;
     }, 0);
