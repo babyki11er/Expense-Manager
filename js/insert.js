@@ -1,6 +1,7 @@
 let input_price_tag = document.getElementById('item_price');
 let input_name_tag = document.getElementById('item_name');
 let input_category_tag = document.getElementById('item_category');
+let item_id_param = document.getElementById('item_id');
 let date_tag = document.getElementById('date');
 
 let dom_dd = document.getElementById('dd');
@@ -18,9 +19,8 @@ if (_getSelectedDate() === null) {
 /* DOOM manipulation */
 function DOMSelectItem(item) {
     // input_name_tag.setAttribute('value', item.name);
-    let item_id_parameter = document.getElementById('item_id');
     // console.log(item);
-    item_id_parameter.setAttribute('value', item.id);
+    item_id_param.setAttribute('value', item.id);
     input_price_tag.setAttribute('value', item.price);
     input_category_tag.value = item['cat_id'];
 }
@@ -56,14 +56,11 @@ async function coffee(e) {
     for(let i = 0; i < suggestions.length; i++) {
         let suggestion = suggestions[i];
         if (inputValue == suggestion.value) {
-            console.log('coffee!')
             let item_id = suggestion.dataset.itemid;
             let item = await getItem(item_id);
-            console.log(item);
             DOMSelectItem(item);
-        } else {
-            let item_id_parameter = document.getElementById('item_id');
-            item_id_parameter.setAttribute('value', -1);
+            console.log(item);
+            console.log(item_id_param);
         }
     }
 }

@@ -40,7 +40,7 @@ $categories = listCategories($conn);
                 <span class=" input-group-text">
                     Price
                 </span>
-                <input class="form-control" type="number" name="item_price" id="item_price" required step="50" value="50">
+                <input class="form-control" type="number" name="item_price" id="item_price" required step="50">
                 <span class=" input-group-text">
                     Category
                 </span>

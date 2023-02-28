@@ -18,7 +18,7 @@ l 	attention after all the tasks complete
 [x]:	Archiving items, categories done.
 [%]:	Need implementing edit feature.
 		Want to organize the api end points as well!
-[l]:	allow to create a category that already exist but archived
+[x]:	allow to create a category that already exist but archived
 
 <20>
 	done editing item, still needs work for 
@@ -48,7 +48,7 @@ l 	attention after all the tasks complete
 	[x]:	error with get-one.api, and insert.php not selecting on choosing the item
 <26>
 	[X]:	convert form to grid system (UI)
-[ BUG ]:	add-api.php, creating a new item instance as you insert a new record
+[ xxx ]:	add-api.php, creating a new item instance as you insert a new record
 <27>
 
 Note:

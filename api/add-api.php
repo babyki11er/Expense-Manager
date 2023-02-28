@@ -118,7 +118,6 @@ function _add_api_record(mysqli $conn)
     }
     // do some validation
     if ($item_id == -1) {
-        // do some validation
         $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
     } else {
         $selected_item = getItemById($item_id, $conn);
@@ -126,12 +125,13 @@ function _add_api_record(mysqli $conn)
             $selected_item['name'] != $item_name ||
             $selected_item['price'] != $item_price ||
             $selected_item['cat_id'] != $item_cat_id
-        ) {
+            )
+        {
+            // if the item id not equal the request params
             $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
             noti("Item added because the selected one doesn't match with the input values");
             LogConsole(implode(',', getItemById($item_id, $conn)));
         }
-        // if the item id not equal the request params
     }
     // actual inserting data
     $id_added = addNewRecord($item_id, $qty, $date, $note, $conn);
