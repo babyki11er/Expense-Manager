@@ -21,7 +21,7 @@ function addIncome(int $amount, string $label, string $date, string $note, mysql
     }
 
     $income_to_add = _makeIncome($amount, $label, $date, $note);
-    return db_Insert($conn, INCOME, []);
+    return db_Insert($conn, INCOME, $income_to_add);
 }
 
 function _makeIncome(int $amount, string $label, string $date, string $note) : array
