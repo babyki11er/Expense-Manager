@@ -147,7 +147,7 @@ function _makeUpdateStatement(string $selected, array $key_value, int $id, array
     return $sql;
 }
 
-function _makeDeleteStatement(string $selected, int $id, array $where) : string
+function _makeDeleteStatement(string $selected, int $id, array $where=null) : string
 {
     $sql = "DELETE FROM $selected WHERE id=$id";
     if (!is_null($where)) {
