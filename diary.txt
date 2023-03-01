@@ -12,7 +12,6 @@ l 	attention after all the tasks complete
 	Analysing the code, I learned that it's easier to think the flow in terms of an execution stack.
 [%]:	add archive functions
 [x]:	add deleting record
-[l]:	refactor api end points
 
 <2023-02-16>
 [x]:	Archiving items, categories done.
@@ -31,13 +30,7 @@ l 	attention after all the tasks complete
 <21>
 	[x]:	update record
 	[X]:	show income in records.php
-	[ ]:	show archived resources, to unarchive
-	[ ]:	display unique item names, my approach will be item#1 item#2, etc
 	[X]:	show incomes on incomes.php and records.php
-	[ ]:	picture for the particular resource, will stand independent in its own table
-	[ ]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
-	[ ]:	show alerts after redirecting from api
-	[ ]:	convert javascript session script to PHP
 <25>
 	[ Refactoring ]
 	[x]:	makeResource
@@ -60,9 +53,20 @@ Change it later, but I need something that works first.
 <March>
 <1>
 
+Note:
+	learn about ?? operator, yeah, I am a dumb shit. I just don't feel like home yet.
 [ ]:	create function with db that checks if the inserted item already existed [ db_exist()]
 			(app currently insert a new item if the selected values don't match the existing ones)
+[ ]:	display unique item names, my approach will be item#1 item#2, etc
 
+
+[ future tasks ]
+	[ ]:	replace ternary opearator and isset, with ??
+	[ ]:	show archived resources, to unarchive
+	[ ]:	picture for the particular resource, will stand independent in its own table
+	[ ]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
+	[ ]:	show alerts after redirecting from api
+	[ ]:	convert javascript session script to PHP
 [ item.php ]
 	[ ]:	default category has to be None
 [ insert.php ]

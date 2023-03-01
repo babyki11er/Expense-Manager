@@ -21,7 +21,8 @@
 function listItems(mysqli $conn): array
 {
     $raw_items = db_SelectAll($conn, ITEM, ['status' => 'active']);
-    return array_map(function ($item) use ($conn) {
+    return is_null($raw_items) ? [] :
+    array_map(function ($item) use ($conn) {
         $item['cat_str'] = getCategoryName($item['cat_id'], $conn);
         return $item;
     }, $raw_items);
@@ -30,13 +31,14 @@ function listItems(mysqli $conn): array
 function getItemNames(mysqli $conn): array
 {
     $raw_item_names = db_SelectAll($conn, ITEM, ['status' => 'active'], 'name');
-    return $raw_item_names;
+    return is_null($raw_item_names) ? [] : $raw_item_names;
 }
 
 function getItemsByCategory(int $cat_id, mysqli $conn): array
 {
     $raw_items = db_SelectAll($conn, ITEM, ['cat_id' => $cat_id]);
-    return array_map(function ($item) use ($conn) {
+    return is_null($raw_items) ? [] :
+    array_map(function ($item) use ($conn) {
         $item['cat_str'] = getCategoryName($item['cat_id'], $conn);
         return $item;
     }, $raw_items);
@@ -52,9 +54,22 @@ function getItemById(int $id, mysqli $conn): array
     $raw = db_SelectOne($conn, ITEM, ['id' => $id]);
     if (is_null($raw)) {
         return [];
+    } else {
+        $raw['cat_str'] = getCategoryName($raw['cat_id'], $conn);
+        return $raw;
     }
-    $raw['cat_str'] = getCategoryName($raw['cat_id'], $conn);
-    return $raw;
+}
+
+function existItem(string $name, int $price, int $cat_id, mysqli $conn) : int
+{
+    $item_to_check = _makeItem($name, $price, $cat_id);
+    $item_to_check['status'] = 'active';
+    $fetched = db_SelectOne($conn, ITEM, $item_to_check, 'id');
+    if (is_null($fetched)) {
+        return NOT_EXIST;
+    } else {
+        return $fetched['id'];
+    }
 }
 
 function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
@@ -84,8 +99,7 @@ function _checkItem(int $id, mysqli $conn) : bool
 
 function archiveItem(int $id, mysqli $conn, bool $archived=true): int
 {
-    $id = db_Update($conn, ITEM, $id, ['status' => 'archived']);
-    return $id;
+    return db_Update($conn, ITEM, $id, ['status' => 'archived']);
     // do some validation, then db function
 }
 

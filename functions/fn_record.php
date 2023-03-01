@@ -28,7 +28,8 @@ function _makeRecord(int $item_id, int $qty, string $date, string $note) : array
 function getRecordsPublic(mysqli $conn): array
 {
     $raw_records = db_SelectAll($conn, RECORD, [], '*', 'date');
-    return array_map(function ($raw) use ($conn) {
+    return is_null($raw_records) ? [] :
+    array_map(function ($raw) use ($conn) {
         $record_public = $raw;
         $related_item_id = $raw['item_id'];
         $related_item = getItemById($related_item_id, $conn);
@@ -44,6 +45,9 @@ function getRecordsPublic(mysqli $conn): array
 function getRecord(mysqli $conn, int $id) : array 
 {
     $raw_record = db_SelectOne($conn, RECORD, ['id' => $id]);
+    if (is_null($raw_record)) {
+        return [];
+    }
     $related_item = getItemById($raw_record['item_id'], $conn);
     $raw_record['item_name'] = $related_item['name'];
     $raw_record['item_price'] = $related_item['price'];
@@ -61,11 +65,7 @@ function addNewRecord(int $item_id, int $qty, string $date, string $note, mysqli
     // do some validation based on record rules
     // $new_record = _makeRecord($item_id, $qty, $date, $note);
     $record_to_add = _makeRecord($item_id, $qty, $date, $note);
-    if (db_Insert($conn, RECORD, $record_to_add)) {
-        return mysqli_insert_id($conn);
-    } else {
-        return DB_ERROR;
-    }
+    return db_Insert($conn, RECORD, $record_to_add);
 }
 
 function updateRecord(int $id, int $item_id, int $qty, string $date, string $note, mysqli $conn): int
@@ -74,11 +74,7 @@ function updateRecord(int $id, int $item_id, int $qty, string $date, string $not
         return VALIDATE_ERROR;
     }
     $record_to_add = _makeRecord($item_id, $qty, $date, $note);
-    if (db_Update($conn, RECORD, $id, $record_to_add)) {
-        return $id;
-    } else {
-        return DB_ERROR;
-    }
+    return db_Update($conn, RECORD, $id, $record_to_add);
 }
 
 function _checkRecord(int $id, mysqli $conn) : bool
@@ -88,11 +84,7 @@ function _checkRecord(int $id, mysqli $conn) : bool
 
 function deleteRecord(int $id, mysqli $conn): int
 {
-    if (db_Delete($conn, RECORD, $id)) {
-        return $id;
-    } else {
-        return DB_ERROR;
-    }
+    return db_Delete($conn, RECORD, $id);
 }
 
 // function _validateRecord(int $id): bool
@@ -102,7 +94,9 @@ function deleteRecord(int $id, mysqli $conn): int
 function getTotalOutcome(mysqli $conn): int
 {
     $raw_records = db_SelectAll($conn, RECORD, []);
-    return array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
+    // dd($raw_records, true);
+    return is_null($raw_records) ? 0 :
+    array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
         $related_item = getItemById($raw_record['item_id'], $conn);
         $cost = $related_item['price'] * $raw_record['qty'];
         return $carry + $cost;

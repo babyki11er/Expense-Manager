@@ -100,7 +100,6 @@ function _update_api_record(mysqli $conn) : void
         // error("Plese, input all parameters!", 400, $keys);
     }
     $id = $_POST['id'];
-    $item_id = $_POST['item_id'];
     $qty = $_POST['qty'];
     $date = $_POST['date'];
     $note = $_POST['note'];
@@ -108,21 +107,10 @@ function _update_api_record(mysqli $conn) : void
     $item_price = $_POST['item_price'];
     $item_cat_id = $_POST['item_cat_id'];
     // case with newly created item
-    if ($item_id == -1) {
+    if (($id != existItem($item_name, $item_price, $item_cat_id, $conn))) {
         $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
-    } else {
-        $selected_item = getItemById($item_id, $conn);
-        if (
-            $selected_item['name'] != $item_name ||
-            $selected_item['price'] != $item_price ||
-            $selected_item['cat_id'] != $item_cat_id
-            )
-        {
-            // if the item id not equal the request params
-            $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
-            noti("Item added because the selected one doesn't match with the input values");
-            LogConsole(implode(',', getItemById($item_id, $conn)));
-        }
+        noti("Item added because the selected one doesn't match with the input values");
+        LogConsole(implode(',', getItemById($item_id, $conn)));
     }
 
     if (($id = updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {

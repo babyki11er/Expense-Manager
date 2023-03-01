@@ -61,13 +61,13 @@ function deleteIncome(int $id, mysqli $conn) : int
     }
 }
 
-function listIncomes(mysqli $conn) : array
+function listIncomes(mysqli $conn) : ?array
 {
     $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
     return $raw_incomes;
 }
 
-function getIncome(int $id, mysqli $conn) : array
+function getIncome(int $id, mysqli $conn) : ?array
 {
     return db_SelectOne($conn, INCOME, ['id' => $id]);
 }

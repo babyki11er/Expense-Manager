@@ -69,7 +69,7 @@ function redirect(string $php_file): void
 
 /* dev */
 
-function dd($data, $showType = false): void
+function dd($data, $showType = false, $die = true): void
 {
     echo "<pre style='background-color: #1d1d1d;color: #cdcdcd; padding: 20px; margin: 10px; border-radius: 10px; line-height: 1.2rem;'>";
     if ($showType) {
@@ -78,7 +78,9 @@ function dd($data, $showType = false): void
         print_r($data);
     }
     echo  "</pre>";
-    die();
+    if ($die) {
+        die();
+    }
 }
 
 function LogConsole(string $message): void

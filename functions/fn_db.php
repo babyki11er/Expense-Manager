@@ -30,16 +30,17 @@ function db_Insert(mysqli $conn, string $selected, array $key_value): int
     return VALIDATE_ERROR;
 }
 
-function db_SelectOne(mysqli $conn, string $selected, array $where, string $selector='*'): array
+function db_SelectOne(mysqli $conn, string $selected, array $where, string $selector='*'): ?array
 {
     $sql = _makeSelectStatement($selected, $where, $selector);
     return _fetchOne($conn, $sql);
 }
 
-function db_SelectAll(mysqli $conn, string $selected, array $where, string $selector='*', string $ordered_by = "id") : array 
+function db_SelectAll(mysqli $conn, string $selected, array $where, string $selector='*', string $ordered_by = "id") : ?array 
 {
     $sql = _makeSelectStatement($selected, $where, $selector, $ordered_by);
-    return _fetchAll($conn, $sql);
+    $fetched = _fetchAll($conn, $sql);
+    return $fetched;
 }
 
 function db_Update(mysqli $conn, string $selected, int $id, array $values, array $where=null): int
@@ -86,13 +87,14 @@ function _execQuery(mysqli $conn, string $sql, bool $close = true)
     return $query_result;
 }
 
-function _fetchOne(mysqli $conn, string $sql) 
+function _fetchOne(mysqli $conn, string $sql) : ?array
 {
     $result = _execQuery($conn, $sql);
-    return mysqli_fetch_assoc($result);
+    $fetched = mysqli_fetch_assoc($result);
+    return $fetched;
 }
 
-function _fetchAll(mysqli $conn, string $sql)
+function _fetchAll(mysqli $conn, string $sql) : ?array
 {
     $result = _execQuery($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);

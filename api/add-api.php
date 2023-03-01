@@ -39,7 +39,7 @@ function _add_api_category(mysqli $conn): void
         error("Category cannot be empty");
     }
 
-    if (( $id = categoryExists($cat_string, $conn)) >= 0) {
+    if (( $id = existCategory($cat_string, $conn)) >= 0) {
         $error_code = unarchiveCategory($id, $conn);
     } else {
         $error_code = addNewCategory($cat_string, $conn);

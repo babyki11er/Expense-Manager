@@ -36,10 +36,12 @@ $values = [
 	'date' => '2023-02-22'
 ];
 // db_Insert($conn, RECORD, $values);
-_makeInsertStatement(RECORD, $values);
-echo "<br>";
+// _makeInsertStatement(RECORD, $values);
+// echo "<br>";
 // _makeUpdateStatement(RECORD, $values, $_GET['id']);
-echo "<br>";
+// echo "<br>";
 // db_Update($conn, RECORD, $_GET['id'], $values);
-_makeSelectStatement(RECORD, ['archive' => 'active']);
+// _makeSelectStatement(RECORD, ['archive' => 'active']);
 // _makeDeleteStatement(RECORD, 20, ['state' => 33]);
+$id = existItem('shit', 200, 22, $conn);
+dd($id);
