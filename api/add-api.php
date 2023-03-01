@@ -117,6 +117,7 @@ function _add_api_record(mysqli $conn)
         // error("Invalid parameter values!\nMissing int value");
     }
     // do some validation
+    // case with newly created item
     if ($item_id == -1) {
         $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
     } else {

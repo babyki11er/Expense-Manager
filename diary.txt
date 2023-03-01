@@ -57,6 +57,12 @@ I believe code should be designed in a way it's easier to write, instead of focu
 you add extra complexity in making it more maintainable, and honestly, I still have no idea on standards, therefore, it's best to write it on my own way.
 Change it later, but I need something that works first.
 
+<March>
+<1>
+
+[ ]:	create function with db that checks if the inserted item already existed [ db_exist()]
+			(app currently insert a new item if the selected values don't match the existing ones)
+
 [ item.php ]
 	[ ]:	default category has to be None
 [ insert.php ]

@@ -93,19 +93,41 @@ function _update_api_record(mysqli $conn) : void
         !isset($_POST['item_id']) ||
         !isset($_POST['note']) ||
         !isset($_POST['qty']) ||
-        !isset($_POST['date'])
+        !isset($_POST['date']) ||
+        !isset($_POST['id'])
     ) {
         $keys = array_keys($_POST);
-        error("Plese, input all parameters!", 400, $keys);
+        // error("Plese, input all parameters!", 400, $keys);
     }
     $id = $_POST['id'];
     $item_id = $_POST['item_id'];
     $qty = $_POST['qty'];
     $date = $_POST['date'];
     $note = $_POST['note'];
+    $item_name = $_POST['item_name'];
+    $item_price = $_POST['item_price'];
+    $item_cat_id = $_POST['item_cat_id'];
+    // case with newly created item
+    if ($item_id == -1) {
+        $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
+    } else {
+        $selected_item = getItemById($item_id, $conn);
+        if (
+            $selected_item['name'] != $item_name ||
+            $selected_item['price'] != $item_price ||
+            $selected_item['cat_id'] != $item_cat_id
+            )
+        {
+            // if the item id not equal the request params
+            $item_id = addNewItem($item_name, $item_price, $item_cat_id, $conn);
+            noti("Item added because the selected one doesn't match with the input values");
+            LogConsole(implode(',', getItemById($item_id, $conn)));
+        }
+    }
+
     if (($id = updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {
         // apiResponse(getRecordsPublic($conn));
-        redirect('./item.php');
+        redirect('./records.php');
     } else if ($id === VALIDATE_ERROR) {
         error('Invalid api call', 404);
     } else if ($id === DB_ERROR) {

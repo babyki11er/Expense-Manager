@@ -21,6 +21,7 @@ $active_records = getRecordsPublic($conn);
         foreach ($active_records as $record) :
             $id = $record['id'];
             $del_url = "api/del-api.php?selected=record&del&id=$id";
+            $update_url = "insert.php?update&selected=record&id=$id";
         ?>
             <tr>
                 <td>
@@ -44,6 +45,9 @@ $active_records = getRecordsPublic($conn);
                 <td>
                     <a href="<?= $del_url; ?>" class=" btn btn-sm btn-danger">
                         Del
+                    </a>
+                    <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
+                        Update
                     </a>
                 </td>
             </tr>

@@ -38,6 +38,19 @@ function getRecordsPublic(mysqli $conn): array
         return $record_public;
     }, $raw_records);
     // db_SelectRecords(), then call other db functions to fetch for the view
+
+}
+
+function getRecord(mysqli $conn, int $id) : array 
+{
+    $raw_record = db_SelectOne($conn, RECORD, ['id' => $id]);
+    $related_item = getItemById($raw_record['item_id'], $conn);
+    $raw_record['item_name'] = $related_item['name'];
+    $raw_record['item_price'] = $related_item['price'];
+    $raw_record['cost'] = $related_item['price'] * $raw_record['qty'];
+    $raw_record['cat_str'] = $related_item['cat_str'];
+    $raw_record['cat_id'] = $related_item['cat_id'];
+    return $raw_record;
 }
 
 // add a new record, returns the id

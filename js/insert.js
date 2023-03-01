@@ -53,6 +53,7 @@ async function getItem(id) {
 async function coffee(e) {
     let suggestions = document.getElementById('suggestionMenu').options;
     let inputValue = e.target.value;
+    let found_match = false;
     for(let i = 0; i < suggestions.length; i++) {
         let suggestion = suggestions[i];
         if (inputValue == suggestion.value) {
@@ -60,9 +61,12 @@ async function coffee(e) {
             let item = await getItem(item_id);
             DOMSelectItem(item);
             console.log(item);
-            console.log(item_id_param);
-        }
+            found_match = true;
+            break;
+        } 
     }
+    if (!found_match)
+        item_id_param.setAttribute('value', item.id);
 }
 
 async function addAutocomplete() {
