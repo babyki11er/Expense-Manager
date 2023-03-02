@@ -75,7 +75,7 @@ function db_Delete(mysqli $conn, string $selected, int $id, array $where=null): 
 
 function _execQuery(mysqli $conn, string $sql, bool $close = true)
 {
-    // _html_log($sql);
+    _html_log($sql);
     $query_result = mysqli_query($conn, $sql);
     if ($query_result === false) {
         noti("MySql Error: $sql");
@@ -120,9 +120,9 @@ function _makeSelectStatement(string $selected, array $where, string $selector="
         $sql .= " WHERE ";
         foreach($where as $key => $value) {
             $value = _sqlValue($value);
-            $sql .= " $key=$value,";
+            $sql .= " $key=$value AND";
         }
-        $sql = rtrim($sql, ",");
+        $sql = rtrim($sql, "AND");
     }
 
     $sql .= " ORDER BY $order_by;";
