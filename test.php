@@ -43,5 +43,12 @@ $values = [
 // db_Update($conn, RECORD, $_GET['id'], $values);
 // _makeSelectStatement(RECORD, ['archive' => 'active']);
 // _makeDeleteStatement(RECORD, 20, ['state' => 33]);
-$id = existItem('shit', 200, 22, $conn);
-dd($id);
+// $id = existItem('shit', 200, 22, $conn);
+// dd($id);
+echo display_money(2000000);
+echo "<br>";
+echo display_money(200000);
+echo "<br>";
+echo display_money(200);
+echo "<br>";
+echo display_money(50);

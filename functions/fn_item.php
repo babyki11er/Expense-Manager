@@ -20,7 +20,7 @@
 // returns items to display
 function listItems(mysqli $conn): array
 {
-    $raw_items = db_SelectAll($conn, ITEM, ['status' => 'active']);
+    $raw_items = db_SelectAll($conn, ITEM, ['status' => 'active'], '*', 'name');
     return is_null($raw_items) ? [] :
     array_map(function ($item) use ($conn) {
         $item['cat_str'] = getCategoryName($item['cat_id'], $conn);

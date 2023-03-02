@@ -6,9 +6,7 @@ $categories = listCategories($conn);
 $update = False;
 $form_action_link = './api/add-api.php';
 $form_label = "New Category";
-$button_label = "Add";
-if (isset($_GET['update']))
-{
+if (isset($_GET['update'])) {
     $id = $_GET['id'];
     $categroy_to_update = getCategoryName($id, $conn);
     if (is_null($categroy_to_update)) {
@@ -25,9 +23,6 @@ if (isset($_GET['update']))
 <!-- ADD NEW CATEGORY FORM -->
 <div class=" w-50">
     <form action="<?= $form_action_link; ?>" method="post" class=" p-4">
-    <?php if ($update): ?>
-        <input type="hidden" name="id" value="<?= $id ?>">
-    <?php endif; ?>
         <div class="mb-2">
             <label for="" class=" form-label">
                 <?= $form_label; ?>
@@ -35,9 +30,16 @@ if (isset($_GET['update']))
         </div>
         <div class=" input-group" id="dd">
             <input name="value" type="text" value="<?= $categroy_to_update; ?>" placeholder="Enter new category" class=" form-control" autofocus />
-            <button class="btn btn-success col-4">
-                <?= $button_label; ?>
-            </button>
+            <?php if ($update) : ?>
+                <input type="hidden" name="id" value="<?= $id ?>">
+                <button class="btn btn-primary col-4">
+                    Update
+                </button>
+            <?php else : ?>
+                <button class="btn btn-dark col-4">
+                    Add
+                </button>
+            <?php endif; ?>
         </div>
         <input type="hidden" name="selected" value="category">
     </form>

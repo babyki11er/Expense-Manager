@@ -8,13 +8,14 @@ $active_records = getRecordsPublic($conn);
 
 <table class=" table table-success table-bordered border-2 mt-3 container">
     <thead>
-        <th>Date</th>
+        <th>#</th>
         <th>Item</th>
         <th>Qty</th>
         <th>Cost</th>
         <th>Category</th>
         <th>Note</th>
         <th>Del/Edit</th>
+        <th>Date</th>
     </thead>
     <tbody>
         <?php
@@ -25,7 +26,7 @@ $active_records = getRecordsPublic($conn);
         ?>
             <tr>
                 <td>
-                    <?= $record['date'] ?>
+                    <?= $record['id'] ?>
                 </td>
                 <td>
                     <?= $record['item_name'] ?>
@@ -34,7 +35,9 @@ $active_records = getRecordsPublic($conn);
                     <?= $record['qty'] ?>
                 </td>
                 <td>
-                    <?= $record['cost'] ?>
+                    <div>
+                        <?= display_money($record['cost']) ?>
+                    </div>
                 </td>
                 <td>
                     <?= $record['cat_str'] ?>
@@ -43,12 +46,15 @@ $active_records = getRecordsPublic($conn);
                     <?= $record['note'] ?>
                 </td>
                 <td>
-                    <a href="<?= $del_url; ?>" class=" btn btn-sm btn-danger">
-                        Del
-                    </a>
                     <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
                         Update
                     </a>
+                    <a href="<?= $del_url; ?>" class=" btn btn-sm btn-danger">
+                        Del
+                    </a>
+                </td>
+                <td>
+                    <?= $record['date'] ?>
                 </td>
             </tr>
         <?php endforeach; ?>

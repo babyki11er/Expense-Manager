@@ -75,7 +75,7 @@ function db_Delete(mysqli $conn, string $selected, int $id, array $where=null): 
 
 function _execQuery(mysqli $conn, string $sql, bool $close = true)
 {
-    _html_log($sql);
+    // _html_log($sql);
     $query_result = mysqli_query($conn, $sql);
     if ($query_result === false) {
         noti("MySql Error: $sql");

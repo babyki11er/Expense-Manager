@@ -44,6 +44,11 @@ function _getColumnNameFromAttribute(string $selected): string
     }
 }
 
+function display_money(int $money) : string
+{
+    return number_format($money);
+}
+
 function _api_header(): void
 {
     header("Content-type: application/json");

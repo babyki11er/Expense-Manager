@@ -4,6 +4,8 @@ $conn = connectMysql();
 $link_form = './api/add-api.php';
 $form_label = 'Add Item';
 $update = false;
+$item_category_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
+
 if (isset($_GET['update'])) {
     $id_to_update = $_GET['id'];
     $item_to_update = getItemById($id_to_update, $conn);
@@ -14,7 +16,7 @@ if (isset($_GET['update'])) {
         $link_form = './api/update-api.php';
         $item_name = $item_to_update['name'];
         $item_price = $item_to_update['price'];
-        $item_category = $item_to_update['cat_id'];
+        $item_category_id = $item_to_update['cat_id'];
         $form_label = 'Update Item';
     }
 }
@@ -41,7 +43,7 @@ if (isset($_GET['update'])) {
                     $id = $category['id'];
                     $cat = $category['name'];
                 ?>
-                    <option value="<?= $id ?>" <?php if ($id === $item_category) echo "selected" ?>>
+                    <option value="<?= $id ?>" <?php if ($id === $item_category_id) echo "selected" ?>>
                         <?= $cat ?>
                     </option>
                 <?php endforeach ?>
@@ -58,7 +60,7 @@ if (isset($_GET['update'])) {
                 Update
             </button>
         <?php else : ?>
-            <button class=" btn btn-success form-control">
+            <button class=" btn btn-dark form-control">
                 Add
             </button>
         <?php endif; ?>
@@ -87,16 +89,14 @@ $active_items = listItems($conn);
                 $item_category = $item['cat_str'];
                 $update_link = "./item.php?update&id=$id";
                 $archive_link = "./api/archive-api.php?selected=item&id=$id&del";
-                $wipe_link = "wipe-api.php?selected=item&id=$id&wipe";
                 ?>
                 <tr>
                     <td><?= $item_name; ?></td>
-                    <td><?= $item_price; ?></td>
+                    <td><?= display_money($item_price); ?></td>
                     <td><?= $item_category; ?></td>
                     <td>
                         <a href="<?= $update_link; ?>" class=" btn btn-primary">Update</a>
                         <a href="<?= $archive_link; ?>" class=" btn btn-warning">Archive</a>
-                        <a href="#" class=" btn btn-danger">Wipe Related Data</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

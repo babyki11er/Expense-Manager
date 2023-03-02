@@ -4,6 +4,7 @@ $conn = connectMysql();
 $incomes = listIncomes($conn);
 $update = false;
 $form_link = './api/add-api.php';
+$income_amount = 500;
 
 if (isset($_GET['update'])) {
     $id = $_GET['id'];
@@ -33,7 +34,7 @@ if (isset($_GET['update'])) {
         </div>
 
         <div class="input-group">
-            <input name="amount" type="number" id="" placeholder="Enter the amount" value="<?= $income_amount ?>" class=" form-control" />
+            <input name="amount" type="number" id="" placeholder="Enter the amount" value="<?= $income_amount ?>" class=" form-control" step="50" />
             <input name="label" type="text" id="" placeholder="Label" value="<?= $income_label ?>" class=" form-control" />
         </div>
 
@@ -47,7 +48,7 @@ if (isset($_GET['update'])) {
                 Update
             </button>
         <?php else: ?>
-            <button class=" btn btn-success w-100" name="income">
+            <button class=" btn btn-dark w-100" name="income">
                 Submit
             </button>
         <?php endif; ?>

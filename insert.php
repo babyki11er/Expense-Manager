@@ -16,7 +16,7 @@ $note = '';
 $item_id = -1;
 $item_name = '';
 $item_price = 50;
-$cat_id = 0;
+$cat_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
 $update = false;
 $form_link = "./api/add-api.php";
 
@@ -73,7 +73,8 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
                 </span>
                 <select name="item_cat_id" id="item_category" class=" form-select" value="<?= $cat_string ?>">
                     <?php foreach ($categories as $category) : ?>
-                        <option value="<?= $category['id']; ?>" <?= ($cat_id==$category['id']) ? "selected":"" ?>>
+                        <option value="<?= $category['id']; ?>"
+                        <?= ($cat_id==$category['id']) ? "selected":"" ?>>
                             <?= ucfirst($category['name']); ?>
                         </option>
                     <?php endforeach; ?>
@@ -94,7 +95,7 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
                 Update
             </button>
         <?php else : ?>
-            <button class=" btn btn-success w-100" name="coffee">
+            <button class=" btn btn-dark w-100" name="coffee">
                 Submit
             </button>
         <?php endif; ?>
