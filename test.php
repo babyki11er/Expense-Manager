@@ -45,10 +45,29 @@ $values = [
 // _makeDeleteStatement(RECORD, 20, ['state' => 33]);
 // $id = existItem('shit', 200, 22, $conn);
 // dd($id);
-echo display_money(2000000);
-echo "<br>";
-echo display_money(200000);
-echo "<br>";
-echo display_money(200);
-echo "<br>";
-echo display_money(50);
+// echo display_money(2000000);
+// echo "<br>";
+// echo display_money(200000);
+// echo "<br>";
+// echo display_money(200);
+// echo "<br>";
+// echo display_money(50);
+
+// function drive($conn) {
+// 	$items = db_SelectAll($conn, ITEM, ['status'=>'active'], '*', 'name');
+// 	$item_names = array_column($items, 'name');
+// 	$counts = array_count_values($item_names);
+// 	$counts_duplicate = array_filter($counts, function($val) {
+// 		return $val > 1;
+// 	});
+// 	$duplicate_names = array_keys($counts_duplicate);
+// 	dd($duplicate_names);
+// }
+
+// drive($conn);
+
+// $items = db_SelectAll($conn, ITEM, ['status' => 'active'], '*',  'name');
+// dd(get_duplicate($items, 'name'));
+// dd(listItems($conn));
+$s = 'heloisdlfkdsldklooo ';
+echo $s['9'];

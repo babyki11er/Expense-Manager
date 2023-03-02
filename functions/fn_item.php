@@ -21,17 +21,16 @@
 function listItems(mysqli $conn): array
 {
     $raw_items = db_SelectAll($conn, ITEM, ['status' => 'active'], '*', 'name');
-    return is_null($raw_items) ? [] :
-    array_map(function ($item) use ($conn) {
+    $duplicate_item_names = get_duplicates($raw_items, 'name');
+    $soft_items = array_map(function ($item) use ($conn, $duplicate_item_names) {
         $item['cat_str'] = getCategoryName($item['cat_id'], $conn);
+        if (in_array($item['name'], $duplicate_item_names)) {
+            $item['duplicate'] = true;
+        }
+
         return $item;
     }, $raw_items);
-}
-
-function getItemNames(mysqli $conn): array
-{
-    $raw_item_names = db_SelectAll($conn, ITEM, ['status' => 'active'], 'name');
-    return is_null($raw_item_names) ? [] : $raw_item_names;
+    return is_null($raw_items) ? [] : $soft_items;
 }
 
 function getItemsByCategory(int $cat_id, mysqli $conn): array

@@ -18,6 +18,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_archive.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_db.php";
 
 /* utilities */
+/*
+    general functions don't have Camel Casing
+*/
+
 function error(string $message, int $status_code = 400, array $debug = null): void
 {
     if ($debug) {
@@ -31,22 +35,32 @@ function error(string $message, int $status_code = 400, array $debug = null): vo
     die(json_encode($array));
 }
 
-function _getColumnNameFromAttribute(string $selected): string
+/*
+    for getting duplicates, we count the occurence of each value, then, filter it, and return the keys, easy task, just a matter of finding which functions to call
+*/
+function get_duplicates(array $arr, string $col) : array
 {
-    if ($selected === 'item') {
-        return $selected;
-    }
-    if ($selected === 'category') {
-        return 'cat';
-    }
-    if ($selected === 'record') {
-        return 'rcrd';
-    }
+    $values = array_column($arr, $col);
+    $counts = array_count_values($values);
+    $duplicate_counts = array_filter($counts, function($val) {
+        return $val > 1;
+    });
+    $duplicates = array_keys($duplicate_counts);
+    return $duplicates;
 }
 
-function display_money(int $money) : string
+function displayMoney(int $money) : string
 {
     return number_format($money);
+}
+
+function displayItem(array $item) : string
+{
+    $r_item = $item['name'];
+    if ($item['duplicate']) {
+        $r_item .= ' : ' . displayMoney($item['price']);
+    }
+    return $r_item;
 }
 
 function _api_header(): void

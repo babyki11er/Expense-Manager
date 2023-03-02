@@ -57,14 +57,22 @@ Note:
 	learn about ?? operator, yeah, I am a dumb shit. I just don't feel like home yet.
 [x]:	create function with db that checks if the inserted item already existed [ db_exist()]
 			(app currently insert a new item if the selected values don't match the existing ones)
-[l]:	display unique item names, my approach will be item#1 item#2, etc
+[x]:	display unique item names, my approach will be item#1 item#2, etc
+		2023-03-03 00:51:27
 
 <2>
+[ bug ]:	qty not setting on update record
 [ ]:	select statement, don't insert order by, by default
+[ ]:	remove unused functions
+[ ]:	take care of code using sql directly
+Note:
+	learn that foreach only have read access, copies the value instead of passing the reference
+	learn about PHP doing type case fucking shit up, mistaking a string as an array, it works because the key was converted to int, which works as an index to the string, damn ..., me and PHP are like twins
 
 
 [ future tasks ]
 	[ ]:	replace ternary opearator and isset, with ??
+	[ ]:	show function return type in suggestion
 	[ ]:	show archived resources, to unarchive
 	[ ]:	picture for the particular resource, will stand independent in its own table
 	[x]:	want the update checkbox to be selected default, and stuffs i don't know how to describe

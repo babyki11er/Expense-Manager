@@ -36,7 +36,7 @@ $active_records = getRecordsPublic($conn);
                 </td>
                 <td>
                     <div>
-                        <?= display_money($record['cost']) ?>
+                        <?= displayMoney($record['cost']) ?>
                     </div>
                 </td>
                 <td>

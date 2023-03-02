@@ -4,7 +4,7 @@ $conn = connectMysql();
 $total_income = getTotalIncome($conn);
 $total_outcome = getTotalOutcome($conn);
 $remaining_amount = $total_income - $total_outcome;
-$display = display_money($remaining_amount);
+$display = displayMoney($remaining_amount);
 
 /*
 */

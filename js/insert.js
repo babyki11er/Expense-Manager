@@ -54,6 +54,7 @@ async function coffee(e) {
     let suggestions = document.getElementById('suggestionMenu').options;
     let inputValue = e.target.value;
     let found_match = false;
+    // yellow, i believe i can refactor this code using an array instead of looping every time something is input
     for(let i = 0; i < suggestions.length; i++) {
         let suggestion = suggestions[i];
         if (inputValue == suggestion.value) {
@@ -62,11 +63,12 @@ async function coffee(e) {
             DOMSelectItem(item);
             console.log(item);
             found_match = true;
+            e.target.value = item.name;
             break;
         } 
     }
     if (!found_match)
-        item_id_param.setAttribute('value', item.id);
+        item_id_param.setAttribute('value', -1);
 }
 
 async function addAutocomplete() {

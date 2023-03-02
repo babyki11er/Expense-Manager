@@ -84,15 +84,15 @@ $active_items = listItems($conn);
             <?php foreach ($active_items as $item) : ?>
                 <?php
                 $id = $item['id'];
-                $item_name = $item['name'];
+                $item_name_diplay = displayItem($item);
                 $item_price = $item['price'];
                 $item_category = $item['cat_str'];
                 $update_link = "./item.php?update&id=$id";
                 $archive_link = "./api/archive-api.php?selected=item&id=$id&del";
                 ?>
                 <tr>
-                    <td><?= $item_name; ?></td>
-                    <td><?= display_money($item_price); ?></td>
+                    <td><?= $item_name_diplay; ?></td>
+                    <td><?= displayMoney($item_price); ?></td>
                     <td><?= $item_category; ?></td>
                     <td>
                         <a href="<?= $update_link; ?>" class=" btn btn-primary">Update</a>

@@ -53,7 +53,9 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
                 <input list="suggestionMenu" type="text" name="item_name" id="item_name" class=" form-control" required autocomplete="off" value="<?= $item_name ?>">
                 <datalist id="suggestionMenu">
                     <?php foreach ($items as $item) : ?>
-                        <option value="<?= $item['name'] ?>" data-itemId="<?= $item['id'] ?>" class="suggestion"></option>
+                        <option value="<?= displayItem($item) ?>" data-itemId="<?= $item['id'] ?>" class="suggestion">
+                            <?= displayItem($item) ?>
+                        </option>
                     <?php endforeach; ?>
                 </datalist>
                 <span class=" input-group-text">Qty:</span>
@@ -73,8 +75,7 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
                 </span>
                 <select name="item_cat_id" id="item_category" class=" form-select" value="<?= $cat_string ?>">
                     <?php foreach ($categories as $category) : ?>
-                        <option value="<?= $category['id']; ?>"
-                        <?= ($cat_id==$category['id']) ? "selected":"" ?>>
+                        <option value="<?= $category['id']; ?>" <?= ($cat_id == $category['id']) ? "selected" : "" ?>>
                             <?= ucfirst($category['name']); ?>
                         </option>
                     <?php endforeach; ?>
