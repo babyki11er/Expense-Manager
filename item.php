@@ -70,6 +70,12 @@ if (isset($_GET['update'])) {
 
 <!-- DISPLAY ITEMS -->
 <?php
+// setting the variable to use for ordering the records
+if (isset($_GET['order'])) {
+    setOrder(ITEM, $_GET['order']);
+}
+
+// yellow, i am not sure if i could avoid having to pass the order for every call, since the value is stored in session, why can't i just directly get the value from the list function?
 $active_items = listItems($conn);
 ?>
 <div class=" m-4 table-responsive">

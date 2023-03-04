@@ -39,6 +39,7 @@ function db_SelectOne(mysqli $conn, string $selected, array $where, string $sele
 function db_SelectAll(mysqli $conn, string $selected, array $where, string $selector='*', string $ordered_by = "id") : ?array 
 {
     $sql = _makeSelectStatement($selected, $where, $selector, $ordered_by);
+    // _html_log($sql);
     $fetched = _fetchAll($conn, $sql);
     return $fetched;
 }

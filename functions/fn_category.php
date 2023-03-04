@@ -12,7 +12,8 @@ error_reporting(1);
 function listCategories(mysqli $conn): array
 // returns categories available to use in coming items
 {
-    $raw_categories = db_SelectAll($conn, CATEGORY, ['status' => 'active'], '*', 'name');
+    $order = getOrder(CATEGORY, 'name');
+    $raw_categories = db_SelectAll($conn, CATEGORY, ['status' => 'active'], '*', $order);
     return is_null($raw_categories) ? [] : $raw_categories;
 }
 

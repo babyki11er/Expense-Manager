@@ -1,6 +1,11 @@
 <?php require_once "./header.php" ?>
 
 <?php
+
+if (isset($_GET['order'])) {
+    setOrder(CATEGORY, $_GET['order']);
+}
+
 $conn = connectMysql();
 $categories = listCategories($conn);
 $update = False;
@@ -18,7 +23,6 @@ if (isset($_GET['update'])) {
         $button_label = "Update";
     }
 }
-
 ?>
 <!-- ADD NEW CATEGORY FORM -->
 <div class=" w-50">

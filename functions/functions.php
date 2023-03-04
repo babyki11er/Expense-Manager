@@ -86,6 +86,40 @@ function redirect(string $php_file): void
     die();
 }
 
+// proud of this 2 functions, very neat i think
+function getOrder(string $selected, string $backup) : string
+{
+    if (in_array($selected, VALID_SELECTORS)) {
+        $key = "order-$selected";
+        return _ssGet($key, $backup);
+    }
+    return $backup;
+}
+
+function setOrder(string $selected, string $val) : void
+{
+    $validOrderValues = [
+        CATEGORY => ['id', 'name'],
+        ITEM => ['id', 'name', 'price', 'cat_id'],
+        RECORD => ['id', 'date']
+    ];
+    if (in_array($val, $validOrderValues[$selected])) {
+        $key = "order-$selected";
+        _ssSet($key, $val);
+    }
+}
+
+function _ssGet(string $key, string $default) : string
+{
+    $val = $_SESSION[$key] ?? $default;
+    return $val;
+}
+
+function _ssSet(string $key, string $val) : void
+{
+    $_SESSION[$key] = $val;
+}
+
 /* dev */
 
 function dd($data, $showType = false, $die = true): void

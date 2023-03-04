@@ -10,7 +10,6 @@ require_once "./header.php";
 $conn = connectMysql();
 $items = listItems($conn);
 $categories = listCategories($conn);
-$date = date('Y-m-d');
 $qty = 1;
 $note = '';
 $item_id = -1;
@@ -20,6 +19,8 @@ $cat_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
 $update = false;
 $form_link = "./api/add-api.php";
 
+$date = _ssGet('insert-date', date('Y-m-d'));
+
 if (isset($_GET['update']) && isset($_GET['id'])) {
     $id = $_GET['id'];
     $record_to_update = getRecord($conn, $id);
@@ -27,6 +28,7 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
         $update = true;
         $note = $record_to_update['note'];
         $date = $record_to_update['date'];
+        $qty = $record_to_update['qty'];
         $item_id = $record_to_update['item_id'];
         $item_name = $record_to_update['item_name'];
         $item_price = $record_to_update['item_price'];

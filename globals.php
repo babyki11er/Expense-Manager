@@ -10,3 +10,5 @@ const DELETED = 'dracula';
 const VALID_SELECTORS = [CATEGORY, ITEM, RECORD, INCOME];
 const VALIDATE_ERROR = -3;
 const DB_ERROR = -1;
+
+session_start();

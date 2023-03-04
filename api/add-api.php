@@ -139,6 +139,7 @@ function _add_api_record(mysqli $conn)
     if ($id_added === -1) {
         error("Error addding your record", 400, $_POST);
     } else {
+        _ssSet('insert-date', $date);
         redirect("./insert.php");
     }
 }

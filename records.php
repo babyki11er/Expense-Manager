@@ -3,7 +3,13 @@
 
 <?php
 $conn = connectMysql();
-$active_records = getRecordsPublic($conn);
+// setting the variable to use for ordering the records
+if (isset($_GET['order'])) {
+    setOrder(RECORD, $_GET['order']);
+}
+$order = getOrder(RECORD, 'date');
+
+$active_records = getRecordsPublic($conn, $order);
 ?>
 
 <table class=" table table-success table-bordered border-2 mt-3 container">

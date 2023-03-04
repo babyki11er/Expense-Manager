@@ -25,9 +25,9 @@ function _makeRecord(int $item_id, int $qty, string $date, string $note) : array
     ];
 }
 
-function getRecordsPublic(mysqli $conn): array
+function getRecordsPublic(mysqli $conn, string $order): array
 {
-    $raw_records = db_SelectAll($conn, RECORD, [], '*', 'date');
+    $raw_records = db_SelectAll($conn, RECORD, [], '*', $order);
     return is_null($raw_records) ? [] :
     array_map(function ($raw) use ($conn) {
         $record_public = $raw;

@@ -61,17 +61,23 @@ Note:
 		2023-03-03 00:51:27
 
 <2>
-[ bug ]:	qty not setting on update record
+[ fix ]:	qty and date not setting on update record
 [ ]:	select statement, don't insert order by, by default
 [ ]:	remove unused functions
 [ ]:	take care of code using sql directly
 Note:
 	learn that foreach only have read access, copies the value instead of passing the reference
 	learn about PHP doing type case fucking shit up, mistaking a string as an array, it works because the key was converted to int, which works as an index to the string, damn ..., me and PHP are like twins
+<4>
+[ D ]:	remember the order that is previously sorted, by using session variables, says we ordered the records using id, then update a record, when redirected to the records page, i want the records to be sorted by id that has been chosen previously, instead of date chosen by default
+Note:
+	learn that session_start stores the value on the server and send the cookies to the browser that would be like an index to look for the value, totally different from javascript sessionStorage
+	associative array > switch > if/else
 
 
 [ future tasks ]
 	[ ]:	replace ternary opearator and isset, with ??
+	[ ]:	item should not be inserted again in updating record.
 	[ ]:	show function return type in suggestion
 	[ ]:	show archived resources, to unarchive
 	[ ]:	picture for the particular resource, will stand independent in its own table
@@ -102,6 +108,28 @@ insert.php
 records.php
 			sort by item, cost, category
 			filter by each of them
+			make item clickable and redirect to update page
 
+<Features>
+[ ]: Display record sort by date on default
+[ ]: insert multiple items
+[ ]: Add note on items, like warnning, and display that when adding that
+[ ]: Adding a new version of an item
+        change the older item name to '$name-old9' to '$name-old2'
+[ ]: Autosuggest item
+[ ]: Add balance
+[ ]: Brief analysis
+
+<One Time Purchase>
+[ ]: Insert One Time Purchase for buying in the future, set the stage as pending, add the deadline, and remind when the date reaches
+
+<Outcome>
+[ ]: Create type from each outcome and suggest it as they type
+<Tags>
+[ ]: Create tags, independent selecteds, autosuggest, freely usable
+
+<Professional>
+[ ]: Analyse the data using percetage by day, category, item. top 10 biggest outcomes, 10 most bought item
+[ ]: Export data to JSON format and others
 <Unknown Future>
 [ ]:	globals.php, create table, insert certian values

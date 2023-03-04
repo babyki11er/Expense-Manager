@@ -5,44 +5,8 @@ let item_id_param = document.getElementById('item_id');
 let date_tag = document.getElementById('date');
 
 let dom_dd = document.getElementById('dd');
-/*
-    SessionStorage:
-        today:  (to remember what the user has previously selected)
-*/
+addAutocomplete();
 
-if (_getSelectedDate() === null) {
-    _setSelectedDate(date_tag.value);
-} else {
-    date_tag.value = _getSelectedDate();
-}
-
-/* DOOM manipulation */
-function DOMSelectItem(item) {
-    // input_name_tag.setAttribute('value', item.name);
-    // console.log(item);
-    item_id_param.setAttribute('value', item.id);
-    input_price_tag.setAttribute('value', item.price);
-    input_category_tag.value = item['cat_id'];
-}
-
-date_tag.addEventListener('change', function (e) {
-    updateDate(e.target.value);
-}) 
-
-/* sessionStorage getter and setter */
-function _getSelectedDate() {
-    return sessionStorage.getItem('today');
-}
-
-function _setSelectedDate(chosen_date) {
-    sessionStorage.setItem('today', chosen_date);
-}
-
-function updateDate() {
-    if (_getSelectedDate() !== date_tag.value) {
-        _setSelectedDate(date_tag.value);
-    }
-}
 async function getItem(id) {
     let url = "http://localhost:8080/api/get-one-api.php?selected=item&id=" + id;
     let myObject = await fetch(url);
@@ -74,7 +38,44 @@ async function coffee(e) {
 async function addAutocomplete() {
     input_name_tag.addEventListener('input', coffee)
 }
-addAutocomplete();
+
+/* DOOM manipulation */
+function DOMSelectItem(item) {
+    // input_name_tag.setAttribute('value', item.name);
+    // console.log(item);
+    item_id_param.setAttribute('value', item.id);
+    input_price_tag.setAttribute('value', item.price);
+    input_category_tag.value = item['cat_id'];
+}
+/*
+    SessionStorage:
+    today:  (to remember what the user has previously selected)
+*/
+
+// if (_getSelectedDate() === null) {
+//     _setSelectedDate(date_tag.value);
+// } else {
+//     date_tag.value = _getSelectedDate();
+// }
+
+// date_tag.addEventListener('change', function (e) {
+//     updateDate(e.target.value);
+// }) 
+
+/* sessionStorage getter and setter */
+// function _getSelectedDate() {
+//     return sessionStorage.getItem('today');
+// }
+
+// function _setSelectedDate(chosen_date) {
+//     sessionStorage.setItem('today', chosen_date);
+// }
+
+// function updateDate() {
+//     if (_getSelectedDate() !== date_tag.value) {
+//         _setSelectedDate(date_tag.value);
+//     }
+// }
 
 
 // async function getItems() {
