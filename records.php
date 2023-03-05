@@ -3,13 +3,11 @@
 
 <?php
 $conn = connectMysql();
-// setting the variable to use for ordering the records
 if (isset($_GET['order'])) {
     setOrder(RECORD, $_GET['order']);
 }
-$order = getOrder(RECORD, 'date');
 
-$active_records = getRecordsPublic($conn, $order);
+$active_records = listRecords($conn);
 ?>
 
 <table class=" table table-success table-bordered border-2 mt-3 container">
@@ -19,8 +17,16 @@ $active_records = getRecordsPublic($conn, $order);
                 #
             </a>
         </th>
-        <th>Item</th>
-        <th>Qty</th>
+        <th>
+            <a href="?order=item_id">
+                Item
+            </a>
+        </th>
+        <th>
+            <a href="?order=qty">
+                Qty
+            </a>
+        </th>
         <th>Cost</th>
         <th>Category</th>
         <th>

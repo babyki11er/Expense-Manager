@@ -1,20 +1,12 @@
 <?php
 /*
     Item:
-
         id      int
         name    string
         price   int
         cat_id  int
+        [ generated ]
         cat_str string
-
-
-
-    Interface:
-        getItemsPublic()    => item arrays, with category name for showing
-        getItem($id)        => item array, no cat_str
-        addNewItem($name, $price, $cat_id)  => new added id
-        deleteItem($id)     => boolean on success
 */
 
 // returns items to display
@@ -45,11 +37,6 @@ function getItemsByCategory(int $cat_id, mysqli $conn): array
         return $item;
     }, $raw_items);
 }
-
-// function getItemsByCatId(int $id): array
-// {
-//     // returns array of id, not item array
-// }
 
 function getItemById(int $id, mysqli $conn): array
 {

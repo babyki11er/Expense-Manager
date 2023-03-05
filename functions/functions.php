@@ -1,39 +1,11 @@
 <?php
 
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/globals.php";
-
-// $valid_selecteds = ['item', 'category', 'record'];
-/* data structure */
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_category.php";
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_item.php";
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_record.php";
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_income.php";
-
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_archive.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_db.php";
-
-/* utilities */
-/*
-    general functions don't have Camel Casing
-*/
-
-function error(string $message, int $status_code = 400, array $debug = null): void
-{
-    if ($debug) {
-        $array = $debug;
-    } else {
-        $array = [];
-    }
-    $array['error_message'] = $message;
-    _api_header();
-    http_response_code($status_code);
-    die(json_encode($array));
-}
 
 /*
     for getting duplicates, we count the occurence of each value, then, filter it, and return the keys, easy task, just a matter of finding which functions to call
@@ -49,6 +21,29 @@ function get_duplicates(array $arr, string $col) : array
     return $duplicates;
 }
 
+// proud of this 2 functions, very neat i think
+function getOrder(string $selected, string $backup) : string
+{
+    if (in_array($selected, VALID_SELECTORS)) {
+        $key = "order-$selected";
+        return _ssGet($key, $backup);
+    }
+    return $backup;
+}
+
+function setOrder(string $selected, string $val) : void
+{
+    $validOrderValues = [
+        CATEGORY => ['id', 'name'],
+        ITEM => ['id', 'name', 'price', 'cat_id'],
+        RECORD => ['id', 'date', 'item_id', 'qty']
+    ];
+    if (in_array($val, $validOrderValues[$selected])) {
+        $key = "order-$selected";
+        _ssSet($key, $val);
+    }
+}
+
 function displayMoney(int $money) : string
 {
     return number_format($money);
@@ -61,6 +56,49 @@ function displayItem(array $item) : string
         $r_item .= ' : ' . displayMoney($item['price']);
     }
     return $r_item;
+}
+
+/* utilities */
+/*
+    general functions don't have Camel Casing
+*/
+
+function apiResponse(array $arr): void
+{
+    _api_header();
+    die(json_encode($arr));
+}
+
+
+function redirect(string $php_file): void
+{
+    header("Location: /$php_file");
+    die();
+}
+
+function _ssGet(string $key, string $default) : string
+{
+    $val = $_SESSION[$key] ?? $default;
+    return $val;
+}
+
+function _ssSet(string $key, string $val) : void
+{
+    $_SESSION[$key] = $val;
+}
+
+
+function error(string $message, int $status_code = 400, array $debug = null): void
+{
+    if ($debug) {
+        $array = $debug;
+    } else {
+        $array = [];
+    }
+    $array['error_message'] = $message;
+    _api_header();
+    http_response_code($status_code);
+    die(json_encode($array));
 }
 
 function _api_header(): void
@@ -79,47 +117,6 @@ function _html_log(string $s) : void
     echo $s;
     echo "</h4>";
 }
-
-function redirect(string $php_file): void
-{
-    header("Location: /$php_file");
-    die();
-}
-
-// proud of this 2 functions, very neat i think
-function getOrder(string $selected, string $backup) : string
-{
-    if (in_array($selected, VALID_SELECTORS)) {
-        $key = "order-$selected";
-        return _ssGet($key, $backup);
-    }
-    return $backup;
-}
-
-function setOrder(string $selected, string $val) : void
-{
-    $validOrderValues = [
-        CATEGORY => ['id', 'name'],
-        ITEM => ['id', 'name', 'price', 'cat_id'],
-        RECORD => ['id', 'date']
-    ];
-    if (in_array($val, $validOrderValues[$selected])) {
-        $key = "order-$selected";
-        _ssSet($key, $val);
-    }
-}
-
-function _ssGet(string $key, string $default) : string
-{
-    $val = $_SESSION[$key] ?? $default;
-    return $val;
-}
-
-function _ssSet(string $key, string $val) : void
-{
-    $_SESSION[$key] = $val;
-}
-
 /* dev */
 
 function dd($data, $showType = false, $die = true): void
@@ -142,18 +139,6 @@ function LogConsole(string $message): void
     error_log("\033[34m ******** $message ******\033[0m", 4);
     file_put_contents("php://stderr", print_r(""));
 }
-
-function apiResponse(array $arr): void
-{
-    _api_header();
-    die(json_encode($arr));
-}
-
-function html_h4(string $s): void
-{
-    echo "<h4>[ $s ]</h4>";
-}
-
 // play audio if a fatal error is thrown
 function slayer(): void
 {

@@ -1,8 +1,4 @@
 <?php
-// TODOs: test changing .value to setAttribute('value', $s);
-// BUG: item_id returning 1
-// Bug: date not remembering chosen date
-
 
 require_once "./header.php";
 
@@ -104,7 +100,6 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
         <?php endif; ?>
     </form>
 </div>
-<!-- <script src="./js/functions.js"></script> -->
 <script src="./js/insert.js">
 </script>
 <?php

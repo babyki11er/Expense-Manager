@@ -10,7 +10,6 @@ error_reporting(1);
         name=>  string
 */
 function listCategories(mysqli $conn): array
-// returns categories available to use in coming items
 {
     $order = getOrder(CATEGORY, 'name');
     $raw_categories = db_SelectAll($conn, CATEGORY, ['status' => 'active'], '*', $order);
@@ -51,7 +50,6 @@ function existCategory(string $category_name, mysqli $conn) : int
         return $category['id'];
     }
 }
-
 
 function archiveCategory(int $id, mysqli $conn): int
 {

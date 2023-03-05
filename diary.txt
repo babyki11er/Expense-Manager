@@ -88,6 +88,7 @@ Note:
 	[x]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
 	[ ]:	show alerts after redirecting from api
 	[x]:	convert javascript session script to PHP
+	[ ]:	toggle ascending and descending order
 [ item.php ]
 	[x]:	default category has to be None
 [ insert.php ]
@@ -118,8 +119,7 @@ records.php
 [x]: Display record sort by date on default
 [ ]: insert multiple items
 [ ]: Add note on items, like warnning, and display that when adding that
-[ ]: Adding a new version of an item
-        change the older item name to '$name-old9' to '$name-old2'
+[ ]: filter the records to use for calculating the analysis
 [x]: Autosuggest item
 [x]: Add balance
 [half]: Brief analysis
