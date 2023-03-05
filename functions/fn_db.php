@@ -126,7 +126,7 @@ function _makeSelectStatement(string $selected, array $where, string $selector="
         $sql = rtrim($sql, "AND");
     }
 
-    $sql .= " ORDER BY $order_by;";
+    $sql .= " ORDER BY $order_by";
     // echo $sql;
     return $sql;
 }

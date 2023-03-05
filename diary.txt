@@ -62,44 +62,48 @@ Note:
 
 <2>
 [ fix ]:	qty and date not setting on update record
-[ ]:	select statement, don't insert order by, by default
+[X]:	select statement, don't insert order by, by default
 [ ]:	remove unused functions
 [ ]:	take care of code using sql directly
 Note:
 	learn that foreach only have read access, copies the value instead of passing the reference
 	learn about PHP doing type case fucking shit up, mistaking a string as an array, it works because the key was converted to int, which works as an index to the string, damn ..., me and PHP are like twins
 <4>
-[ D ]:	remember the order that is previously sorted, by using session variables, says we ordered the records using id, then update a record, when redirected to the records page, i want the records to be sorted by id that has been chosen previously, instead of date chosen by default
+[x]:	remember the order that is previously sorted, by using session variables, says we ordered the records using id, then update a record, when redirected to the records page, i want the records to be sorted by id that has been chosen previously, instead of date chosen by default
 Note:
 	learn that session_start stores the value on the server and send the cookies to the browser that would be like an index to look for the value, totally different from javascript sessionStorage
 	associative array > switch > if/else
 
+<5>
+[ ]:	implement view part in MVC, view function, with data argument
+[R]:	html function for every echoing the variable
+
 
 [ future tasks ]
 	[ ]:	replace ternary opearator and isset, with ??
-	[ ]:	item should not be inserted again in updating record.
+	[x]:	item should not be inserted again in updating record.
 	[ ]:	show function return type in suggestion
 	[ ]:	show archived resources, to unarchive
 	[ ]:	picture for the particular resource, will stand independent in its own table
 	[x]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
 	[ ]:	show alerts after redirecting from api
-	[ ]:	convert javascript session script to PHP
+	[x]:	convert javascript session script to PHP
 [ item.php ]
-	[ ]:	default category has to be None
+	[x]:	default category has to be None
 [ insert.php ]
-	[ ]:	item-id has to be 0 if the input value is new and has to be created first
+	[x]:	item-id has to be 0 if the input value is new and has to be created first
 	[ ]:	add tags as datalist to be searched quickly and label informal way
-	[ ]:	update a record
+	[x]:	update a record
 [ delete-api ]
 	[ ]:	change to POST method for deleting instead of GET
 	[ ]:	change all api that are not retrieving data to POST
 
-	[!]:	implement the briefing in index page
+	[x]:	implement the briefing in index page
 
 [ UI ]
 	[x]:	change the button color to blue for update, green for add, warnning for arhive, danger for delete
 	[l]:	don't show the year for date in records.php
-	[ ]:	money should have , separaters like 3,000
+	[x]:	money should have , separaters like 3,000
 insert.php
 			Name | Qty
 			Price | Category
@@ -111,14 +115,14 @@ records.php
 			make item clickable and redirect to update page
 
 <Features>
-[ ]: Display record sort by date on default
+[x]: Display record sort by date on default
 [ ]: insert multiple items
 [ ]: Add note on items, like warnning, and display that when adding that
 [ ]: Adding a new version of an item
         change the older item name to '$name-old9' to '$name-old2'
-[ ]: Autosuggest item
-[ ]: Add balance
-[ ]: Brief analysis
+[x]: Autosuggest item
+[x]: Add balance
+[half]: Brief analysis
 
 <One Time Purchase>
 [ ]: Insert One Time Purchase for buying in the future, set the stage as pending, add the deadline, and remind when the date reaches

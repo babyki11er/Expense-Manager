@@ -21,6 +21,9 @@
 function listItems(mysqli $conn): array
 {
     $order = getOrder(ITEM, 'name');
+    // coffee
+    if ($order == 'price')
+        $order .= " DESC";
     $raw_items = db_SelectAll($conn, ITEM, ['status' => 'active'], '*', $order);
     $duplicate_item_names = get_duplicates($raw_items, 'name');
     $soft_items = array_map(function ($item) use ($conn, $duplicate_item_names) {

@@ -14,14 +14,26 @@ $active_records = getRecordsPublic($conn, $order);
 
 <table class=" table table-success table-bordered border-2 mt-3 container">
     <thead>
-        <th>#</th>
+        <th>
+            <a href="?order=id">
+                #
+            </a>
+        </th>
         <th>Item</th>
         <th>Qty</th>
         <th>Cost</th>
         <th>Category</th>
-        <th>Note</th>
+        <th>
+            <a href="?order=note">
+                Note
+            </a>
+        </th>
         <th>Del/Edit</th>
-        <th>Date</th>
+        <th>
+            <a href="?order=date">
+                Date
+            </a>
+        </th>
     </thead>
     <tbody>
         <?php

@@ -81,9 +81,21 @@ $active_items = listItems($conn);
 <div class=" m-4 table-responsive">
     <table class="table table-bordered border-dark table-striped">
         <thead>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
+            <th>
+                <a href="?order=name">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a href="?order=price">
+                    Price
+                </a>
+            </th>
+            <th>
+                <a href="?order=cat_id">
+                    Category
+                </a>
+            </th>
             <th class=" table-danger">Update/Archive</th>
         </thead>
         <tbody>
