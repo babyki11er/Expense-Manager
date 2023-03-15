@@ -43,19 +43,15 @@ function db_SelectAll(mysqli $conn, string $selected, array $where, string $sele
     return $fetched;
 }
 
-function db_Update(mysqli $conn, string $selected, int $id, array $values, array $where=null): int
+function db_Update(mysqli $conn, string $selected, array $values, array $where): bool
 {
     // do validation for SQL injection, XSS, security stuffs
     // NOT CHECKING IF THE id EXISTS OR NOT
-    $sql = _makeUpdateStatement($selected, $values, $id, $where);
+    $sql = _makeUpdateStatement($selected, $values, $where);
     if (in_array($selected, [CATEGORY, ITEM, RECORD, INCOME])) {
-        if (_execQuery($conn, $sql)) {
-            return $id;
-        } else {
-            return DB_ERROR;
-        }
+        return _execQuery($conn, $sql, true);
     }
-    return VALIDATE_ERROR;
+    return false;
 }
 
 function db_Delete(mysqli $conn, string $selected, int $id, array $where=null): int
@@ -75,7 +71,7 @@ function db_Delete(mysqli $conn, string $selected, int $id, array $where=null): 
 
 function _execQuery(mysqli $conn, string $sql, bool $close = true)
 {
-    // _html_log($sql);
+    _html_log($sql);
     $query_result = mysqli_query($conn, $sql);
     if ($query_result === false) {
         noti("MySql Error: $sql");
@@ -116,8 +112,7 @@ function _makeInsertStatement(string $selected, $key_value) : string
 function _makeSelectStatement(string $selected, array $where, string $selector="*", string $order_by="id") : string
 {
     $sql = "SELECT $selector FROM $selected";
-    if (!empty($where)) {
-        $sql .= " WHERE ";
+    if (!empty($where)) { $sql .= " WHERE ";
         foreach($where as $key => $value) {
             $value = _sqlValue($value);
             $sql .= " $key=$value AND";
@@ -130,7 +125,7 @@ function _makeSelectStatement(string $selected, array $where, string $selector="
     return $sql;
 }
 
-function _makeUpdateStatement(string $selected, array $key_value, int $id, array $where=null) : string
+function _makeUpdateStatement(string $selected, array $key_value, array $where) : string
 {
     $sql = "UPDATE $selected SET";
     foreach($key_value as $key => $value) {
@@ -138,14 +133,12 @@ function _makeUpdateStatement(string $selected, array $key_value, int $id, array
         $sql .= " $key=$value,";
     }
     $sql = rtrim($sql, ",");
-    $sql .= " WHERE id=$id";
-    if (!is_null($where)) {
-        foreach($where as $column => $value) {
-            $value = _sqlValue($value);
-            $sql .= " AND $column=$value";
-        }
+    $sql .= " WHERE";
+    foreach($where as $column => $value) {
+        $value = _sqlValue($value);
+        $sql .= " $column=$value AND";
     }
-    // echo $sql;
+    $sql = rtrim($sql, ' AND');
     return $sql;
 }
 

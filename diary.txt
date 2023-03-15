@@ -63,7 +63,7 @@ Note:
 <2>
 [ fix ]:	qty and date not setting on update record
 [X]:	select statement, don't insert order by, by default
-[ ]:	remove unused functions
+[x]:	remove unused functions
 [ ]:	take care of code using sql directly
 Note:
 	learn that foreach only have read access, copies the value instead of passing the reference
@@ -77,6 +77,9 @@ Note:
 <5>
 [ ]:	implement view part in MVC, view function, with data argument
 [R]:	html function for every echoing the variable
+
+<15>
+[x]:	remove custom sql statement
 
 
 [ future tasks ]

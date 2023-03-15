@@ -28,12 +28,12 @@ function addNewCategory(string $category, mysqli $conn): int
     return db_Insert($conn, CATEGORY, ['name' => $category]);
 }
 
-function updateCategory(int $id, string $category, mysqli $conn) : int
+function updateCategory(int $id, string $category, mysqli $conn) : bool
 {
-    if (!_checkCatId($id, $conn)) {
-        return VALIDATE_ERROR;
+    if (_checkCatId($id, $conn)) {
+        return db_Update($conn, CATEGORY, ['name' => $category], ['id' => $id]);
     }
-    return db_Update($conn, CATEGORY, $id, ['name' => $category]);
+    return false;
 }
 
 function _checkCatId(int $id, mysqli $conn) : bool
@@ -51,24 +51,20 @@ function existCategory(string $category_name, mysqli $conn) : int
     }
 }
 
-function archiveCategory(int $id, mysqli $conn): int
+function archiveCategory(int $id, mysqli $conn): bool
 {
-    $e_code = db_Update($conn, CATEGORY, $id, ['status' => 'archived']);
-    if ($e_code === $id) {
-        // need refactoring, yellow, below as well
-        $sql = "UPDATE item SET status='archived' WHERE cat_id=$id";
-        _execQuery($conn, $sql);
+    $e_code = db_Update($conn, CATEGORY, ['status' => 'archived'], ['id' => $id]);
+    if ($e_code) {
+        db_Update($conn, CATEGORY, ['status' => 'archived'], ['cat_id' => $id]);
     }
     return $e_code;
 }
 
-function unarchiveCategory(int $id, mysqli $conn) :int 
+function unarchiveCategory(int $id, mysqli $conn) : bool
 {
-    $e_code = db_Update($conn, CATEGORY, $id, ['status' => 'active']);
-    if ($e_code === $id) {
-        // need refactoring
-        $sql = "UPDATE item SET status='active' WHERE cat_id=$id";
-        _execQuery($conn, $sql);
+    $e_code = db_Update($conn, CATEGORY, ['status' => 'active'], ['id' => $id]);
+    if ($e_code) {
+        db_Update($conn, CATEGORY, ['status' => 'active'], ['cat_id' => $id]);
     }
     return $e_code;
 }

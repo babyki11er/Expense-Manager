@@ -76,7 +76,7 @@ function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn
         return VALIDATE_ERROR;
     }
     $update_value = _makeItem($name, $price, $cat_id);
-    return db_Update($conn, ITEM, $id, $update_value);
+    return db_Update($conn, ITEM, $update_value, ['id' => $id]);
 }
 
 function _checkItem(int $id, mysqli $conn) : bool
@@ -88,7 +88,7 @@ function _checkItem(int $id, mysqli $conn) : bool
 
 function archiveItem(int $id, mysqli $conn, bool $archived=true): int
 {
-    return db_Update($conn, ITEM, $id, ['status' => 'archived']);
+    return db_Update($conn, ITEM, ['status' => 'archived'], ['id' => $id]);
     // do some validation, then db function
 }
 

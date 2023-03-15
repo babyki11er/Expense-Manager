@@ -73,7 +73,7 @@ function updateRecord(int $id, int $item_id, int $qty, string $date, string $not
         return VALIDATE_ERROR;
     }
     $record_to_add = _makeRecord($item_id, $qty, $date, $note);
-    return db_Update($conn, RECORD, $id, $record_to_add);
+    return db_Update($conn, RECORD, $record_to_add, ['id' => $id]);
 }
 
 function _checkRecord(int $id, mysqli $conn) : bool
