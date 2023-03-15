@@ -1,9 +1,8 @@
 <?php
 
-use function PHPSTORM_META\sql_injection_subst;
-
 function connectMysql()
 {
+    // config db here
     $_hostname = 'localhost';
     $_username = 'sid';
     $_password = 'six';
