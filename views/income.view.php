@@ -1,5 +1,5 @@
 <?php
-require_once "./header.php";
+require_once TEMPLATE_DIR . "header.php";
 $conn = connectMysql();
 $incomes = listIncomes($conn);
 $update = false;
@@ -66,7 +66,7 @@ if (isset($_GET['update'])) {
     </thead>
     <tbody>
         <?php foreach($incomes as $income) :
-            $update_link = "./income.php?update&id={$income['id']}";
+            $update_link = "./income?update&id={$income['id']}";
             $delete_link = "./api/del-api.php?selected=income&id={$income['id']}&del";
         ?>
             <tr>
@@ -95,4 +95,4 @@ if (isset($_GET['update'])) {
 
     </tbody>
 </table>
-<?php require_once "./footer.php" ?>
+<?php require_once TEMPLATE_DIR . "footer.php" ?>

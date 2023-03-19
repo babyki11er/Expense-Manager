@@ -1,5 +1,7 @@
-<?php require_once "./header.php" ?>
-<?php require_once "./nav-bar.php" ?>
+<?php
+require_once TEMPLATE_DIR . "header.php";
+require_once TEMPLATE_DIR . "nav-bar.php";
+?>
 
 <?php
 $conn = connectMysql();
@@ -46,7 +48,7 @@ $active_records = listRecords($conn);
         foreach ($active_records as $record) :
             $id = $record['id'];
             $del_url = "api/del-api.php?selected=record&del&id=$id";
-            $update_url = "insert.php?update&selected=record&id=$id";
+            $update_url = "insert?update&selected=record&id=$id";
         ?>
             <tr>
                 <td>
@@ -85,4 +87,4 @@ $active_records = listRecords($conn);
     </tbody>
 </table>
 
-<?php require_once "./footer.php"; ?>
+<?php require_once TEMPLATE_DIR . "footer.php"; ?>

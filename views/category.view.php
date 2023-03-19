@@ -1,4 +1,4 @@
-<?php require_once "./header.php" ?>
+<?php require_once TEMPLATE_DIR . "header.php" ?>
 
 <?php
 
@@ -61,7 +61,7 @@ if (isset($_GET['update'])) {
                 $id = $category['id'];
                 $cat = $category['name'];
                 $archive_link = "./api/archive-api.php?selected=category&id=$id";
-                $rename_link = "./category.php?update&id=$id";
+                $rename_link = "./category?update&id=$id";
             ?>
                 <?php if ($cat === 'None') continue; ?>
                 <div class=" mb-3">
@@ -82,4 +82,4 @@ if (isset($_GET['update'])) {
 </script>
 <script src="./js/_category.js">
 </script>
-<?php require_once "./footer.php" ?>
+<?php require_once TEMPLATE_DIR . "footer.php" ?>

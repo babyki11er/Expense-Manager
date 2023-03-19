@@ -1,17 +1,19 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/globals.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_category.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_item.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_record.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_income.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/fn_db.php";
+// ROOT_DIROOT'];
+require_once ROOT_DIR . "/globals.php";
+require_once ROOT_DIR . "/functions/fn_category.php";
+require_once ROOT_DIR . "/functions/fn_item.php";
+require_once ROOT_DIR . "/functions/fn_record.php";
+require_once ROOT_DIR . "/functions/fn_income.php";
+require_once ROOT_DIR . "/functions/fn_db.php";
 
 /*
-    for getting duplicates, we count the occurence of each value, then, filter it, and return the keys, easy task, just a matter of finding which functions to call
+    business logic?
 */
 function get_duplicates(array $arr, string $col) : array
 {
+    // for getting duplicates, we count the occurence of each value, then, filter it, and return the keys, easy task, just a matter of finding which functions to call
     $values = array_column($arr, $col);
     $counts = array_count_values($values);
     $duplicate_counts = array_filter($counts, function($val) {
@@ -62,6 +64,17 @@ function displayItem(array $item) : string
 /*
     general functions don't have Camel Casing
 */
+
+// MVC view part
+function view(string $path) : void
+{
+    // asssume that path is already valid
+    if ($path === '/') {
+        view("index");
+        return;
+    }
+    require_once VIEW_DIR . "$path.view.php";
+}
 
 function apiResponse(array $arr): void
 {

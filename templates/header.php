@@ -1,5 +1,6 @@
 <?php
-require_once "./functions/functions.php";
+// require_once "./functions/functions.php";
+// $bootstrap_link = ROOT_DIR . '/node_modules/bootstrap/dist/css/bootstrap.min.css';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +11,9 @@ require_once "./functions/functions.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="<?= $bootstrap_link ?>"> -->
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <?php require_once "./nav-bar.php" ?>
+    <?php require_once TEMPLATE_DIR . "nav-bar.php" ?>

@@ -1,6 +1,6 @@
 <?php
 
-require_once "./header.php";
+require_once TEMPLATE_DIR . "header.php";
 
 // getting user defined values
 $conn = connectMysql();
@@ -103,5 +103,5 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
 <script src="./js/insert.js">
 </script>
 <?php
-require_once "./footer.php";
+require_once TEMPLATE_DIR . "footer.php";
 ?>

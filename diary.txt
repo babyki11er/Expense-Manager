@@ -64,7 +64,7 @@ Note:
 [ fix ]:	qty and date not setting on update record
 [X]:	select statement, don't insert order by, by default
 [x]:	remove unused functions
-[ ]:	take care of code using sql directly
+[x]:	take care of code using sql directly
 Note:
 	learn that foreach only have read access, copies the value instead of passing the reference
 	learn about PHP doing type case fucking shit up, mistaking a string as an array, it works because the key was converted to int, which works as an index to the string, damn ..., me and PHP are like twins
@@ -75,33 +75,34 @@ Note:
 	associative array > switch > if/else
 
 <5>
-[ ]:	implement view part in MVC, view function, with data argument
 [R]:	html function for every echoing the variable
 
 <15>
 [x]:	remove custom sql statement
 
+<19>
+[H]:	implement view part in MVC, calling view function, no controller yet
+		[x]: views pages
+				read the uri and loads the script inside views folder by using view function
+		[ ]: api calls will start with /api/ , not sure but i guess i will write a controller that will call each functions
+
+[ ]:	prevent XSS by using out function
+[ ]:	prevent SQL injection
+[ ]:	convert state changing api requests to post, not REST yet
+[ ]:	show alerts after redirecting from api
 
 [ future tasks ]
-	[ ]:	replace ternary opearator and isset, with ??
-	[x]:	item should not be inserted again in updating record.
-	[ ]:	show function return type in suggestion
+	[ ]:	add tags on records, independent from other resources
 	[ ]:	show archived resources, to unarchive
 	[ ]:	picture for the particular resource, will stand independent in its own table
-	[x]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
-	[ ]:	show alerts after redirecting from api
-	[x]:	convert javascript session script to PHP
 	[ ]:	toggle ascending and descending order
 [ item.php ]
 	[x]:	default category has to be None
 [ insert.php ]
-	[x]:	item-id has to be 0 if the input value is new and has to be created first
 	[ ]:	add tags as datalist to be searched quickly and label informal way
+	[x]:	item-id has to be 0 if the input value is new and has to be created first
 	[x]:	update a record
 [ delete-api ]
-	[ ]:	change to POST method for deleting instead of GET
-	[ ]:	change all api that are not retrieving data to POST
-
 	[x]:	implement the briefing in index page
 
 [ UI ]
@@ -117,6 +118,9 @@ records.php
 			sort by item, cost, category
 			filter by each of them
 			make item clickable and redirect to update page
+
+<Refactor>
+	[ ]:	design a function that will do all the requires
 
 <Features>
 [x]: Display record sort by date on default
@@ -140,3 +144,9 @@ records.php
 [ ]: Export data to JSON format and others
 <Unknown Future>
 [ ]:	globals.php, create table, insert certian values
+
+<Archive>
+[x]:	replace ternary opearator and isset, with ??
+[x]:	item should not be inserted again in updating record.
+[x]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
+[x]:	convert javascript session script to PHP

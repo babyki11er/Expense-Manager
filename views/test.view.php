@@ -1,6 +1,6 @@
 <?php
 // require_once "./header.php";
-require_once "./functions/functions.php";
+require_once ROOT_DIR. "/functions/functions.php";
 
 $conn = connectMysql();
 

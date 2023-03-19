@@ -1,5 +1,5 @@
 <?php
-require_once "./header.php";
+require_once TEMPLATE_DIR . "header.php";
 $conn = connectMysql();
 $link_form = './api/add-api.php';
 $form_label = 'Add Item';
@@ -104,7 +104,7 @@ $active_items = listItems($conn);
                 $item_name_diplay = displayItem($item);
                 $item_price = $item['price'];
                 $item_category = $item['cat_str'];
-                $update_link = "./item.php?update&id=$id";
+                $update_link = "./item?update&id=$id";
                 $archive_link = "./api/archive-api.php?selected=item&id=$id&del";
                 ?>
                 <tr>
@@ -120,4 +120,4 @@ $active_items = listItems($conn);
         </tbody>
     </table>
 </div>
-<?php require_once "./footer.php" ?>
+<?php require_once TEMPLATE_DIR . "header.php";
