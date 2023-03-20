@@ -2,7 +2,7 @@
 // routing
 $uri = $_SERVER["REQUEST_URI"];
 $path = parse_url($uri)['path'];
-echo $path . "<br>";
+// echo $path . "<br>";
 
 
 const ValidApis = [

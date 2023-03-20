@@ -96,6 +96,9 @@ Note:
 [ ]:	convert state changing api requests to post, not REST yet
 [ ]:	show alerts after redirecting from api
 
+<Refactor>
+	[ ]:	archive api links having del query
+	[ ]:	design a function that will do all the requires
 [ weird behavours ]
 	+ url get requests with php extension show defalt PHP page instead
 
@@ -127,8 +130,6 @@ records.php
 			filter by each of them
 			make item clickable and redirect to update page
 
-<Refactor>
-	[ ]:	design a function that will do all the requires
 
 <Features>
 [x]: Display record sort by date on default

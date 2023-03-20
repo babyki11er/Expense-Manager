@@ -102,7 +102,7 @@ function back_to_referer(bool $removeQueries = true): void
         // shallow logic, yellow
         $referer = explode("?", $referer)[0];
     }
-    header("Location: $referer");
+    redirect($referer);
 }
 
 function _ssGet(string $key, string $default): string

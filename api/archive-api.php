@@ -11,11 +11,12 @@ function debug()
 function _archive_api_main()
 {
     $conn = connectMysql();
+    // dd($_GET);
     $selected = $_GET['selected'];
-    if ($selected === CATEGORY) {
+    if ($selected == CATEGORY) {
         _archive_api_category($conn);
     }
-    if ($selected === ITEM) {
+    if ($selected == ITEM) {
         _archive_api_item($conn);
     }
     error("Invalid api call.");
@@ -41,24 +42,18 @@ function _archive_api_category($conn)
 {
     $id = (int) $_GET['id'];
     // $id = 5;
-    if (($e_code = archiveCategory($id, $conn)) > 0) {
+    if (archiveCategory($id, $conn)) {
         // dd($_GET);
         back_to_referer();
-    } else if ($e_code === VALIDATE_ERROR) {
-        error("Id doesn't exist");
-    } else if ($e_code === DB_ERROR) {
-        error("Db error");
     }
+    error("Db error");
 }
 
 function _archive_api_item(mysqli $conn)
 {
     $id = (int) $_GET['id'];
-    if (($e_code = archiveItem($id, $conn)) >= 0) {
+    if (archiveItem($id, $conn)) {
         back_to_referer();
-    } else if ($e_code === -4) {
-        error("Id doesn't exist");
-    } else if ($e_code === -1) {
-        error("Error saving file");
     }
+    error("DB error");
 }

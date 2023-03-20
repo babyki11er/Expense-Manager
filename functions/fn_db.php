@@ -69,7 +69,7 @@ function db_Delete(mysqli $conn, string $selected, int $id, array $where=null): 
 
 /* private functions */
 
-function _execQuery(mysqli $conn, string $sql, bool $close = true)
+function _execQuery(mysqli $conn, string $sql, bool $close = true) : bool | mysqli_result
 {
     // _html_log($sql);
     $query_result = mysqli_query($conn, $sql);
