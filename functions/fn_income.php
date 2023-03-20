@@ -38,7 +38,7 @@ function updateIncome(int $id, int $amount, string $label, string $date, string 
 {
     $income_to_update = _makeIncome($amount, $label, $date, $note);
     if (_checkIncome($id, $conn)) {
-        if (db_Update($conn, INCOME, $id, $income_to_update)) {
+        if (db_Update($conn, INCOME, $income_to_update, ["id" => $id])) {
             return $id;
         } else {
             return DB_ERROR;

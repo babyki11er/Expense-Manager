@@ -91,6 +91,8 @@ Note:
 [@]:	refactor js code
 [x]:	fix get-one api
 [x]:	fix archive api
+[ ]:	fix update income
+[ ]:	refactor function calls that are returning bool instead of int
 
 [ ]:	prevent SQL injection
 [ ]:	convert state changing api requests to post, not REST yet
