@@ -2,37 +2,9 @@
 
 require_once ROOT_DIR . "/functions/functions.php";
 
-_main();
-
-function _main()
+function category(mysqli $conn): void
 {
     _validateRequestParams();
-
-    $selected = $_POST['selected'];
-    if (!in_array($selected, VALID_SELECTORS)) {
-        error("Invalid 'selected' parameter value!");
-    }
-
-    $conn = connectMysql();
-    if ($selected === CATEGORY) {
-        _add_api_category($conn);
-    }
-
-    if ($selected === ITEM) {
-        _add_api_item($conn);
-    }
-
-    if ($selected === RECORD) {
-        _add_api_record($conn);
-    }
-
-    if ($selected === INCOME) {
-        _add_api_income($conn);
-    }
-}
-
-function _add_api_category(mysqli $conn): void
-{
     $cat_string = $_POST['value'];
     // validate the value
     if (empty($cat_string)) {
@@ -66,7 +38,7 @@ function _validateRequestParams(): void
     }
 }
 
-function _add_api_item(mysqli $conn): void
+function item(mysqli $conn): void
 {
     // validation
     if (!isset($_POST['name']) || !isset($_POST['price']) || !isset($_POST['cat_id'])) {
@@ -88,7 +60,7 @@ function _add_api_item(mysqli $conn): void
     }
 }
 
-function _add_api_record(mysqli $conn)
+function record(mysqli $conn)
 {
     // validating the parameters
     if (
@@ -144,7 +116,7 @@ function _add_api_record(mysqli $conn)
     }
 }
 
-function _add_api_income(mysqli $conn): void
+function income(mysqli $conn): void
 {
     $amount = $_POST['amount'];
     $date = $_POST['date'];

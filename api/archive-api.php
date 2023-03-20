@@ -1,23 +1,23 @@
 <?php
 require_once ROOT_DIR . "/functions/functions.php";
 
-_archive_api_main();
+main();
 function debug()
 {
     $_GET['selected'] = CATEGORY;
     $_GET['id'] = 5;
 }
 
-function _archive_api_main()
+function main()
 {
     $conn = connectMysql();
     // dd($_GET);
     $selected = $_GET['selected'];
     if ($selected == CATEGORY) {
-        _archive_api_category($conn);
+        category($conn);
     }
     if ($selected == ITEM) {
-        _archive_api_item($conn);
+        item($conn);
     }
     error("Invalid api call.");
 }
@@ -38,7 +38,7 @@ function _validateRequestParams(): void
     }
 }
 
-function _archive_api_category($conn)
+function category($conn)
 {
     $id = (int) $_GET['id'];
     // $id = 5;
@@ -49,7 +49,7 @@ function _archive_api_category($conn)
     error("Db error");
 }
 
-function _archive_api_item(mysqli $conn)
+function item(mysqli $conn)
 {
     $id = (int) $_GET['id'];
     if (archiveItem($id, $conn)) {

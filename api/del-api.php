@@ -2,7 +2,7 @@
 require_once ROOT_DIR . "/functions/functions.php";
 // html_print_r($_GET);
 // die();
-_delete_api_main();
+main();
 
 function _validateRequestParams(): void
 {
@@ -27,7 +27,7 @@ function _validateRequestParams(): void
         error("Invalid 'selected' param.");
     }
 }
-function _delete_api_record(mysqli $conn): void
+function record(mysqli $conn): void
 {
     $id = (int)$_GET['id'];
     // do some validations
@@ -52,7 +52,7 @@ function _delete_api_record(mysqli $conn): void
 }
 
 
-function _delete_api_main(): void
+function main(): void
 {
     $conn = connectMysql();
     /*
@@ -77,17 +77,17 @@ function _delete_api_main(): void
         */
     switch($selected_to_del) {
         case RECORD:
-            _delete_api_record($conn);
+            record($conn);
             break;
         case INCOME:
-            _delete_api_income($conn);
+            income($conn);
             break;
         default:
             error("Invalid api call. Don't fuck with del api, pls.");
     }
 }
 
-function _delete_api_income(mysqli $conn) : void
+function income(mysqli $conn) : void
 {
     $id = (int)$_GET['id'];
     // do some validations

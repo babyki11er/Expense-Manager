@@ -76,11 +76,22 @@ function view(string $path): void
     require_once VIEW_DIR . "$path.view.php";
 }
 // MVC controller part
-function api_controller(string $name): void
-{
-    require_once API_DIR . "/$name-api.php";
-    // assume that path is already valid
-}
+// not using this
+// function api_controller(string $name): void
+// {
+//     $controllerNameArray = explode("@", $name);
+//     $controller_file = $controllerNameArray[0];
+//     $controller_function = $controllerNameArray[1];
+//     require_once API_DIR . "/$controller_file-api.php";
+//     call_user_func($controller_function);
+//     // assume that path is already valid
+// }
+
+// very general function for all the validation of HTTP request
+// function validate_http_params(array $set_us, string $req_method="POST") : bool
+// {
+
+// }
 
 function apiResponse(array $arr): void
 {

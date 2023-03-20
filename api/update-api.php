@@ -1,8 +1,7 @@
 <?php
 // require_once ROOT_DIR . "/functions/functions.php";
-_update_api_main();
 
-function _update_api_main(): void
+function main(): void
 {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         error("only accepting POST request");
@@ -15,16 +14,16 @@ function _update_api_main(): void
     $conn = connectMysql();
     switch($selected) {
         case CATEGORY:
-            _update_api_category($conn);
+            category($conn);
             break;
         case ITEM:
-            _update_api_item($conn);
+            item($conn);
             break;
         case RECORD:
-            _update_api_record($conn);
+            record($conn);
             break;
         case INCOME:
-            _update_api_income($conn);
+            income($conn);
             break;
         default:
             error("Missing or invalid parameter values!");
@@ -32,7 +31,7 @@ function _update_api_main(): void
 }
 
 
-function _update_api_category(mysqli $conn) : void
+function category(mysqli $conn) : void
 {
     // dd($_POST);
     $id = (int)$_POST['id'];
@@ -47,7 +46,7 @@ function _update_api_category(mysqli $conn) : void
 }
     // $id = $_POST['id'];
 
-function _update_api_item(mysqli $conn) : void
+function item(mysqli $conn) : void
 {
     // dd($_POST);
     $id = $_POST['id'];
@@ -86,7 +85,7 @@ function _update_api_item(mysqli $conn) : void
     }
 }
 
-function _update_api_record(mysqli $conn) : void
+function record(mysqli $conn) : void
 {
     // validating the parameters
     if (
@@ -121,7 +120,7 @@ function _update_api_record(mysqli $conn) : void
         error('Internal DB error');
     }
 }
-function _update_api_income(mysqli $conn) : void
+function income(mysqli $conn) : void
 {
     $id = $_POST['id'];
     $amount = $_POST['amount'];

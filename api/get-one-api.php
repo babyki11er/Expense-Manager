@@ -12,10 +12,10 @@ function _main() : void
     $selected = $_GET['selected'];
     switch($selected) {
         case CATEGORY:
-            // _get_api_category($conn);
+            // category($conn);
             break;
         case ITEM:
-            _get_api_item($conn);
+            item($conn);
             break;
         default:
             error("Invalid selected parameter value"); 
@@ -24,13 +24,13 @@ function _main() : void
 
 _main();
 
-// function _get_api_category(mysqli $conn) : void
+// function category(mysqli $conn) : void
 // {
 //     $id = $_GET['id'];
 //     apiResponse(getCategoryName($id, $conn));
 // }
 
-function _get_api_item(mysqli $conn) : void
+function item(mysqli $conn) : void
 {
     $item_id = $_GET['id'];
     // validating parameter values
