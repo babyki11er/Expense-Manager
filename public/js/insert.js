@@ -9,7 +9,7 @@ addAutocomplete();
 
 async function getItem(id) {
     // red!
-    let url = "http://localhost:8080/api/get-one-api.php?selected=item&id=" + id;
+    let url = "http://localhost:8080/api/get-one?selected=item&id=" + id;
     let myObject = await fetch(url);
     let item = await myObject.json();
     return item;
@@ -80,7 +80,7 @@ function DOMSelectItem(item) {
 
 
 // async function getItems() {
-//     let url = "http://localhost:8080/api/get-many-api.php?selected=item";
+//     let url = "http://localhost:8080/api/get-many?selected=item";
 //     let myObject = await fetch(url);
 //     let items = await myObject.json();
 //     return items;
@@ -91,7 +91,7 @@ function DOMSelectItem(item) {
 // /* event listeners */
 // select_e.addEventListener('change', function (e) {
 //     let selected_item_id = e.currentTarget.value;
-//     fetch_item_url = 'api/get-one-api.php?selected=category&id=' + selected_item_id;
+//     fetch_item_url = 'api/get-one?selected=category&id=' + selected_item_id;
     
 //     /* AJAX */
 //     fetch(fetch_item_url)

@@ -78,8 +78,7 @@ function view(string $path) : void
 // MVC controller part
 function api_controller(string $name) : void
 {
-    echo("This is a $name api.<br>");
-    dd($_GET);
+    require_once API_DIR . "/$name-api.php";
     // assume that path is already valid
 }
 

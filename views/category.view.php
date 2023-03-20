@@ -9,7 +9,7 @@ if (isset($_GET['order'])) {
 $conn = connectMysql();
 $categories = listCategories($conn);
 $update = False;
-$form_action_link = './api/add-api.php';
+$form_action_link = './api/add';
 $form_label = "New Category";
 if (isset($_GET['update'])) {
     $id = $_GET['id'];
@@ -17,7 +17,7 @@ if (isset($_GET['update'])) {
     if (is_null($categroy_to_update)) {
         echo "<h4>Category you are trying to edit is either deleted or does not exist.</h4>";
     } else {
-        $form_action_link = './api/update-api.php';
+        $form_action_link = './api/update';
         $update = True;
         $form_label = "Update Category";
         $button_label = "Update";
@@ -60,7 +60,7 @@ if (isset($_GET['update'])) {
             <?php foreach ($categories as $category) :
                 $id = $category['id'];
                 $cat = $category['name'];
-                $archive_link = "./api/archive-api.php?selected=category&id=$id";
+                $archive_link = "./api/archive?selected=category&id=$id";
                 $rename_link = "./category?update&id=$id";
             ?>
                 <?php if ($cat === 'None') continue; ?>

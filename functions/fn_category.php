@@ -55,7 +55,7 @@ function archiveCategory(int $id, mysqli $conn): bool
 {
     $e_code = db_Update($conn, CATEGORY, ['status' => 'archived'], ['id' => $id]);
     if ($e_code) {
-        db_Update($conn, CATEGORY, ['status' => 'archived'], ['cat_id' => $id]);
+        db_Update($conn, CATEGORY, ['status' => 'archived'], ['id' => $id]);
     }
     return $e_code;
 }
@@ -64,7 +64,7 @@ function unarchiveCategory(int $id, mysqli $conn) : bool
 {
     $e_code = db_Update($conn, CATEGORY, ['status' => 'active'], ['id' => $id]);
     if ($e_code) {
-        db_Update($conn, CATEGORY, ['status' => 'active'], ['cat_id' => $id]);
+        db_Update($conn, CATEGORY, ['status' => 'active'], ['id' => $id]);
     }
     return $e_code;
 }

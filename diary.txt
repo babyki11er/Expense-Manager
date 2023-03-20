@@ -84,10 +84,11 @@ Note:
 [H]:	implement view part in MVC, calling view function, no controller yet
 		[x]: views pages
 				read the uri and loads the script inside views folder by using view function
-		[@]: write a general function for api calls, that will require each respective files
+		[x]: write a general function for api calls, that will require each respective files
 		[@]: convert each api script to functions like what a true controller does
 [@]:	change GET api request to POST
 [@]:	prevent XSS by using out function
+[@]:	refactor js code
 
 [ ]:	prevent SQL injection
 [ ]:	convert state changing api requests to post, not REST yet

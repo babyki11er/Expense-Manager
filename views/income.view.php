@@ -3,7 +3,7 @@ require_once TEMPLATE_DIR . "header.php";
 $conn = connectMysql();
 $incomes = listIncomes($conn);
 $update = false;
-$form_link = './api/add-api.php';
+$form_link = './api/add';
 $income_amount = 500;
 
 if (isset($_GET['update'])) {
@@ -11,7 +11,7 @@ if (isset($_GET['update'])) {
     $income = getIncome($id, $conn);
     if (!is_null($income)) {
         $update = true;
-        $form_link = './api/update-api.php';
+        $form_link = './api/update';
         $income_date = $income['date'];
         $income_amount = $income['amount'];
         $income_label = $income['label'];
@@ -67,7 +67,7 @@ if (isset($_GET['update'])) {
     <tbody>
         <?php foreach($incomes as $income) :
             $update_link = "./income?update&id={$income['id']}";
-            $delete_link = "./api/del-api.php?selected=income&id={$income['id']}&del";
+            $delete_link = "./api/del?selected=income&id={$income['id']}&del";
         ?>
             <tr>
                 <td>

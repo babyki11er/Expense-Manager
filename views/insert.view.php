@@ -13,7 +13,7 @@ $item_name = '';
 $item_price = 50;
 $cat_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
 $update = false;
-$form_link = "./api/add-api.php";
+$form_link = "./api/add";
 
 $date = _ssGet('insert-date', date('Y-m-d'));
 
@@ -29,7 +29,7 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
         $item_name = $record_to_update['item_name'];
         $item_price = $record_to_update['item_price'];
         $cat_id = $record_to_update['cat_id'];
-        $form_link = "./api/update-api.php";
+        $form_link = "./api/update";
     }
 }
 ?>

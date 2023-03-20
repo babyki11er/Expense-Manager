@@ -47,7 +47,7 @@ $active_records = listRecords($conn);
         <?php
         foreach ($active_records as $record) :
             $id = $record['id'];
-            $del_url = "api/del-api.php?selected=record&del&id=$id";
+            $del_url = "api/del?selected=record&del&id=$id";
             $update_url = "insert?update&selected=record&id=$id";
         ?>
             <tr>
