@@ -1,17 +1,17 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
+require_once ROOT_DIR . "/functions/functions.php";
 
 _archive_api_main();
 function debug()
 {
-    $_GET['selected'] = CATEGORY;
-    $_GET['id'] = 5;
+    $_POST['selected'] = CATEGORY;
+    $_POST['id'] = 5;
 }
 
 function _archive_api_main()
 {
     $conn = connectMysql();
-    $selected = $_GET['selected'];
+    $selected = $_POST['selected'];
     if ($selected === CATEGORY) {
         _archive_api_category($conn);
     }
@@ -27,19 +27,19 @@ function _validateRequestParams(): void
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         error("This api only accept GET method");
     }
-    $selected = $_GET['selected'];
+    $selected = $_POST['selected'];
     if (!in_array($selected, VALID_SELECTORS)) {
         error("Invalid selected");
     }
     // validations
-    if (!is_numeric($_GET['id'])) {
+    if (!is_numeric($_POST['id'])) {
         error("Id parameter has to be a number");
     }
 }
 
 function _archive_api_category($conn)
 {
-    $id = (int) $_GET['id'];
+    $id = (int) $_POST['id'];
     // $id = 5;
     if (($e_code = archiveCategory($id, $conn)) > 0) {
         // dd($_POST);
@@ -53,7 +53,7 @@ function _archive_api_category($conn)
 
 function _archive_api_item(mysqli $conn)
 {
-    $id = (int) $_GET['id'];
+    $id = (int) $_POST['id'];
     if (($e_code = archiveItem($id, $conn)) >= 0) {
         redirect("./item.php");
     } else if ($e_code === -4) {

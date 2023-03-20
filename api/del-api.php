@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
-// html_print_r($_GET);
+require_once ROOT_DIR . "/functions/functions.php";
+// html_print_r($_POST);
 // die();
 _delete_api_main();
 
@@ -10,26 +10,26 @@ function _validateRequestParams(): void
         error("only accepting GET method");
     }
     // TODO: combine all 3 into one condition
-    if (!isset($_GET['id'])) {
+    if (!isset($_POST['id'])) {
         error("Not setting 'id' param. Don't fuck with delete api!");
     }
-    if (!isset($_GET['del'])) {
+    if (!isset($_POST['del'])) {
         error("Not setting del parameter. Did you call me mistakenly? Don't fuck with delete api!");
     }
-    if (!isset($_GET['selected'])) {
+    if (!isset($_POST['selected'])) {
         error("Not setting 'selected' param. Don't fuck with delete api!");
     }
-    if (!is_numeric($_GET['id'])) {
+    if (!is_numeric($_POST['id'])) {
         error("id parameter has to be a number. don't fuck with delete api!");
     }
-    $selected_to_del = $_GET['selected'];
+    $selected_to_del = $_POST['selected'];
     if (!in_array($selected_to_del, VALID_SELECTORS)) {
         error("Invalid 'selected' param.");
     }
 }
 function _delete_api_record(mysqli $conn): void
 {
-    $id = (int)$_GET['id'];
+    $id = (int)$_POST['id'];
     // do some validations
     if (($e_code = deleteRecord($id, $conn)) >= 0) {
         redirect('./records.php');
@@ -59,7 +59,7 @@ function _delete_api_main(): void
             DELETEING CATEGORY
         */
     _validateRequestParams();
-    $selected_to_del = $_GET['selected'];
+    $selected_to_del = $_POST['selected'];
 
     // if ($selected_to_del === CATEGORY) {
     //     _category();
@@ -89,7 +89,7 @@ function _delete_api_main(): void
 
 function _delete_api_income(mysqli $conn) : void
 {
-    $id = (int)$_GET['id'];
+    $id = (int)$_POST['id'];
     // do some validations
     if (($e_code = deleteIncome($id, $conn)) >= 0) {
         redirect('./income.php');

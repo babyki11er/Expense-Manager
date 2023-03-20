@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
+// require_once ROOT_DIR . "/functions/functions.php";
 _update_api_main();
 
 function _update_api_main(): void

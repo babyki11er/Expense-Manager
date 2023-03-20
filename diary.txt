@@ -84,12 +84,17 @@ Note:
 [H]:	implement view part in MVC, calling view function, no controller yet
 		[x]: views pages
 				read the uri and loads the script inside views folder by using view function
-		[ ]: api calls will start with /api/ , not sure but i guess i will write a controller that will call each functions
+		[@]: write a general function for api calls, that will require each respective files
+		[@]: convert each api script to functions like what a true controller does
+[@]:	change GET api request to POST
+[@]:	prevent XSS by using out function
 
-[ ]:	prevent XSS by using out function
 [ ]:	prevent SQL injection
 [ ]:	convert state changing api requests to post, not REST yet
 [ ]:	show alerts after redirecting from api
+
+[ weird behavours ]
+	+ url get requests with php extension show defalt PHP page instead
 
 [ future tasks ]
 	[ ]:	add tags on records, independent from other resources

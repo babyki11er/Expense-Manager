@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
+require_once ROOT_DIR . "/functions/functions.php";
 
 _main();
 
