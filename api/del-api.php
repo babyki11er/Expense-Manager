@@ -32,7 +32,7 @@ function _delete_api_record(mysqli $conn): void
     $id = (int)$_GET['id'];
     // do some validations
     if (($e_code = deleteRecord($id, $conn)) >= 0) {
-        redirect('./records.php');
+        back_to_referer();
     } else {
         switch ($e_code) {
             case DB_ERROR:
@@ -92,7 +92,7 @@ function _delete_api_income(mysqli $conn) : void
     $id = (int)$_GET['id'];
     // do some validations
     if (($e_code = deleteIncome($id, $conn)) >= 0) {
-        redirect('./income.php');
+        back_to_referer();
     } else {
         switch ($e_code) {
             case DB_ERROR:

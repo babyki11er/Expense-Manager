@@ -38,7 +38,7 @@ function _update_api_category(mysqli $conn) : void
     $id = (int)$_POST['id'];
     $value = $_POST['value'];
     if (($id = updateCategory($id, $value, $conn)) >= 0) {
-        redirect('./category.php');
+        back_to_referer();
     } else if ($id === VALIDATE_ERROR) {
         error('Invalid api call', 404, $_POST);
     } else if ($id === DB_ERROR) {
@@ -57,7 +57,7 @@ function _update_api_item(mysqli $conn) : void
     if (isset($_POST['overwrite']))
     {
         if (($id = updateItem($id, $name, $price, $cat_id, $conn)) >= 0) {
-            redirect('./item.php');
+            back_to_referer();
         } else if ($id === VALIDATE_ERROR) {
             error('Invalid api call', 404);
         } else if ($id === DB_ERROR) {
@@ -68,7 +68,7 @@ function _update_api_item(mysqli $conn) : void
     {
         $name = $name . $name[-1];
         if (addNewItem($name, $price, $cat_id, $conn) >= 0) {
-            redirect('./item.php');
+            back_to_referer();
         } else {
             // need to consider validate error and db
             error("ERror saving the item", 400, $_POST);
@@ -78,7 +78,7 @@ function _update_api_item(mysqli $conn) : void
     {
         archiveItem($id, $conn);
         if (addNewItem($name, $price, $cat_id, $conn) >= 0) {
-            redirect('./item.php');
+            back_to_referer();
         } else {
             // need to consider validate error and db
             error("ERror saving the item", 400, $_POST);
@@ -114,7 +114,7 @@ function _update_api_record(mysqli $conn) : void
     }
 
     if (($id = updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {
-        redirect('./records.php');
+        back_to_referer();
     } else if ($id === VALIDATE_ERROR) {
         error('Invalid api call', 404);
     } else if ($id === DB_ERROR) {
@@ -128,8 +128,9 @@ function _update_api_income(mysqli $conn) : void
     $date = $_POST['date'];
     $note = $_POST['note'];
     $label = $_POST['label'];
+    // red! error here
     if (($id = updateIncome($id, $amount, $label, $date, $note, $conn)) >= 0) {
-        redirect('./income.php');
+        back_to_referer();
     } else if ($id === VALIDATE_ERROR) {
         error('Invalid api call', 404);
     } else if ($id === DB_ERROR) {

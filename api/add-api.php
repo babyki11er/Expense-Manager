@@ -52,7 +52,7 @@ function _add_api_category(mysqli $conn): void
     } else if ($error_code === DB_ERROR) {
         error(("Internal Server Error"));
     }
-    redirect("./category.php");
+    back_to_referer();
 }
 
 function _validateRequestParams(): void
@@ -81,7 +81,7 @@ function _add_api_item(mysqli $conn): void
     }
     // actually adding the stuff
     if (($id_new_item = addNewItem($item_name, $item_price, $item_cat_id, $conn)) >= 0) {
-        redirect('item.php');
+        back_to_referer();
     } else {
         apiResponse($_POST);
         // error("Error saving the item!");
@@ -140,7 +140,7 @@ function _add_api_record(mysqli $conn)
         error("Error addding your record", 400, $_POST);
     } else {
         _ssSet('insert-date', $date);
-        redirect("./insert.php");
+        back_to_referer();
     }
 }
 
@@ -155,7 +155,7 @@ function _add_api_income(mysqli $conn): void
         error("Insert a numeric value for amount");
     }
     if (addIncome($amount, $label, $date, $note, $conn) >= 0) {
-        redirect("./income.php");
+        back_to_referer();
     } else {
         error("Unknown error occurred", 400, $_POST);
     }

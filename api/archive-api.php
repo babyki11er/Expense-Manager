@@ -43,7 +43,7 @@ function _archive_api_category($conn)
     // $id = 5;
     if (($e_code = archiveCategory($id, $conn)) > 0) {
         // dd($_GET);
-        redirect("./category.php");
+        back_to_referer();
     } else if ($e_code === VALIDATE_ERROR) {
         error("Id doesn't exist");
     } else if ($e_code === DB_ERROR) {
@@ -55,7 +55,7 @@ function _archive_api_item(mysqli $conn)
 {
     $id = (int) $_GET['id'];
     if (($e_code = archiveItem($id, $conn)) >= 0) {
-        redirect("./item.php");
+        back_to_referer();
     } else if ($e_code === -4) {
         error("Id doesn't exist");
     } else if ($e_code === -1) {

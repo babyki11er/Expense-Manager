@@ -11,12 +11,12 @@ require_once ROOT_DIR . "/functions/fn_db.php";
 /*
     business logic?
 */
-function get_duplicates(array $arr, string $col) : array
+function get_duplicates(array $arr, string $col): array
 {
     // for getting duplicates, we count the occurence of each value, then, filter it, and return the keys, easy task, just a matter of finding which functions to call
     $values = array_column($arr, $col);
     $counts = array_count_values($values);
-    $duplicate_counts = array_filter($counts, function($val) {
+    $duplicate_counts = array_filter($counts, function ($val) {
         return $val > 1;
     });
     $duplicates = array_keys($duplicate_counts);
@@ -24,7 +24,7 @@ function get_duplicates(array $arr, string $col) : array
 }
 
 // proud of this 2 functions, very neat i think
-function getOrder(string $selected, string $backup) : string
+function getOrder(string $selected, string $backup): string
 {
     if (in_array($selected, VALID_SELECTORS)) {
         $key = "order-$selected";
@@ -33,7 +33,7 @@ function getOrder(string $selected, string $backup) : string
     return $backup;
 }
 
-function setOrder(string $selected, string $val) : void
+function setOrder(string $selected, string $val): void
 {
     $validOrderValues = [
         CATEGORY => ['id', 'name'],
@@ -46,12 +46,12 @@ function setOrder(string $selected, string $val) : void
     }
 }
 
-function displayMoney(int $money) : string
+function displayMoney(int $money): string
 {
     return number_format($money);
 }
 
-function displayItem(array $item) : string
+function displayItem(array $item): string
 {
     $r_item = $item['name'];
     if ($item['duplicate']) {
@@ -66,7 +66,7 @@ function displayItem(array $item) : string
 */
 
 // MVC view part
-function view(string $path) : void
+function view(string $path): void
 {
     // asssume that path is already valid
     if ($path === '/') {
@@ -76,7 +76,7 @@ function view(string $path) : void
     require_once VIEW_DIR . "$path.view.php";
 }
 // MVC controller part
-function api_controller(string $name) : void
+function api_controller(string $name): void
 {
     require_once API_DIR . "/$name-api.php";
     // assume that path is already valid
@@ -89,19 +89,29 @@ function apiResponse(array $arr): void
 }
 
 
-function redirect(string $php_file): void
+function redirect(string $location): void
 {
-    header("Location: /$php_file");
+    header("Location: $location");
     die();
 }
 
-function _ssGet(string $key, string $default) : string
+function back_to_referer(bool $removeQueries = true): void
+{
+    $referer = $_SERVER['HTTP_REFERER'];
+    if ($removeQueries) {
+        // shallow logic, yellow
+        $referer = explode("?", $referer)[0];
+    }
+    header("Location: $referer");
+}
+
+function _ssGet(string $key, string $default): string
 {
     $val = $_SESSION[$key] ?? $default;
     return $val;
 }
 
-function _ssSet(string $key, string $val) : void
+function _ssSet(string $key, string $val): void
 {
     $_SESSION[$key] = $val;
 }
@@ -130,7 +140,7 @@ function _html_header(): void
     header("Content-type: text/html");
 }
 
-function _html_log(string $s) : void
+function _html_log(string $s): void
 {
     echo '<h4 class="log">';
     echo $s;
