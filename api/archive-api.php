@@ -1,7 +1,6 @@
 <?php
 require_once ROOT_DIR . "/functions/functions.php";
 
-main();
 function debug()
 {
     $_GET['selected'] = CATEGORY;

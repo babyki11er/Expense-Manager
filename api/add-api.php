@@ -4,7 +4,6 @@ require_once ROOT_DIR . "/functions/functions.php";
 
 function category(mysqli $conn): void
 {
-    _validateRequestParams();
     $cat_string = $_POST['value'];
     // validate the value
     if (empty($cat_string)) {
@@ -25,17 +24,6 @@ function category(mysqli $conn): void
         error(("Internal Server Error"));
     }
     back_to_referer();
-}
-
-function _validateRequestParams(): void
-{
-    // validating request parameters
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        error("This is not a {$_SERVER['REQUEST_METHOD']} api!", 400, $_REQUEST);
-    }
-    if (!isset($_POST['selected'])) {
-        error("Not setting 'selected' parameter. Did you call me mistakenly?");
-    }
 }
 
 function item(mysqli $conn): void

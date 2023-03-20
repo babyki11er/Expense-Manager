@@ -2,7 +2,6 @@
 require_once ROOT_DIR . "/functions/functions.php";
 // html_print_r($_GET);
 // die();
-main();
 
 function _validateRequestParams(): void
 {

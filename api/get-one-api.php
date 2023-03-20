@@ -22,8 +22,6 @@ function _main() : void
     }
 }
 
-_main();
-
 // function category(mysqli $conn) : void
 // {
 //     $id = $_GET['id'];

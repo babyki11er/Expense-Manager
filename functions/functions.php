@@ -87,11 +87,26 @@ function view(string $path): void
 //     // assume that path is already valid
 // }
 
-// very general function for all the validation of HTTP request
-// function validate_http_params(array $set_us, string $req_method="POST") : bool
-// {
-
-// }
+// very general function for all the validation of HTTP request, neat, i think
+// exit giving an error
+function validate_isset_http(string $req_method, array $set_us) : void
+{
+    if ($_SERVER['REQUEST_METHOD'] == $req_method) {
+        $invalid_params = [];
+        $array = $req_method == "POST" ? $_POST : $_GET;
+        foreach($set_us as $param) {
+            if (empty($array[$param])) {
+                $invalid_params[] = $param;
+            }
+        }
+        if (empty($invalid_params)) {
+            // the request has been passed the validation test
+            return;
+        }
+        error("Not setting or empty parameters: " . implode(",", $invalid_params));
+    }
+    error("This is not a $req_method api!", 400);
+}
 
 function apiResponse(array $arr): void
 {

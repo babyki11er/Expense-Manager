@@ -89,6 +89,7 @@ Note:
 	[x]: convert each api script to functions like what a true controller does
 [@]:	change GET api request to POST
 [@]:	prevent XSS by using out function
+[x]:	add validation for api controller
 [@]:	refactor js code
 [x]:	fix get-one api
 [x]:	fix archive api
