@@ -89,8 +89,8 @@ Note:
 [@]:	change GET api request to POST
 [@]:	prevent XSS by using out function
 [@]:	refactor js code
-[@]:	fix get-one api
-[@]:	fix archive api
+[x]:	fix get-one api
+[x]:	fix archive api
 
 [ ]:	prevent SQL injection
 [ ]:	convert state changing api requests to post, not REST yet

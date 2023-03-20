@@ -6,10 +6,10 @@ function _main() : void
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         error("Invalid api method call");
     }
-    if (!isset($_POST['selected']) || !isset($_POST['id'])) {
+    if (!isset($_GET['selected']) || !isset($_GET['id'])) {
         error("Missing certain parameters!");
     }
-    $selected = $_POST['selected'];
+    $selected = $_GET['selected'];
     switch($selected) {
         case CATEGORY:
             // _get_api_category($conn);
@@ -26,13 +26,13 @@ _main();
 
 // function _get_api_category(mysqli $conn) : void
 // {
-//     $id = $_POST['id'];
+//     $id = $_GET['id'];
 //     apiResponse(getCategoryName($id, $conn));
 // }
 
 function _get_api_item(mysqli $conn) : void
 {
-    $item_id = $_POST['id'];
+    $item_id = $_GET['id'];
     // validating parameter values
     $item = getItemById($item_id, $conn);
     apiResponse($item);
