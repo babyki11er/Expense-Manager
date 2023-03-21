@@ -55,7 +55,7 @@ function archiveCategory(int $id, mysqli $conn): bool
 {
     $e_code = db_Update($conn, CATEGORY, ['status' => 'archived'], ['id' => $id]);
     if ($e_code) {
-        db_Update($conn, CATEGORY, ['status' => 'archived'], ['id' => $id]);
+        db_Update($conn, ITEM, ['status' => 'archived'], ['cat_id' => $id]);
     }
     return $e_code;
 }
