@@ -8,7 +8,6 @@ let dom_dd = document.getElementById('dd');
 addAutocomplete();
 
 async function getItem(id) {
-    // red!
     let url = "http://localhost:8080/api/get-one?selected=item&id=" + id;
     let myObject = await fetch(url);
     let item = await myObject.json();

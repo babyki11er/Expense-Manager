@@ -17,13 +17,9 @@ function category(mysqli $conn): void
     }
 
     if ($error_code >= 0) {
-        ;
-    } else if ($error_code === VALIDATE_ERROR) {
-        error("Your api call is invalid. Try again.");
-    } else if ($error_code === DB_ERROR) {
-        error(("Internal Server Error"));
+        back_to_referer();
     }
-    back_to_referer();
+    error("Internal DB Error", 500);
 }
 
 function item(mysqli $conn): void
@@ -46,9 +42,10 @@ function item(mysqli $conn): void
         apiResponse($_POST);
         // error("Error saving the item!");
     }
+    error("Internal DB Error", 500);
 }
 
-function record(mysqli $conn)
+function record(mysqli $conn) : void
 {
     // validating the parameters
     if (
@@ -96,12 +93,11 @@ function record(mysqli $conn)
     }
     // actual inserting data
     $id_added = addNewRecord($item_id, $qty, $date, $note, $conn);
-    if ($id_added === -1) {
-        error("Error addding your record", 400, $_POST);
-    } else {
+    if ($id_added >= 0) {
         _ssSet('insert-date', $date);
         back_to_referer();
     }
+    error("Internal DB Error", 500);
 }
 
 function income(mysqli $conn): void
@@ -116,7 +112,6 @@ function income(mysqli $conn): void
     }
     if (addIncome($amount, $label, $date, $note, $conn) >= 0) {
         back_to_referer();
-    } else {
-        error("Unknown error occurred", 400, $_POST);
     }
+    error("Internal DB Error", 500);
 }

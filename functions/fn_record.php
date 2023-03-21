@@ -67,13 +67,13 @@ function addNewRecord(int $item_id, int $qty, string $date, string $note, mysqli
     return db_Insert($conn, RECORD, $record_to_add);
 }
 
-function updateRecord(int $id, int $item_id, int $qty, string $date, string $note, mysqli $conn): int
+function updateRecord(int $id, int $item_id, int $qty, string $date, string $note, mysqli $conn): bool
 {
-    if (!_checkRecord($id, $conn)) {
-        return VALIDATE_ERROR;
+    if (_checkRecord($id, $conn)) {
+        $record_to_add = _makeRecord($item_id, $qty, $date, $note);
+        return db_Update($conn, RECORD, $record_to_add, ['id' => $id]);
     }
-    $record_to_add = _makeRecord($item_id, $qty, $date, $note);
-    return db_Update($conn, RECORD, $record_to_add, ['id' => $id]);
+    return false;
 }
 
 function _checkRecord(int $id, mysqli $conn) : bool
@@ -81,9 +81,12 @@ function _checkRecord(int $id, mysqli $conn) : bool
     return !is_null(db_SelectOne($conn, RECORD, ['id' => $id], 'id'));
 }
 
-function deleteRecord(int $id, mysqli $conn): int
+function deleteRecord(int $id, mysqli $conn): bool
 {
-    return db_Delete($conn, RECORD, $id);
+    if (_checkRecord($id, $conn)) {
+        return db_Delete($conn, RECORD, $id);
+    }
+    return false;
 }
 
 // yellow?

@@ -81,20 +81,25 @@ Note:
 [x]:	remove custom sql statement
 
 <19>
-[H]:	implement view part in MVC, calling view function, no controller yet
+[x]:	implement view part in MVC, calling view function, no controller yet
 		[x]: views pages
 				read the uri and loads the script inside views folder by using view function
 <20>
 	[x]: write a general function for api calls, that will require each respective files
 	[x]: convert each api script to functions like what a true controller does
-[@]:	change GET api request to POST
-[@]:	prevent XSS by using out function
 [x]:	add validation for api controller
-[@]:	refactor js code
 [x]:	fix get-one api
 [x]:	fix archive api
 [x]:	fix update income
+Note:
+	learn about MVC in somewhat more detail, controllers are just script files with defined functions for every valid cases, without main code
+	You need a function or a script to decide which controller to go, then the requested function in the controller is executed, do stuffs
+
+<21>
 [ ]:	refactor function calls that are returning bool instead of int
+[@]:	change GET api request to POST
+[@]:	prevent XSS by using out function
+[@]:	refactor js code
 
 [ ]:	prevent SQL injection
 [ ]:	convert state changing api requests to post, not REST yet

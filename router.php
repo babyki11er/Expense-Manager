@@ -27,7 +27,7 @@ const ValidRoutes = [
 if (substr($path, 0, 5) == '/api/') {
     $api_name = substr($path, 5);
     if (in_array($api_name, ValidApis)) {
-        require_once API_DIR . 'controller.php';
+        require_once ROOT_DIR . '/controller.php';
         return;
     }
 }

@@ -1,91 +1,43 @@
 <?php
 // require_once ROOT_DIR . "/functions/functions.php";
 
-function main(): void
+function category(mysqli $conn): void
 {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        error("only accepting POST request");
-    }
-    if (!isset($_POST['selected']) || !isset($_POST['id'])) {
-        error("Missing certain parameters", 400, $_POST);
-    }
-
-    $selected = $_POST['selected'];
-    $conn = connectMysql();
-    switch($selected) {
-        case CATEGORY:
-            category($conn);
-            break;
-        case ITEM:
-            item($conn);
-            break;
-        case RECORD:
-            record($conn);
-            break;
-        case INCOME:
-            income($conn);
-            break;
-        default:
-            error("Missing or invalid parameter values!");
-    }
-}
-
-
-function category(mysqli $conn) : void
-{
-    // dd($_POST);
     $id = (int)$_POST['id'];
     $value = $_POST['value'];
-    if (($id = updateCategory($id, $value, $conn)) >= 0) {
+    if (updateCategory($id, $value, $conn)) {
         back_to_referer();
-    } else if ($id === VALIDATE_ERROR) {
-        error('Invalid api call', 404, $_POST);
-    } else if ($id === DB_ERROR) {
-        error('Internal DB error');
     }
+    error("Internal DB Error", 500);
 }
-    // $id = $_POST['id'];
 
-function item(mysqli $conn) : void
+function item(mysqli $conn): void
 {
-    // dd($_POST);
     $id = $_POST['id'];
     $name = $_POST['name'];
     $price = $_POST['price'];
     $cat_id = $_POST['cat_id'];
-    if (isset($_POST['overwrite']))
-    {
-        if (($id = updateItem($id, $name, $price, $cat_id, $conn)) >= 0) {
+    if (isset($_POST['overwrite'])) {
+        if (updateItem($id, $name, $price, $cat_id, $conn)) {
             back_to_referer();
-        } else if ($id === VALIDATE_ERROR) {
-            error('Invalid api call', 404);
-        } else if ($id === DB_ERROR) {
-            error('Internal DB error');
         }
     }
-    else if (isset($_POST['keep']))
-    {
+    else if (isset($_POST['keep'])) {
         $name = $name . $name[-1];
         if (addNewItem($name, $price, $cat_id, $conn) >= 0) {
             back_to_referer();
-        } else {
-            // need to consider validate error and db
-            error("ERror saving the item", 400, $_POST);
         }
     }
-    else
-    {
+    else {
         archiveItem($id, $conn);
         if (addNewItem($name, $price, $cat_id, $conn) >= 0) {
             back_to_referer();
-        } else {
-            // need to consider validate error and db
-            error("ERror saving the item", 400, $_POST);
         }
     }
+    error("Internal DB Error", 500, $_POST);
 }
 
-function record(mysqli $conn) : void
+function record(mysqli $conn): void
 {
     // validating the parameters
     if (
@@ -96,7 +48,7 @@ function record(mysqli $conn) : void
         !isset($_POST['id'])
     ) {
         $keys = array_keys($_POST);
-        // error("Plese, input all parameters!", 400, $keys);
+        error("Plese, input all parameters!", 400, $keys);
     }
     $id = $_POST['id'];
     $qty = $_POST['qty'];
@@ -113,26 +65,22 @@ function record(mysqli $conn) : void
     }
 
     if (($id = updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {
+        // saving the date in session
+        _ssSet('insert-date', $date);
         back_to_referer();
-    } else if ($id === VALIDATE_ERROR) {
-        error('Invalid api call', 404);
-    } else if ($id === DB_ERROR) {
-        error('Internal DB error');
     }
+    error("Internel DB Error", 500);
 }
-function income(mysqli $conn) : void
+
+function income(mysqli $conn): void
 {
     $id = $_POST['id'];
     $amount = $_POST['amount'];
     $date = $_POST['date'];
     $note = $_POST['note'];
     $label = $_POST['label'];
-    // red! error here
-    if (($id = updateIncome($id, $amount, $label, $date, $note, $conn)) >= 0) {
+    if (updateIncome($id, $amount, $label, $date, $note, $conn)) {
         back_to_referer();
-    } else if ($id === VALIDATE_ERROR) {
-        error('Invalid api call', 404);
-    } else if ($id === DB_ERROR) {
-        error('Internal DB error');
     }
+    error("Internal DB Error", 500);
 }

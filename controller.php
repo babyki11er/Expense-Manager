@@ -5,7 +5,6 @@ $conn = connectMysql();
 // assume api_name is already valid
 switch ($api_name) {
     case 'add':
-        // needs to validate the request, if the params are set, red!
         validate_isset_http('POST', ['selected']);
         $selected = $_POST['selected'];
 

@@ -70,13 +70,13 @@ function addNewItem(string $name, int $price, int $cat_id, mysqli $conn): int
     return db_Insert($conn, ITEM, $item_to_add);
 }
 
-function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn) : int
+function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn) : bool
 {
-    if (!_checkItem($id, $conn)) {
-        return VALIDATE_ERROR;
+    if (_checkItem($id, $conn)) {
+        $update_value = _makeItem($name, $price, $cat_id);
+        return db_Update($conn, ITEM, $update_value, ['id' => $id]);
     }
-    $update_value = _makeItem($name, $price, $cat_id);
-    return db_Update($conn, ITEM, $update_value, ['id' => $id]);
+    return false;
 }
 
 function _checkItem(int $id, mysqli $conn) : bool
@@ -86,9 +86,12 @@ function _checkItem(int $id, mysqli $conn) : bool
     return !is_null($fetched);
 }
 
-function archiveItem(int $id, mysqli $conn, bool $archived=true): int
+function archiveItem(int $id, mysqli $conn, bool $archived=true): bool
 {
-    return db_Update($conn, ITEM, ['status' => 'archived'], ['id' => $id]);
+    if (_checkItem($id, $conn)) {
+        return db_Update($conn, ITEM, ['status' => 'archived'], ['id' => $id]);
+    }
+    return false;
     // do some validation, then db function
 }
 

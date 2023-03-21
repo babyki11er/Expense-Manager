@@ -48,17 +48,12 @@ function updateIncome(int $id, int $amount, string $label, string $date, string 
     }
 }
 
-function deleteIncome(int $id, mysqli $conn) : int
+function deleteIncome(int $id, mysqli $conn) : bool
 {
     if (_checkIncome($id, $conn)) {
-        if (db_Delete($conn, INCOME , $id)) {
-            return $id;
-        } else {
-            return DB_ERROR;
-        }
-    } else {
-        return VALIDATE_ERROR;
+        return db_Delete($conn, INCOME , $id);
     }
+    return false;
 }
 
 function listIncomes(mysqli $conn) : ?array
