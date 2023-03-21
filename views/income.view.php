@@ -86,9 +86,16 @@ if (isset($_GET['update'])) {
                     <a href="<?= $update_link ?>" class=" btn btn-primary">
                         Update
                     </a>
-                    <a href="<?= $delete_link ?>" class=" btn btn-danger">
+                    <form action="/api/del" method="post" class=" d-inline-block">
+                        <input type="hidden" name="selected" value="income">
+                        <input type="hidden" name="id" value="<?= $income['id'] ?>">
+                        <button class=" btn btn-sm btn-danger" name="del">
+                            Del
+                        </button>
+                    </form>
+                    <!-- <a href="<?= $delete_link ?>" class=" btn btn-danger">
                         Delete
-                    </a>
+                    </a> -->
                 </td>
             </tr>
         <?php endforeach; ?>

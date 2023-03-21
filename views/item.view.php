@@ -105,7 +105,6 @@ $active_items = listItems($conn);
                 $item_price = $item['price'];
                 $item_category = $item['cat_str'];
                 $update_link = "./item?update&id=$id";
-                $archive_link = "./api/archive?selected=item&id=$id&del";
                 ?>
                 <tr>
                     <td><?= $item_name_diplay; ?></td>
@@ -113,7 +112,13 @@ $active_items = listItems($conn);
                     <td><?= $item_category; ?></td>
                     <td>
                         <a href="<?= $update_link; ?>" class=" btn btn-primary">Update</a>
-                        <a href="<?= $archive_link; ?>" class=" btn btn-warning">Archive</a>
+                        <form action="/api/archive" method="post" class=" d-inline-block">
+                            <input type="hidden" name="selected" value="item">
+                            <input type="hidden" name="id" value="<?= $id ?>">
+                            <button class=" btn btn btn-warning">
+                                Archive
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

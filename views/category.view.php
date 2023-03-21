@@ -60,7 +60,7 @@ if (isset($_GET['update'])) {
             <?php foreach ($categories as $category) :
                 $id = $category['id'];
                 $cat = $category['name'];
-                $archive_link = "./api/archive?selected=category&id=$id";
+                // $archive_link = "./api/archive?selected=category&id=$id";
                 $rename_link = "./category?update&id=$id";
             ?>
                 <?php if ($cat === 'None') continue; ?>
@@ -71,7 +71,13 @@ if (isset($_GET['update'])) {
                     <a href="<?= $rename_link ?>" class=" btn btn-primary col-lg-1 col-md-2">
                         Rename
                     </a>
-                    <a href="<?= $archive_link; ?>" class=" btn btn-warning col-lg-1 col-md-2">Archive</a>
+                    <form action="/api/archive" method="post" class=" d-inline-block col-lg-1 col-md-2">
+                        <input type="hidden" name="selected" value="category">
+                        <input type="hidden" name="id" value="<?= $id?>">
+                        <button class=" btn btn btn-warning" name="del">
+                            Archive
+                        </button>
+                    </form>
                 </div>
             <?php endforeach; ?>
         </div>

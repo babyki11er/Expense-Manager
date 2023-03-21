@@ -3,7 +3,7 @@ require_once ROOT_DIR . "/functions/functions.php";
 
 function record(mysqli $conn): void
 {
-    $id = (int)$_GET['id'];
+    $id = (int)$_POST['id'];
     // do some validations
     if (deleteRecord($id, $conn)) {
         back_to_referer();
@@ -14,7 +14,7 @@ function record(mysqli $conn): void
 
 function income(mysqli $conn) : void
 {
-    $id = (int)$_GET['id'];
+    $id = (int)$_POST['id'];
     // do some validations
     if (deleteIncome($id, $conn)) {
         back_to_referer();

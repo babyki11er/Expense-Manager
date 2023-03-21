@@ -47,7 +47,6 @@ $active_records = listRecords($conn);
         <?php
         foreach ($active_records as $record) :
             $id = $record['id'];
-            $del_url = "api/del?selected=record&del&id=$id";
             $update_url = "insert?update&selected=record&id=$id";
         ?>
             <tr>
@@ -75,9 +74,14 @@ $active_records = listRecords($conn);
                     <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
                         Update
                     </a>
-                    <a href="<?= $del_url; ?>" class=" btn btn-sm btn-danger">
-                        Del
-                    </a>
+                    <!-- $del_url = "api/del?selected=record&del&id=$id"; -->
+                    <form action="/api/del" method="post" class=" d-inline-block">
+                        <input type="hidden" name="selected" value="record">
+                        <input type="hidden" name="id" value="<?= $id ?>">
+                        <button class=" btn btn-sm btn-danger" name="del">
+                            Del
+                        </button>
+                    </form>
                 </td>
                 <td>
                     <?= $record['date'] ?>
