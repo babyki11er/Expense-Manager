@@ -1,4 +1,4 @@
-<?php require_once TEMPLATE_DIR . "header.php" ?>
+
 
 <?php
 
@@ -88,4 +88,3 @@ if (isset($_GET['update'])) {
 </script>
 <script src="./js/_category.js">
 </script>
-<?php require_once TEMPLATE_DIR . "footer.php" ?>

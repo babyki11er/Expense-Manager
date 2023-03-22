@@ -1,6 +1,6 @@
 <?php
-require_once TEMPLATE_DIR . "header.php";
-require_once TEMPLATE_DIR . "nav-bar.php";
+
+
 ?>
 
 <?php
@@ -91,4 +91,3 @@ $active_records = listRecords($conn);
     </tbody>
 </table>
 
-<?php require_once TEMPLATE_DIR . "footer.php"; ?>

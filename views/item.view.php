@@ -1,5 +1,5 @@
 <?php
-require_once TEMPLATE_DIR . "header.php";
+
 $conn = connectMysql();
 $link_form = './api/add';
 $form_label = 'Add Item';
@@ -125,4 +125,4 @@ $active_items = listItems($conn);
         </tbody>
     </table>
 </div>
-<?php require_once TEMPLATE_DIR . "header.php";
+

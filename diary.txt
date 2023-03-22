@@ -96,14 +96,16 @@ Note:
 	You need a function or a script to decide which controller to go, then the requested function in the controller is executed, do stuffs
 
 <21>
-[ ]:	refactor function calls that are returning bool instead of int
-[@]:	change GET api request to POST
-[@]:	prevent XSS by using out function
-[@]:	refactor js code
+[x]:	refactor function calls that are returning bool instead of int
+[x]:	change GET api request to POST
+[ ]:	prevent XSS by using out function
+[x]:	refactor js code
 
-[ ]:	prevent SQL injection
-[ ]:	convert state changing api requests to post, not REST yet
-[ ]:	show alerts after redirecting from api
+[@]:	prevent SQL injection
+[x]:	convert state changing api requests to post, not REST yet
+[@]:	show alerts after redirecting from api
+[ ]:	paginator
+[ ]:	add summary on records.php
 
 <Refactor>
 	[ ]:	archive api links having del query

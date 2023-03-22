@@ -1,5 +1,5 @@
 <?php
-require_once TEMPLATE_DIR . "header.php";
+
 $conn = connectMysql();
 $incomes = listIncomes($conn);
 $update = false;
@@ -102,4 +102,4 @@ if (isset($_GET['update'])) {
 
     </tbody>
 </table>
-<?php require_once TEMPLATE_DIR . "footer.php" ?>
+

@@ -73,7 +73,9 @@ function view(string $path): void
         view("index");
         return;
     }
+    require_once TEMPLATE_DIR . 'header.php';
     require_once VIEW_DIR . "$path.view.php";
+    require_once TEMPLATE_DIR . 'footer.php';
 }
 // MVC controller part
 // not using this
@@ -142,6 +144,10 @@ function _ssSet(string $key, string $val): void
     $_SESSION[$key] = $val;
 }
 
+function alert(string $message, string $color = "success"):string
+{
+    return "<div class=' alert alert-$color'>$message</div>";
+}
 
 function error(string $message, int $status_code = 400, array $debug = null): void
 {

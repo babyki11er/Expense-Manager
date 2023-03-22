@@ -1,5 +1,5 @@
 <?php
-require_once TEMPLATE_DIR . "header.php";
+
 
 $day = (int) date("d");
 $total_spent = $total_outcome;
@@ -68,5 +68,5 @@ if (isset($_GET['given'])) {
 </div>
 
 <?php
-require_once TEMPLATE_DIR . "footer.php";
+
 ?>
