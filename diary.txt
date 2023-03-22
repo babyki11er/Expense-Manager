@@ -103,7 +103,7 @@ Note:
 
 [@]:	prevent SQL injection
 [x]:	convert state changing api requests to post, not REST yet
-[@]:	show alerts after redirecting from api
+[x]:	show alerts after redirecting from api
 [ ]:	paginator
 [ ]:	add summary on records.php
 

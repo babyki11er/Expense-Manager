@@ -74,6 +74,8 @@ function view(string $path): void
         return;
     }
     require_once TEMPLATE_DIR . 'header.php';
+    // alert box here
+    echo getNoti();
     require_once VIEW_DIR . "$path.view.php";
     require_once TEMPLATE_DIR . 'footer.php';
 }
@@ -123,14 +125,35 @@ function redirect(string $location): void
     die();
 }
 
-function back_to_referer(bool $removeQueries = true): void
+function back_to_referer($message = null, $removeQueries = true): void
 {
     $referer = $_SERVER['HTTP_REFERER'];
     if ($removeQueries) {
         // shallow logic, yellow
         $referer = explode("?", $referer)[0];
     }
+    if (!is_null($message)) {
+        setNoti($message);
+    }
     redirect($referer);
+}
+
+// alert box here
+// returns the whole noti html, not just the Session data
+function getNoti() : string
+{
+    if (is_null($_SESSION['noti'])) {
+        return '';
+    }
+    $noti = $_SESSION['noti'];
+    $html = alert($noti['message']);
+    $_SESSION['noti'] = null;
+    return $html;
+}
+
+function setNoti(string $message) : void
+{
+    $_SESSION['noti']['message'] = $message;
 }
 
 function _ssGet(string $key, string $default): string

@@ -8,7 +8,7 @@ function category($conn)
     // $id = 5;
     if (archiveCategory($id, $conn)) {
         // dd($_POST);
-        back_to_referer();
+        back_to_referer("Category archived successfully");
     }
     error("Db error");
 }
@@ -17,7 +17,7 @@ function item(mysqli $conn)
 {
     $id = (int) $_POST['id'];
     if (archiveItem($id, $conn)) {
-        back_to_referer();
+        back_to_referer("Item archived successfully");
     }
     error("DB error");
 }

@@ -6,7 +6,7 @@ function category(mysqli $conn): void
     $id = (int)$_POST['id'];
     $value = $_POST['value'];
     if (updateCategory($id, $value, $conn)) {
-        back_to_referer();
+        back_to_referer("Category updated successfully!");
     }
     error("Internal DB Error", 500);
 }
@@ -19,19 +19,13 @@ function item(mysqli $conn): void
     $cat_id = $_POST['cat_id'];
     if (isset($_POST['overwrite'])) {
         if (updateItem($id, $name, $price, $cat_id, $conn)) {
-            back_to_referer();
-        }
-    }
-    else if (isset($_POST['keep'])) {
-        $name = $name . $name[-1];
-        if (addNewItem($name, $price, $cat_id, $conn) >= 0) {
-            back_to_referer();
+            back_to_referer("Item has been updated including past records!");
         }
     }
     else {
         archiveItem($id, $conn);
         if (addNewItem($name, $price, $cat_id, $conn) >= 0) {
-            back_to_referer();
+            back_to_referer("Item has been updated but past records will still have the old item");
         }
     }
     error("Internal DB Error", 500, $_POST);
@@ -67,7 +61,7 @@ function record(mysqli $conn): void
     if (($id = updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {
         // saving the date in session
         _ssSet('insert-date', $date);
-        back_to_referer();
+        back_to_referer("Record #$id updated successfully!");
     }
     error("Internel DB Error", 500);
 }
@@ -80,7 +74,7 @@ function income(mysqli $conn): void
     $note = $_POST['note'];
     $label = $_POST['label'];
     if (updateIncome($id, $amount, $label, $date, $note, $conn)) {
-        back_to_referer();
+        back_to_referer("Income updated successfully!");
     }
     error("Internal DB Error", 500);
 }

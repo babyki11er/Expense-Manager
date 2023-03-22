@@ -71,3 +71,5 @@ $values = [
 // dd(listItems($conn));
 $s = 'heloisdlfkdsldklooo ';
 echo $s['9'];
+// setNoti("Hello world");
+echo getNoti();
