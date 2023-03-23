@@ -102,6 +102,7 @@ Note:
 [x]:	refactor js code
 
 [@]:	prevent SQL injection
+[@]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
 [x]:	convert state changing api requests to post, not REST yet
 [x]:	show alerts after redirecting from api
 [ ]:	paginator
@@ -110,7 +111,8 @@ Note:
 <Refactor>
 	[ ]:	archive api links having del query
 	[ ]:	design a function that will do all the requires
-[ weird behavours ]
+	[ ]:	remove useless files, and node folder, make the directory clean to eyes
+[ weird behavours ]another
 	+ url get requests with php extension show defalt PHP page instead
 
 [ future tasks ]

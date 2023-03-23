@@ -36,7 +36,6 @@ function db_Update(mysqli $conn, string $selected, array $values, array $where):
     return _execQuery($conn, $sql, true);
 }
 
-// yellow delete should be returning bool instead of int
 function db_Delete(mysqli $conn, string $selected, int $id, array $where = null): bool
 {
     $sql = _makeDeleteStatement($selected, $id, $where);
