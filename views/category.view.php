@@ -1,7 +1,6 @@
-
-
 <?php
 
+// controller
 if (isset($_GET['order'])) {
     setOrder(CATEGORY, $_GET['order']);
 }
@@ -85,6 +84,4 @@ if (isset($_GET['update'])) {
 
 </div>
 <script src="./js/functions.js">
-</script>
-<script src="./js/_category.js">
 </script>

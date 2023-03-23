@@ -1,5 +1,6 @@
 <?php
 
+// controller
 $conn = connectMysql();
 $incomes = listIncomes($conn);
 $update = false;

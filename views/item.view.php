@@ -20,6 +20,14 @@ if (isset($_GET['update'])) {
         $form_label = 'Update Item';
     }
 }
+
+// displaying exististing items
+// setting the variable to use for ordering the records
+if (isset($_GET['order'])) {
+    setOrder(ITEM, $_GET['order']);
+}
+
+$active_items = listItems($conn);
 ?>
 
 <!-- ADD NEW ITEM FORM -->
@@ -67,16 +75,6 @@ if (isset($_GET['update'])) {
     </form>
 </div>
 
-
-<!-- DISPLAY ITEMS -->
-<?php
-// setting the variable to use for ordering the records
-if (isset($_GET['order'])) {
-    setOrder(ITEM, $_GET['order']);
-}
-
-$active_items = listItems($conn);
-?>
 <div class=" m-4 table-responsive">
     <table class="table table-bordered border-dark table-striped">
         <thead>

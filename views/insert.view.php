@@ -1,7 +1,6 @@
 <?php
 
-
-
+// controller
 // getting user defined values
 $conn = connectMysql();
 $items = listItems($conn);
@@ -33,6 +32,7 @@ if (isset($_GET['update']) && isset($_GET['id'])) {
     }
 }
 ?>
+
 <div class=" p-3">
     <h4>Insert record</h4>
     <form action="<?= $form_link; ?>" method="post" enctype="multipart/form-data" class=" container-sm mt-5">
