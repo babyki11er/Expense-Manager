@@ -66,18 +66,31 @@ function displayItem(array $item): string
 */
 
 // MVC view part
-function view(string $path): void
+function view(string $path, array $data = null): void
 {
     // asssume that path is already valid
-    if ($path === '/') {
-        view("index");
-        return;
+
+    // loading the data
+    // array to variable
+    if (!is_null($data)) {
+        foreach ($data as $key => $value) {
+            // dynamic variable name, will be sanitizing for XSS later
+            ${$key} = $value;
+        }
     }
     require_once TEMPLATE_DIR . '/header.php';
     // alert box here
     echo getNoti();
     require_once VIEW_DIR . "$path.view.php";
     require_once TEMPLATE_DIR . '/footer.php';
+    return;
+}
+
+function load_controller(string $page): void
+{
+    // assume that page is already valid
+    require_once PAGE_CONTROLLER . "$page.controller.php";
+    return;
 }
 // MVC controller part
 // not using this
@@ -93,12 +106,12 @@ function view(string $path): void
 
 // very general function for all the validation of HTTP request, neat, i think
 // exit giving an error
-function validate_isset_http(string $req_method, array $set_us) : void
+function validate_isset_http(string $req_method, array $set_us): void
 {
     if ($_SERVER['REQUEST_METHOD'] == $req_method) {
         $invalid_params = [];
         $array = $req_method == "POST" ? $_POST : $_GET;
-        foreach($set_us as $param) {
+        foreach ($set_us as $param) {
             if (empty($array[$param])) {
                 $invalid_params[] = $param;
             }
@@ -140,7 +153,7 @@ function back_to_referer($message = null, $removeQueries = true): void
 
 // alert box here
 // returns the whole noti html, not just the Session data
-function getNoti() : string
+function getNoti(): string
 {
     if (is_null($_SESSION['noti'])) {
         return '';
@@ -151,7 +164,7 @@ function getNoti() : string
     return $html;
 }
 
-function setNoti(string $message) : void
+function setNoti(string $message): void
 {
     $_SESSION['noti']['message'] = $message;
 }
@@ -167,7 +180,7 @@ function _ssSet(string $key, string $val): void
     $_SESSION[$key] = $val;
 }
 
-function alert(string $message, string $color = "success"):string
+function alert(string $message, string $color = "success"): string
 {
     return "<div class=' alert alert-$color'>$message</div>";
 }

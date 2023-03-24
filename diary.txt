@@ -109,6 +109,10 @@ Note:
 [@]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
 [ ]:	paginator
 [ ]:	add summary on records.php
+Note:	current implemention of MVC, the flow is simple:
+			the request goes to the router
+			router call the controller which provide all the variables to be used on view, and then call view function with the data variables
+			it works right now, because controller and view having one to one relationship, might have to change later
 
 <Refactor>
 	[ ]:	archive api links having del query

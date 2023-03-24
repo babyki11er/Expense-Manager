@@ -1,3 +1,11 @@
+<?php
+/*
+    Variables:
+        $rate
+        $no_days
+        $banner
+*/
+?>
 <form method="get" id="calc-form">
 </form>
 
@@ -7,7 +15,7 @@
             MMK Per Day
         </td>
         <td>
-            <input form="calc-form" type="number" name="given_rate" id="" value="<?= $calc_rate ?>">
+            <input form="calc-form" type="number" name="given_rate" id="" value="<?= $rate ?>">
         </td>
         <td>
             <button form="calc-form" name="given" value="rate">
@@ -20,7 +28,7 @@
             No of Days Left:
         </td>
         <td>
-            <input form="calc-form" type="number" name="given_days" id="" value="<?= $calc_days_left ?>">
+            <input form="calc-form" type="number" name="given_days" id="" value="<?= $no_days ?>">
         </td>
         <td>
             <button form="calc-form" name="given" value="days">
@@ -30,9 +38,5 @@
     </tr>
 </table>
 <div class=" container">
-    Having spent <?= displayMoney($total_spent) ?> MMKs this month within <?= $day ?> days, your average rate is <?= displayMoney($rate) ?> MMKs per day.
+    <?= $banner; ?>
 </div>
-
-<?php
-
-?>
