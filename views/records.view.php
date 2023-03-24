@@ -1,13 +1,3 @@
-<?php
-// controller
-$conn = connectMysql();
-if (isset($_GET['order'])) {
-    setOrder(RECORD, $_GET['order']);
-}
-
-$active_records = listRecords($conn);
-?>
-
 <table class=" table table-success table-bordered border-2 mt-3 container">
     <thead>
         <th>

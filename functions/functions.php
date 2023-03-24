@@ -73,11 +73,11 @@ function view(string $path): void
         view("index");
         return;
     }
-    require_once TEMPLATE_DIR . 'header.php';
+    require_once TEMPLATE_DIR . '/header.php';
     // alert box here
     echo getNoti();
     require_once VIEW_DIR . "$path.view.php";
-    require_once TEMPLATE_DIR . 'footer.php';
+    require_once TEMPLATE_DIR . '/footer.php';
 }
 // MVC controller part
 // not using this

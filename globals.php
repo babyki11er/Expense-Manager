@@ -1,10 +1,10 @@
 <?php
 
 const ROOT_DIR = __DIR__;
-const VIEW_DIR = ROOT_DIR . '/views/';
-const API_DIR = ROOT_DIR . '/api/';
-const TEMPLATE_DIR = ROOT_DIR . '/templates/';
-const NODE_DIR = ROOT_DIR . '/node_modules/';
+const VIEW_DIR = ROOT_DIR . '/views';
+const API_DIR = ROOT_DIR . '/api';
+const TEMPLATE_DIR = ROOT_DIR . '/templates';
+const PAGE_CONTROLLER = ROOT_DIR . '/page-controllers';
 
 const CATEGORY = 'category';
 const ITEM = 'item';

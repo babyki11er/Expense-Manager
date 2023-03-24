@@ -27,11 +27,17 @@ const ValidRoutes = [
 if (substr($path, 0, 5) == '/api/') {
     $api_name = substr($path, 5);
     if (in_array($api_name, ValidApis)) {
-        require_once ROOT_DIR . '/controller.php';
+        require_once ROOT_DIR . '/api-controller.php';
         return;
     }
 }
-else if (in_array($path, ValidRoutes)) {
+else if (in_array($path, ValidRoutes)) { // 
+    require_once TEMPLATE_DIR . '/header.php';
+    require_once PAGE_CONTROLLER . "$path.controller.php";
+    // alert box here
+    echo getNoti();
+    require_once VIEW_DIR . "$path.view.php";
+    require_once TEMPLATE_DIR . '/footer.php';
     view($path);
     return;
     // load the script

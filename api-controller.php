@@ -61,6 +61,6 @@ switch ($api_name) {
         break;
 }
 // require the script file that contain the requested function
-require API_DIR . "$api_name-api.php";
+require API_DIR . "/$api_name-api.php";
 // call the requested function
 call_user_func($selected, $conn);
