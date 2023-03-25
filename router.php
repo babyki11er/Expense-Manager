@@ -22,12 +22,14 @@ const ValidRoutes = [
     // '/index',
     '/insert',
     '/item',
-    '/records',
+    // '/records',
     '/test'
 ];
 const ValidPaths = [
-    '/index'
+    '/index',
+    '/records',
 ];
+
 if (substr($path, 0, 5) == '/api/') {
     $api_name = substr($path, 5);
     if (in_array($api_name, ValidApis)) {

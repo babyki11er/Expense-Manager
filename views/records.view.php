@@ -1,3 +1,9 @@
+<?php
+/*
+    Variables:
+        $active_records     associative array
+*/
+?>
 <table class=" table table-success table-bordered border-2 mt-3 container">
     <thead>
         <th>

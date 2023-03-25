@@ -103,24 +103,31 @@ Note:
 [x]:	refactor js code
 
 <24>
-[ ]:	create separate controller for each page
-[ ]:	prevent XSS by using escape function
-[@]:	prevent SQL injection
-[@]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
-[ ]:	paginator
-[ ]:	add summary on records.php
+[x]:	implement controller on index
 Note:	current implemention of MVC, the flow is simple:
 			the request goes to the router
 			router call the controller which provide all the variables to be used on view, and then call view function with the data variables
 			it works right now, because controller and view having one to one relationship, might have to change later
 
+<25>
+[@]:	divide view accoring to which action instead of one giant page
+[@]:	implement controller for all pages
+[@]:	prevent XSS by using escape function
+[ ]:	prevent SQL injection
+[ ]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
+[ ]:	paginator
+[ ]:	add summary on records.php
+Note:	have to say separating view and controller makes stuff easier, for example, implementing a paginator or escaping text.
+
 <Refactor>
-	[ ]:	archive api links having del query
+	[ ]:	put all control code in router to main-controller file
 	[ ]:	design a function that will do all the requires
-	[ ]:	remove useless files, and node folder, make the directory clean to eyes
-[ weird behavours ]another
+	[ ]:	don't use index as the path name which is pointless without extension
+[ weird behavours ]
 	+ url get requests with php extension show defalt PHP page instead
 
+[ BUGS ]
+	[ ]:	notification after updating a record saying id is #1
 [ future tasks ]
 	[ ]:	add tags on records, independent from other resources
 	[ ]:	show archived resources, to unarchive
@@ -178,3 +185,4 @@ records.php
 [x]:	item should not be inserted again in updating record.
 [x]:	want the update checkbox to be selected default, and stuffs i don't know how to describe
 [x]:	convert javascript session script to PHP
+[x]:	remove useless files, and node folder, make the directory clean to eyes
