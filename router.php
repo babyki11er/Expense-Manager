@@ -23,7 +23,7 @@ const ValidRoutes = [
     '/insert',
     '/item',
     // '/records',
-    '/test'
+    // '/test'
 ];
 const ValidPaths = [
     '/index',
@@ -56,5 +56,10 @@ if (substr($path, 0, 5) == '/api/') {
     view($path, $data);
     return;
     // load the script
+}
+
+if ($path === '/test') {
+    view("/beer");
+    return;
 }
 view("/404");
