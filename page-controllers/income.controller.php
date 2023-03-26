@@ -1,5 +1,6 @@
 <?php
 
+    echo ROOT_DIR;
 // controller
 function list_(mysqli $conn): void
 {

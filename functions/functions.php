@@ -65,6 +65,19 @@ function displayItem(array $item): string
     general functions don't have Camel Casing
 */
 
+
+function url(string $path = null): string
+{
+    $url = isset($_SERVER["HTTPS"]) ? "https" : "http";
+    $url .= "://";
+    $url .= $_SERVER["HTTP_HOST"];
+    if (isset($path)) {
+        $url .= "/";
+        $url .= $path;
+    }
+    return $url;
+}
+
 // MVC view part
 function view(string $path, array $data = null): void
 {
