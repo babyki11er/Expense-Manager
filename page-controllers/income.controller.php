@@ -1,6 +1,7 @@
 <?php
 
-    echo ROOT_DIR;
+    // echo ROOT_DIR;
+    // that line caused button to large and ugly
 // controller
 function list_(mysqli $conn): void
 {

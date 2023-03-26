@@ -5,12 +5,10 @@
 */
 
 ?>
+
 <div class="container">
-
-    <h1>Incomes</h1>
-
-    <div class=" d-flex justify-content-between mb-3">
-        <a href="/income/add" class=" btn btn-outline-dark">Add New</a>
+    <div class=" d-flex justify-content-between mb-3 mt-5">
+        <a href="/income/add" class=" btn btn-dark">Add New</a>
         <form action="" method="get">
             <div class=" input-group">
                 <!-- yellow -->
