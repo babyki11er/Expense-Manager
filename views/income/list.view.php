@@ -10,7 +10,7 @@
     <h1>Incomes</h1>
 
     <div class=" d-flex justify-content-between mb-3">
-        <a href="" class=" btn btn-outline-dark">Add New</a>
+        <a href="/income/add" class=" btn btn-outline-dark">Add New</a>
         <form action="" method="get">
             <div class=" input-group">
                 <!-- yellow -->

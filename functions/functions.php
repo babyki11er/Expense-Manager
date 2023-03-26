@@ -102,7 +102,6 @@ function pass_control_to(string $controller): void
     $controller_function = $controller_array[1];
     require_once PAGE_CONTROLLER . "/$controller_file.controller.php";
     call_user_func($controller_function, $conn);
-    // assume that path is already valid
 }
 
 // very general function for all the validation of HTTP request, neat, i think

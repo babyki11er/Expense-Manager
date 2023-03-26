@@ -1,13 +1,26 @@
+<?php
+/* Variables:
+        total_income    int
+        form_action     string
+        $income_date    string
+        $income_amount  int
+        $income_label   string
+        $income_note    string
+        $update         boolean
+            $id         int
+
+        */
+?>
 <div class=" container">
     <h4>
-        Total Income: <?= getTotalIncome($conn); ?>
+        Total Income: <?= $total_income ?>
     </h4>
-    <form action="<?= $form_link ?>" method="post" class=" p-4">
+    <form action="<?= $form_action ?>" method="post" class=" p-4">
         <input type="hidden" name="selected" value="income" />
 
         <div class="mb-3">
             <label class=" form-label" for="date">Date</label>
-            <input class="form-control" type="date" name="date" id="date" value="<?= isset($income_date) ? $income_date : date('Y-m-d'); ?>">
+            <input class="form-control" type="date" name="date" id="date" value="<?= $income_date; ?>">
         </div>
 
         <div class="input-group">

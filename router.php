@@ -19,19 +19,19 @@ const Pages = [
     '/' => "index@main",
 
     '/records' => "record@list_",
-    '/record/add' => "record@create",
+    '/record/add' => "record@add",
     '/record/edit' => "record@edit",
 
     '/incomes' => "income@list_",
-    '/income/add' => "income@create",
+    '/income/add' => "income@add",
     '/income/edit' => "income@edit",
 
     '/items' => "item@list_",
-    '/item/add' => "item@create",
+    '/item/add' => "item@add",
     '/item/edit' => "item@edit",
 
     '/categories' => "category@list_",
-    '/category/add' => "category@create",
+    '/category/add' => "category@add",
     '/category/edit' => "category@edit",
 ];
 
