@@ -81,7 +81,7 @@ function view(string $path, array $data = null): void
     require_once TEMPLATE_DIR . '/header.php';
     // alert box here
     echo getNoti();
-    require_once VIEW_DIR . "$path.view.php";
+    require_once VIEW_DIR . "/$path.view.php";
     require_once TEMPLATE_DIR . '/footer.php';
     return;
 }
@@ -92,17 +92,18 @@ function load_controller(string $page): void
     require_once PAGE_CONTROLLER . "$page.controller.php";
     return;
 }
+
 // MVC controller part
-// not using this
-// function api_controller(string $name): void
-// {
-//     $controllerNameArray = explode("@", $name);
-//     $controller_file = $controllerNameArray[0];
-//     $controller_function = $controllerNameArray[1];
-//     require_once API_DIR . "/$controller_file-api.php";
-//     call_user_func($controller_function);
-//     // assume that path is already valid
-// }
+function pass_control_to(string $controller): void
+{
+    $conn = connectMysql();
+    $controller_array = explode('@', $controller);
+    $controller_file = $controller_array[0];
+    $controller_function = $controller_array[1];
+    require_once PAGE_CONTROLLER . "/$controller_file.controller.php";
+    call_user_func($controller_function, $conn);
+    // assume that path is already valid
+}
 
 // very general function for all the validation of HTTP request, neat, i think
 // exit giving an error

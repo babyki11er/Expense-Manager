@@ -1,13 +1,19 @@
 <?php
 
 // controller
-$conn = connectMysql();
-$incomes = listIncomes($conn);
-$update = false;
-$form_link = './api/add';
-$income_amount = 500;
+function list_(mysqli $conn) : void
+{
+    $income_list = listIncomes($conn);
+    $data = [
+        'query' => '',
+        'incomes' => $income_list
+    ];
+    view("income/list", $data);
+    return;
+}
 
-if (isset($_GET['update'])) {
+function edit(mysqli $conn) : void
+{
     $id = $_GET['id'];
     $income = getIncome($id, $conn);
     if (!is_null($income)) {
@@ -20,4 +26,9 @@ if (isset($_GET['update'])) {
     }
 }
 
+function add(mysqli $conn) : void
+{
+    $form_link = './api/add';
+    $income_amount = 500;
+}
 ?>
