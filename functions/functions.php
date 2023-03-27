@@ -65,6 +65,14 @@ function displayItem(array $item): string
     general functions don't have Camel Casing
 */
 
+function route(string $path, array $queries = null): string
+{
+    $url = url($path);
+    if (!is_null($queries)) {
+        $url .= "?" . http_build_query($queries);
+    }
+    return $url;
+}
 
 function url(string $path = null): string
 {

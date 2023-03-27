@@ -15,7 +15,7 @@
     <h4>
         Total Income: <?= $total_income ?>
     </h4>
-    <form action="<?= $form_action ?>" method="post" class=" p-4">
+    <form action="<?= route($form_action); ?>" method="post" class=" p-4">
         <input type="hidden" name="selected" value="income" />
 
         <div class="mb-3">

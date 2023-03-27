@@ -20,7 +20,7 @@ function edit(mysqli $conn): void
     $income = getIncome($id, $conn);
     if (!is_null($income)) {
         $update = true;
-        $form_link = './api/update';
+        $form_link = 'api/update';
         $income_date = $income['date'];
         $income_amount = $income['amount'];
         $income_label = $income['label'];
@@ -31,7 +31,7 @@ function edit(mysqli $conn): void
 function add(mysqli $conn): void
 {
     $total_income = getTotalIncome($conn);
-    $form_action = './api/add';
+    $form_action = 'api/add';
     $income_date = date("Y-m-d");
     $income_amount = 500;
     $income_label = '';
