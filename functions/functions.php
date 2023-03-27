@@ -153,23 +153,23 @@ function apiResponse(array $arr): void
 }
 
 
-function redirect(string $location): void
+function redirect(string $location, string $message = null): void
 {
     header("Location: $location");
+    if (!is_null($message)) {
+        setNoti($message);
+    }
     die();
 }
 
-function back_to_referer($message = null, $removeQueries = true): void
+function back_to_referer(string $message = null, $removeQueries = true): void
 {
     $referer = $_SERVER['HTTP_REFERER'];
     if ($removeQueries) {
         // shallow logic, yellow
         $referer = explode("?", $referer)[0];
     }
-    if (!is_null($message)) {
-        setNoti($message);
-    }
-    redirect($referer);
+    redirect($referer, $message);
 }
 
 // alert box here

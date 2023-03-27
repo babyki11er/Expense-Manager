@@ -17,7 +17,7 @@ function category(mysqli $conn): void
     }
 
     if ($error_code >= 0) {
-        back_to_referer("$cat_string has been successfully added!");
+        redirect(route("categories"), "$cat_string has been successfully added!");
     }
     error("Internal DB Error", 500);
 }
@@ -37,7 +37,7 @@ function item(mysqli $conn): void
     }
     // actually adding the stuff
     if (($id_new_item = addNewItem($item_name, $item_price, $item_cat_id, $conn)) >= 0) {
-        back_to_referer("$item_name has been successfully added!");
+        redirect(route("items"), "$item_name has been successfully added!");
     } else {
         apiResponse($_POST);
         // error("Error saving the item!");
@@ -95,7 +95,7 @@ function record(mysqli $conn) : void
     $id_added = addNewRecord($item_id, $qty, $date, $note, $conn);
     if ($id_added >= 0) {
         _ssSet('insert-date', $date);
-        back_to_referer("Record $id_added# has been added!");
+        redirect(route("records"), "Record $id_added# has been added!");
     }
     error("Internal DB Error", 500);
 }
@@ -111,7 +111,7 @@ function income(mysqli $conn): void
         error("Insert a numeric value for amount");
     }
     if (addIncome($amount, $label, $date, $note, $conn) >= 0) {
-        back_to_referer("Income has been added successfully");
+        redirect(route("incomes"), "Income has been added successfully");
     }
     error("Internal DB Error", 500);
 }
