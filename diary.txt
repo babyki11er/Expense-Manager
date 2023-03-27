@@ -113,6 +113,11 @@ Note:	current implemention of MVC, the flow is simple:
 Note:	have to say separating view and controller makes stuff easier, for example, implementing a paginator or escaping text.
 
 <26>
+Note:	i want to create each view as an object, with properties but procedural first
+<27>
+[ ]:	edit page for outcomes
+[ ]:	index, add, edit page for category
+[ ]:	fix add income api not redirecting to index page, but form page instead
 [@]:	divide view accoring to which action instead of one giant page
 [@]:	implement controller for all pages
 [@]:	prevent XSS by using escape function
@@ -120,7 +125,6 @@ Note:	have to say separating view and controller makes stuff easier, for example
 [ ]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
 [ ]:	paginator
 [ ]:	add summary on records.php
-Note:	i want to create each view as an object, with properties but procedural first
 
 <Refactor>
 	[ ]:	put all control code in router to main-controller file

@@ -19,20 +19,20 @@ const Pages = [
     '/index' => "index@main",
 
     '/records' => "record@list_",
-    '/record/add' => "record@add",
-    '/record/edit' => "record@edit",
+    // '/record/add' => "record@add",
+    // '/record/edit' => "record@edit",
 
     '/incomes' => "income@list_",
     '/income/add' => "income@add",
     '/income/edit' => "income@edit",
 
-    '/items' => "item@list_",
-    '/item/add' => "item@add",
-    '/item/edit' => "item@edit",
+    // '/items' => "item@list_",
+    // '/item/add' => "item@add",
+    // '/item/edit' => "item@edit",
 
-    '/categories' => "category@list_",
-    '/category/add' => "category@add",
-    '/category/edit' => "category@edit",
+    // '/categories' => "category@list_",
+    // '/category/add' => "category@add",
+    // '/category/edit' => "category@edit",
 ];
 
 if (substr($path, 0, 5) == '/api/') {
@@ -49,7 +49,7 @@ if (array_key_exists($path, Pages)) {
 }
 
 if ($path === '/test') {
-    view("/beer");
+    view("beer");
     return;
 }
-view("/404");
+view("404");
