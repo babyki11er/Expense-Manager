@@ -11,13 +11,13 @@ $display = displayMoney($remaining_amount);
 ?>
 <nav>
     <div class="m-3 ms-2 mb-lg-1">
-        <a href="index" class=" btn btn-primary btn-sm">HOME</a>
-        <a href="incomes" class=" btn btn-success btn-sm">Income</a>
-        <a href="item" class=" btn btn-sm btn-success">Items</a>
-        <a href="category" class=" btn btn-sm btn-success">Categories</a>
-        <a href="insert" class=" btn btn-sm btn-outline-dark">Insert Record</a>
-        <a href="records" class=" btn btn-sm btn-dark"><?= $display ?> MMK remaining</a>
-        <a href="test" class=" btn btn-sm btn-dark">TEST</a>
+        <a href="<?= route(""); ?>" class=" btn btn-primary btn-sm">HOME</a>
+        <a href="<?= route("incomes"); ?>" class=" btn btn-success btn-sm">Income</a>
+        <a href="<?= route("items"); ?>" class=" btn btn-sm btn-success">Items</a>
+        <a href="<?= route("categories"); ?>" class=" btn btn-sm btn-success">Categories</a>
+        <a href="<?= route("records"); ?>" class=" btn btn-sm btn-outline-dark">Insert Record</a>
+        <a href="<?= route("records"); ?>" class=" btn btn-sm btn-dark"><?= $display ?> MMK remaining</a>
+        <a href="<?= route("test"); ?>" class=" btn btn-sm btn-dark">TEST</a>
         <!-- <a href="beer.php" class=" btn btn-sm btn-primary">BEER </a> -->
     </div>
 </nav>

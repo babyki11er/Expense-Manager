@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class=" d-flex justify-content-between mb-3 mt-5">
-        <a href="/income/add" class=" btn btn-dark">Add New</a>
+        <a href="<?= route("income/add"); ?>" class=" btn btn-dark">Add New</a>
         <form action="" method="get">
             <div class=" input-group">
                 <!-- yellow -->
@@ -50,7 +50,7 @@
                         <?= $income['note']; ?>
                     </td>
                     <td>
-                        <a href="#" class=" btn btn-sm btn-outline-info">
+                        <a href="<?= route("income/edit", ['id' => $income['id']]) ?>" class=" btn btn-sm btn-outline-info">
                             Edit
                         </a>
                         <form action="/api/del" class=" d-inline-block" method="post">

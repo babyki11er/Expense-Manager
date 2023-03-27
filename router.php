@@ -16,7 +16,7 @@ const Apis = [
 ];
 
 const Pages = [
-    '/' => "index@main",
+    '/index' => "index@main",
 
     '/records' => "record@list_",
     '/record/add' => "record@add",

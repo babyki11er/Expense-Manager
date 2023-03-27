@@ -1,6 +1,6 @@
 <?php
 // controller
-function run_controller(): array
+function main(): void
 {
     $conn = connectMysql();
     $day = (int) date("d"); // later give option to choose
@@ -27,10 +27,12 @@ function run_controller(): array
         . " MMKs this month within $day days, your average rate is " . displayMoney($average_rate)
         . " MMKs per day";
 
-    return [
+    $data = [
         "rate" => $calc_rate,
         "no_days" => $calc_days_left,
         "banner" => $banner
     ];
+    view("index", $data);
+    return;
 }
 ?>
