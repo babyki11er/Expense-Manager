@@ -19,7 +19,7 @@ const Pages = [
     '/index' => "index@main",
 
     '/records' => "record@list_",
-    // '/record/add' => "record@add",
+    '/record/add' => "record@add",
     // '/record/edit' => "record@edit",
 
     '/incomes' => "income@list_",

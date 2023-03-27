@@ -15,7 +15,7 @@ $display = displayMoney($remaining_amount);
         <a href="<?= route("incomes"); ?>" class=" btn btn-success btn-sm">Income</a>
         <a href="<?= route("items"); ?>" class=" btn btn-sm btn-success">Items</a>
         <a href="<?= route("categories"); ?>" class=" btn btn-sm btn-success">Categories</a>
-        <a href="<?= route("records"); ?>" class=" btn btn-sm btn-outline-dark">Insert Record</a>
+        <a href="<?= route("record/add"); ?>" class=" btn btn-sm btn-outline-dark">Insert Record</a>
         <a href="<?= route("records"); ?>" class=" btn btn-sm btn-dark"><?= $display ?> MMK remaining</a>
         <a href="<?= route("test"); ?>" class=" btn btn-sm btn-dark">TEST</a>
         <!-- <a href="beer.php" class=" btn btn-sm btn-primary">BEER </a> -->

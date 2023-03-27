@@ -1,3 +1,20 @@
+<?php
+/*
+    Variables:
+        $items          array
+        $categories     array
+
+        $form_link
+        $item_id
+        $item_name
+        $item_price
+        $cat_id
+        $qty
+        $date
+        $note
+        $update
+*/
+?>
 <div class=" p-3">
     <h4>Insert record</h4>
     <form action="<?= $form_link; ?>" method="post" enctype="multipart/form-data" class=" container-sm mt-5">
@@ -65,7 +82,7 @@
         <?php endif; ?>
     </form>
 </div>
-<script src="./js/insert.js">
+<script src="<?= route("js/insert.js") ?>">
 </script>
 <?php
 
