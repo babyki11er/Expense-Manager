@@ -95,7 +95,7 @@ function record(mysqli $conn) : void
     $id_added = addNewRecord($item_id, $qty, $date, $note, $conn);
     if ($id_added >= 0) {
         _ssSet('insert-date', $date);
-        redirect(route("records"), "Record $id_added# has been added!");
+        back_to_referer("Record $id_added# has been added!");
     }
     error("Internal DB Error", 500);
 }

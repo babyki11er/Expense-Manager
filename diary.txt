@@ -120,6 +120,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 
 <28>
 [x]:	index, add, edit page for category
+[ ]:	edit record page
 [@]:	divide view accoring to which action instead of one giant page
 [@]:	implement controller for all pages
 [@]:	prevent XSS by using escape function
