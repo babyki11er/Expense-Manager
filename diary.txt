@@ -115,9 +115,11 @@ Note:	have to say separating view and controller makes stuff easier, for example
 <26>
 Note:	i want to create each view as an object, with properties but procedural first
 <27>
-[ ]:	edit page for outcomes
-[ ]:	index, add, edit page for category
-[ ]:	fix add income api not redirecting to index page, but form page instead
+[x]:	edit page for outcomes
+[x]:	fix add income api not redirecting to index page, but form page instead
+
+<28>
+[x]:	index, add, edit page for category
 [@]:	divide view accoring to which action instead of one giant page
 [@]:	implement controller for all pages
 [@]:	prevent XSS by using escape function

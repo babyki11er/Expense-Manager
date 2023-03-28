@@ -30,9 +30,9 @@ const Pages = [
     // '/item/add' => "item@add",
     // '/item/edit' => "item@edit",
 
-    // '/categories' => "category@list_",
-    // '/category/add' => "category@add",
-    // '/category/edit' => "category@edit",
+    '/categories' => "category@list_",
+    '/category/add' => "category@add",
+    '/category/edit' => "category@edit",
 ];
 
 if (substr($path, 0, 5) == '/api/') {
