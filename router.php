@@ -20,7 +20,7 @@ const Pages = [
 
     '/records' => "record@list_",
     '/record/add' => "record@add",
-    // '/record/edit' => "record@edit",
+    '/record/edit' => "record@edit",
 
     '/incomes' => "income@list_",
     '/income/add' => "income@add",

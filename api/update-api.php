@@ -33,6 +33,7 @@ function item(mysqli $conn): void
 
 function record(mysqli $conn): void
 {
+    dd($_POST);
     // validating the parameters
     if (
         !isset($_POST['item_id']) ||

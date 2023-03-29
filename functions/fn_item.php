@@ -81,6 +81,7 @@ function updateItem(int $id, string $name, int $price, int $cat_id, mysqli $conn
 
 function _checkItem(int $id, mysqli $conn) : bool
 {
+    // yellow, checkItem should be renamed to validItemId
     // do some vaildations? idk
     $fetched = db_SelectOne($conn, ITEM, ['id' => $id], 'id');
     return !is_null($fetched);

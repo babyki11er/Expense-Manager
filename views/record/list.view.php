@@ -39,7 +39,7 @@
         <?php
         foreach ($active_records as $record) :
             $id = $record['id'];
-            $update_url = "insert?update&selected=record&id=$id";
+            $update_url = route("record/edit", ['id' => $id]);
         ?>
             <tr>
                 <td>

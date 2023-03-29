@@ -143,6 +143,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [ BUGS ]
 	[ ]:	notification after updating a record saying id is #1
 	[ ]:	records listing page, order by note not working
+	[ ]:	records, update api adding an item already existed, errors in checking if an item already exists or not
 [ future tasks ]
 	[ ]:	add tags on records, independent from other resources
 	[ ]:	show archived resources, to unarchive
