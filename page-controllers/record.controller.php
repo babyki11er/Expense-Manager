@@ -16,26 +16,22 @@ function add(mysqli $conn): void
 {
     $items = listItems($conn);
     $categories = listCategories($conn);
-    $qty = 1;
-    $note = '';
-    $item_id = -1;
-    $item_name = '';
-    $item_price = 50;
     $cat_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
-    $form_link = route("api/add");
+
     $date = _ssGet('insert-date', date('Y-m-d'));
+    $record = _makeRecord(-1, 1, $date, '');
+    $record['item_name'] = '';
+    $record['item_price'] = 50;
+    $record['cost'] = 50;
+    $record['cat_str'] = 'None';
+    $record['cat_id'] = $cat_id;
+
+    $form_action = route("api/add");
     $data = [
         'items' => $items,
         'categories' => $categories,
-
-        'form_link' => $form_link,
-        'item_id' => $item_id,
-        'item_name' => $item_name,
-        'item_price' => $item_price,
-        'cat_id' => $cat_id,
-        'qty' => $qty,
-        'date' => $date,
-        'note' => $note,
+        'record' => $record,
+        'form_action' => $form_action,
         'update' => false
     ];
     view("record/form", $data);
