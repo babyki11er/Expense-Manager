@@ -120,10 +120,14 @@ Note:	i want to create each view as an object, with properties but procedural fi
 
 <28>
 [x]:	index, add, edit page for category
-[ ]:	edit record page
-[@]:	divide view accoring to which action instead of one giant page
-[@]:	implement controller for all pages
-[@]:	prevent XSS by using escape function
+
+<29>
+[@]:	edit record page
+[@]:	record adding form should show the list page, and list page should include create new button/link
+[@]:	finish pages for item
+[ ]:	divide view accoring to which action instead of one giant page
+[ ]:	implement controller for all pages
+[ ]:	prevent XSS by using escape function
 [ ]:	prevent SQL injection
 [ ]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
 [ ]:	paginator
@@ -138,6 +142,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 
 [ BUGS ]
 	[ ]:	notification after updating a record saying id is #1
+	[ ]:	records listing page, order by note not working
 [ future tasks ]
 	[ ]:	add tags on records, independent from other resources
 	[ ]:	show archived resources, to unarchive
@@ -170,6 +175,7 @@ records.php
 <Features>
 [x]: Display record sort by date on default
 [ ]: insert multiple items
+[ ]: include option to choose whether to create a new item or not
 [ ]: Add note on items, like warnning, and display that when adding that
 [ ]: filter the records to use for calculating the analysis
 [x]: Autosuggest item
