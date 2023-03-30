@@ -17,10 +17,17 @@ function list_(mysqli $conn): void
 
 function add(mysqli $conn): void
 {
-    $link_form = './api/add';
-    $form_label = 'Add Item';
-    $update = false;
-    $item_category_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
+    $form_action = route('api/add');
+    $default_cat_id = db_SelectOne($conn, CATEGORY, ['name' => 'None'], 'id')['id'];
+    $default_item = _makeItem('', 50, $default_cat_id);
+    $categories = listCategories($conn);
+    $data = [
+        'categories' => $categories,
+        'update' => false,
+        'item' => $default_item,
+        'form_action' => $form_action
+    ];
+    view("item/form", $data);
 }
 
 function edit(mysqli $conn): void
@@ -28,13 +35,15 @@ function edit(mysqli $conn): void
     $id_to_update = $_GET['id'];
     $item_to_update = getItemById($id_to_update, $conn);
     if (empty($item_to_update)) {
-        echo "<h4>Item you are trying to edit is either deleted or does not exist.</h4>";
-    } else {
-        $update = true;
-        $link_form = './api/update';
-        $item_name = $item_to_update['name'];
-        $item_price = $item_to_update['price'];
-        $item_category_id = $item_to_update['cat_id'];
-        $form_label = 'Update Item';
+        view("404");
     }
+    $form_action = route('api/update');
+    $categories = listCategories($conn);
+    $data = [
+        'form_action' => $form_action,
+        'categories' => $categories,
+        'item' => $item_to_update,
+        'update' => true
+    ];
+    view("item/form", $data);
 }

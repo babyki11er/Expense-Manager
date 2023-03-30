@@ -48,7 +48,7 @@
                 $item_name_diplay = displayItem($item);
                 $item_price = $item['price'];
                 $item_category = $item['cat_str'];
-                $update_link = route("record/update", ['id' => $id]);
+                $update_link = route("item/edit", ['id' => $id]);
                 ?>
                 <tr>
                     <td><?= $item_name_diplay; ?></td>

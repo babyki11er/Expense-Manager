@@ -139,6 +139,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 	[ ]:	put all control code in router to main-controller file
 	[ ]:	design a function that will do all the requires
 	[ ]:	don't use index as the path name which is pointless without extension
+	[ ]:	use error_404 function instead of calling view("404") a lot
 [ weird behavours ]
 	+ url get requests with php extension show defalt PHP page instead
 
