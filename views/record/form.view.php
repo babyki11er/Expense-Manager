@@ -7,6 +7,7 @@
         $form_action
         $record
         $update
+        red! bug has been caused by category not finding None i believe
 */
 ?>
 <div class=" p-3">

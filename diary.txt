@@ -122,7 +122,9 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [x]:	index, add, edit page for category
 
 <29>
-[@]:	edit record page
+[x]:	edit record page
+
+<30>
 [@]:	record adding form should show the list page, and list page should include create new button/link
 [@]:	finish pages for item
 [ ]:	divide view accoring to which action instead of one giant page

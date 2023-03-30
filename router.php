@@ -26,7 +26,7 @@ const Pages = [
     '/income/add' => "income@add",
     '/income/edit' => "income@edit",
 
-    // '/items' => "item@list_",
+    '/items' => "item@list_",
     // '/item/add' => "item@add",
     // '/item/edit' => "item@edit",
 
