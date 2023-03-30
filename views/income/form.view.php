@@ -11,11 +11,15 @@
 
         */
 ?>
-<div class=" container">
-    <h4>
-        Total Income: <?= $total_income ?>
-    </h4>
-    <form action="<?= route($form_action); ?>" method="post" class=" p-4">
+<h1>
+    <?= $update ? "Edit Income" : "Create New Item" ?>
+</h1>
+<div class="container">
+
+    <div class=" d-flex justify-content-between mb-3 mt-5">
+        <a href="<?= route("incomes") ?>" class=" btn btn-outline-dark">All Incomes</a>
+    </div>
+    <form action="<?= route($form_action); ?>" method="post" class="">
         <input type="hidden" name="selected" value="income" />
 
         <div class="mb-3">
@@ -32,12 +36,12 @@
             <label class="form-label" for="note">Addional Note</label>
             <textarea class=" form-control" name="note" id=""><?= $income_note ?></textarea>
         </div>
-        <?php if ($update): ?>
+        <?php if ($update) : ?>
             <input type="hidden" name="id" value="<?= $id ?>">
             <button class=" btn btn-primary w-100" name="income">
                 Update
             </button>
-        <?php else: ?>
+        <?php else : ?>
             <button class=" btn btn-dark w-100" name="income">
                 Submit
             </button>

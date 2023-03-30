@@ -125,8 +125,8 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [x]:	edit record page
 
 <30>
+[x]:	finish pages for item
 [@]:	record adding form should show the list page, and list page should include create new button/link
-[@]:	finish pages for item
 [ ]:	divide view accoring to which action instead of one giant page
 [ ]:	implement controller for all pages
 [ ]:	prevent XSS by using escape function
@@ -146,7 +146,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [ BUGS ]
 	[ ]:	notification after updating a record saying id is #1
 	[ ]:	records listing page, order by note not working
-	[ ]:	records, update api adding an item already existed, errors in checking if an item already exists or not
+	[x]:	records, update api adding an item already existed, errors in checking if an item already exists or not
 [ future tasks ]
 	[ ]:	add tags on records, independent from other resources
 	[ ]:	show archived resources, to unarchive

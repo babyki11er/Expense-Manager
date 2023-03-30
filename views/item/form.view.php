@@ -7,6 +7,13 @@
         $update         bool
 */
 ?>
+<h1>
+    <?= $update ? "Edit Item" : "Create New Item" ?>
+</h1>
+
+<div class=" d-flex justify-content-between m-4 mb-2">
+    <a href="<?= route("items") ?>" class=" btn btn-outline-dark">All Items</a>
+</div>
 
 <!-- ADD NEW ITEM FORM -->
 <div class=" container">

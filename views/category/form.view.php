@@ -11,6 +11,14 @@ if (!$update) {
     $category = '';
 }
 ?>
+<h1>
+    <?= $update ? "Edit Category" : "Create New Categories" ?>
+</h1>
+
+<div class=" d-flex justify-content-between m-4 mb-2">
+    <a href="<?= route("categories") ?>" class=" btn btn-outline-dark">All Categories</a>
+</div>
+
 <!-- ADD NEW CATEGORY FORM -->
 <div class=" w-50">
     <form action="<?= $form_action; ?>" method="post" class=" p-4">

@@ -21,14 +21,12 @@ function edit(mysqli $conn): void
     if (is_null($income)) {
         view("404");
     }
-    $total_income = getTotalIncome($conn);
     $form_action = 'api/update';
     $income_date = $income['date'];
     $income_amount = $income['amount'];
     $income_label = $income['label'];
     $income_note = $income['note'];
     $data = [
-        'total_income' => $total_income,
         'form_action' => $form_action,
         'income_date' => $income_date,
         'income_amount' => $income_amount,
@@ -42,14 +40,12 @@ function edit(mysqli $conn): void
 
 function add(mysqli $conn): void
 {
-    $total_income = getTotalIncome($conn);
     $form_action = 'api/add';
     $income_date = date("Y-m-d");
     $income_amount = 500;
     $income_label = '';
     $income_note = '';
     $data = [
-        'total_income' => $total_income,
         'form_action' => $form_action,
         'income_date' => $income_date,
         'income_amount' => $income_amount,
