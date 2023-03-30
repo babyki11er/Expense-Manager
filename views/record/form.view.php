@@ -7,7 +7,6 @@
         $form_action
         $record
         $update
-        red! bug has been caused by category not finding None i believe
 */
 ?>
 <div class=" p-3">
@@ -48,9 +47,9 @@
                 <span class=" input-group-text">
                     Category
                 </span>
-                <select name="item_cat_id" id="item_category" class=" form-select" value="<?= $record['cat_str']; ?>">
+                <select name="item_cat_id" id="item_category" class=" form-select">
                     <?php foreach ($categories as $category) : ?>
-                        <option value="<?= $category['id']; ?>" <?= ($cat_id == $category['id']) ? "selected" : "" ?>>
+                        <option value="<?= $category['id']; ?>" <?= ($record['cat_id'] == $category['id']) ? "selected" : "" ?>> <!-- bug fix -->
                             <?= ucfirst($category['name']); ?>
                         </option>
                     <?php endforeach; ?>
