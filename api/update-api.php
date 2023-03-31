@@ -58,7 +58,7 @@ function record(mysqli $conn): void
         LogConsole(implode(',', getItemById($item_id, $conn)));
     }
 
-    if (($id = updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {
+    if ((updateRecord($id, $item_id, $qty, $date, $note, $conn)) >= 0) {
         // saving the date in session
         _ssSet('insert-date', $date);
         redirect(route("records"), "Record #$id updated successfully!");

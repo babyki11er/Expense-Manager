@@ -133,9 +133,10 @@ Note:	i want to create each view as an object, with properties but procedural fi
 <31>
 [x]:	prevent XSS by using escape function
 [@]:	prevent SQL injection
+[ ]:	toggle ascending and descending order, by using a second parameter, desc=1 or 0, and generate url dynamically
+[ ]:	paginator
 [ ]:	add summary on records.php
 [ ]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
-[ ]:	paginator
 
 <Refactor>
 	[ ]:	put all control code in router to main-controller file
@@ -147,13 +148,12 @@ Note:	i want to create each view as an object, with properties but procedural fi
 
 [ BUGS ]
 	[ ]:	notification after updating a record saying id is #1
-	[ ]:	records listing page, order by note not working
+	[x]:	records listing page, order by note not working
 	[x]:	records, update api adding an item already existed, errors in checking if an item already exists or not
 [ future tasks ]
 	[ ]:	add tags on records, independent from other resources
 	[ ]:	show archived resources, to unarchive
 	[ ]:	picture for the particular resource, will stand independent in its own table
-	[ ]:	toggle ascending and descending order
 [ item.php ]
 	[x]:	default category has to be None
 [ insert.php ]
