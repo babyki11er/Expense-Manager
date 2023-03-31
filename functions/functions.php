@@ -65,6 +65,37 @@ function displayItem(array $item): string
     general functions don't have Camel Casing
 */
 
+// new experiemental function
+function xss_sanitize(mixed &$data) : mixed
+{
+    if (gettype($data) === 'string') {
+        return htmlentities($data);
+    }
+
+    if (is_numeric($data)) {
+        return $data;
+    }
+
+    if (is_array($data)) {
+        $new_array = array_map(function ($val) {
+            return xss_sanitize($val);
+        }, $data);
+        return $new_array;
+    }
+
+    if (is_null($data)) {
+        return $data;
+    }
+
+    if (is_bool($data)) {
+        return $data;
+    }
+
+    $debug_log = "$data of type " . gettype($data) . " has to be considered for sanitizing.\n";
+    coffee_log($debug_log, gettype($data));
+    return $data;
+}
+
 function route(string $path, array $queries = null): string
 {
     $url = url($path);
@@ -96,7 +127,7 @@ function view(string $path, array $data = null): void
     if (!is_null($data)) {
         foreach ($data as $key => $value) {
             // dynamic variable name, will be sanitizing for XSS later
-            ${$key} = $value;
+            ${$key} = xss_sanitize($value);
         }
     }
     require_once TEMPLATE_DIR . '/header.php';
@@ -248,6 +279,16 @@ function dd($data, $showType = false, $die = true): void
     echo  "</pre>";
     if ($die) {
         die();
+    }
+}
+
+// log debug messages to file
+function coffee_log(string $message, string $brief=null) : void
+{
+    $file = "coffee.log";
+    file_put_contents($file, $message, FILE_APPEND);
+    if (!is_null($brief)) {
+        noti($brief);
     }
 }
 
