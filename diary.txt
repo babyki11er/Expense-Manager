@@ -131,7 +131,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [x]:	implement controller for all pages
 
 <31>
-[@]:	prevent XSS by using escape function
+[x]:	prevent XSS by using escape function
 [@]:	prevent SQL injection
 [ ]:	add summary on records.php
 [ ]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this

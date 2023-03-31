@@ -27,7 +27,7 @@ function _makeRecord(int $item_id, int $qty, string $date, string $note) : array
 function listRecords(mysqli $conn): array
 {
     $order = getOrder(RECORD, 'date');
-    if ($order == 'qty')
+    if ($order === 'qty' || $order === 'note')
         $order .= ' DESC ';
     $raw_records = db_SelectAll($conn, RECORD, [], '*', $order);
     return is_null($raw_records) ? [] :

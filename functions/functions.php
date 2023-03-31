@@ -38,7 +38,7 @@ function setOrder(string $selected, string $val): void
     $validOrderValues = [
         CATEGORY => ['id', 'name'],
         ITEM => ['id', 'name', 'price', 'cat_id'],
-        RECORD => ['id', 'date', 'item_id', 'qty']
+        RECORD => ['id', 'date', 'item_id', 'qty', 'note']
     ];
     if (in_array($val, $validOrderValues[$selected])) {
         $key = "order-$selected";
