@@ -16,8 +16,7 @@ function main(): void
     $months = array_reverse($months);
     $month_nav = array_map(function ($m) use ($current_month) {
         $elm = [
-            'm' => $m,
-            // yellow, make month name instead of no
+            'label' => MONTH_NAMES[$m],
             'class' => 'btn btn-success mb-2 me-3 ',
             'href' => route("", ['m' => $m])
         ];

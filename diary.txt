@@ -134,8 +134,9 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [x]:	prevent XSS by using escape function
 [l]:	prevent SQL injection
 
+<3>
 [ Index (Brief Analysis) ]
-	[@]:	analysis according to month, current month have the hightest priority
+	[x]:	analysis according to month, current month have the hightest priority
 	[@]:	filter the data by categories
 [@]:	Records group by month, insert just the day in date column
 [ ]:	add summary on records.php

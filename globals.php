@@ -15,4 +15,20 @@ const DELETED = 'dracula';
 const VALID_SELECTORS = [CATEGORY, ITEM, RECORD, INCOME];
 const VALIDATE_ERROR = -3;
 const DB_ERROR = -1;
+
+// it is increadly complex to get the name by using built in date time functions, so this one is obviously superior
+const MONTH_NAMES = [
+    1 => "Janry",
+    2 => "Febry",
+    3 => "March",
+    4 => "Aprl",
+    5 => "May",
+    6 => "Jun",
+    7 => "July",
+    8 => "Augst",
+    9 => "Septmbr",
+    10 => "Octbr",
+    11 => "Novmbr",
+    12 => "Decmbr",
+];
 session_start();

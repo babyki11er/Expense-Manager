@@ -12,7 +12,7 @@
     <div class=" mt-5">
         <?php foreach ($month_nav as $m_nav) : ?>
             <a href="<?= $m_nav['href'] ?>" class="<?= $m_nav['class'] ?>">
-                <?= $m_nav['m']; ?>
+                <?= $m_nav['label']; ?>
             </a>
         <?php endforeach; ?>
     </div>
