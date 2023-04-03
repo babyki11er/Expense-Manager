@@ -69,6 +69,7 @@ function getIncome(int $id, mysqli $conn) : ?array
 
 function getTotalIncome(mysqli $conn): int
 {
+    // yellow, could have been refactored to use sum() from sql
     $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
     $total = array_reduce($raw_incomes, function ($carry, $raw) {
         return $carry + $raw['amount'];

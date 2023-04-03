@@ -4,8 +4,19 @@
         $rate
         $no_days
         $banner
+        $current_month_name
 */
 ?>
+<div class=" d-flex justify-content-between m-4 mt-5">
+    <a href="<?= route(""); ?>" class=" btn btn-primary">
+        <?= $current_month_name; ?>
+    </a>
+    <!-- hard-coded for now, obviously -->
+    <a href="<?= route("", ['m' => 3]); ?>" class=" btn btn-success">
+        3
+    </a>
+    </form>
+</div>
 <form method="get" id="calc-form">
 </form>
 
