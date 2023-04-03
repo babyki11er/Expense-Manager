@@ -5,12 +5,13 @@ function main(): void
     $conn = connectMysql();
     $current_day = (int) date("d"); // later give option to choose
     $current_month = (int) date("m");
-    $current_month_name = date('M');
     $total_income = getTotalIncome($conn);
     $total_outcome = getTotalOutcome($conn, $current_month);
     $remaining_amount = $total_income - $total_outcome;
     $average_rate = $total_outcome / $current_day;
     // $spare = 0; for later use
+
+    $months = getMonths($conn);
 
     if (isset($_GET['given'])) {
         $given = $_GET['given'];
@@ -33,7 +34,6 @@ function main(): void
         "rate" => $calc_rate,
         "no_days" => $calc_days_left,
         "banner" => $banner,
-        "current_month_name" => $current_month_name
     ];
     view("index", $data);
     return;

@@ -7,5 +7,9 @@ require_once ROOT_DIR . '/functions/functions.php';
     $total_income = getTotalIncome($conn);
     $total_outcome = getTotalOutcome($conn, $current_month);
     echo $total_outcome;
-    dd(getMonths($conn));
+    $months = getMonths($conn);
+    $r = array_map(function ($elm) {
+        return $elm['Month'];
+    }, $months);
+    print_r($r);
 ?>

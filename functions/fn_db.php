@@ -14,12 +14,17 @@ function connectMysql()
 /*
 misc
 pure yellow, i don't have one clear idea with SQL statements, i will learn that for sure, then later, i can improve this code
+i also would want to fetch by year, would apply to other functions as well, but that will be very long in future, likely after the app is ready for production, so just a comment to review later
 */
 function getMonths(mysqli $conn) : array
 {
     $sql = "select distinct month(date) as Month from record;";
     $r = _execQuery($conn, $sql);
-    return mysqli_fetch_all($r, MYSQLI_ASSOC);
+    $raw_array = mysqli_fetch_all($r, MYSQLI_ASSOC);
+    $months = array_map(function ($elm) {
+        return $elm['Month'];
+    }, $raw_array);
+    return $months;
 }
 
 /*
