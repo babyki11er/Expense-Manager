@@ -11,7 +11,23 @@ function main(): void
     $average_rate = $total_outcome / $current_day;
     // $spare = 0; for later use
 
+    // make months nav elements
     $months = getMonths($conn);
+    $months = array_reverse($months);
+    $month_nav = array_map(function ($m) use ($current_month) {
+        $elm = [
+            'm' => $m,
+            // yellow, make month name instead of no
+            'class' => 'btn btn-success mb-2 me-3 ',
+            'href' => route("", ['m' => $m])
+        ];
+
+        if ($m == $current_month) {
+            $elm['class'] = 'btn mb-2 me-3 btn-primary';
+        }
+
+        return $elm;
+    }, $months);
 
     if (isset($_GET['given'])) {
         $given = $_GET['given'];
@@ -34,6 +50,7 @@ function main(): void
         "rate" => $calc_rate,
         "no_days" => $calc_days_left,
         "banner" => $banner,
+        "month_nav" => $month_nav
     ];
     view("index", $data);
     return;
