@@ -11,6 +11,16 @@ function connectMysql()
     return $conn;
 }
 
+/*
+misc
+pure yellow, i don't have one clear idea with SQL statements, i will learn that for sure, then later, i can improve this code
+*/
+function getMonths(mysqli $conn) : array
+{
+    $sql = "select distinct month(date) as Month from record;";
+    $r = _execQuery($conn, $sql);
+    return mysqli_fetch_all($r, MYSQLI_ASSOC);
+}
 
 /*
     db functions should not be concerned with the structure of the data, rather with security

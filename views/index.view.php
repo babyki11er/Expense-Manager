@@ -11,8 +11,8 @@
     <a href="<?= route(""); ?>" class=" btn btn-primary">
         <?= $current_month_name; ?>
     </a>
-    <!-- hard-coded for now, obviously -->
     <a href="<?= route("", ['m' => 3]); ?>" class=" btn btn-success">
+    <!-- hard-coded for now, obviously -->
         3
     </a>
     </form>

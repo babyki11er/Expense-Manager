@@ -1,9 +1,9 @@
 <?php
 // require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/functions.php';
 $conn = connectMysql();
+// yellow, of course
 $total_income = getTotalIncome($conn);
-$month = (int) date("m");
-$total_outcome = getTotalOutcome($conn, $month);
+$total_outcome = getTotalOutcome($conn);
 $remaining_amount = $total_income - $total_outcome;
 $display = displayMoney($remaining_amount);
 

@@ -90,9 +90,13 @@ function deleteRecord(int $id, mysqli $conn): bool
 }
 
 // yellow?
-function getTotalOutcome(mysqli $conn, int $month): int
+function getTotalOutcome(mysqli $conn, int $month=0): int
 {
-    $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month]);
+    if (empty($month)) {
+        $raw_records = db_SelectAll($conn, RECORD, []);
+    } else {
+        $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month]);
+    }
     return is_null($raw_records) ? 0 :
     array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
         $related_item = getItemById($raw_record['item_id'], $conn);
