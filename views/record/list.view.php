@@ -5,8 +5,14 @@
 */
 ?>
 <div class="container">
-
-    <div class=" d-flex justify-content-between mt-5">
+    <div class=" mt-5">
+        <?php foreach ($month_nav as $m_nav) : ?>
+            <a href="<?= $m_nav['href'] ?>" class="<?= $m_nav['class'] ?>">
+                <?= $m_nav['label']; ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <div class=" d-flex justify-content-between mt-3">
         <a href="<?= route("record/add"); ?>" class=" btn btn-dark">Add New Record</a>
         <form action="" method="get">
             <div class=" input-group">

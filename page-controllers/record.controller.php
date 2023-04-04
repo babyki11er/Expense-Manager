@@ -6,8 +6,26 @@ function list_(mysqli $conn): void
         setOrder(RECORD, $_GET['order']);
     }
     $active_records = listRecords($conn);
+    // make months nav elements
+    $current_month = $_GET['m'] ?? date('m');
+    $months = getMonths($conn);
+    $months = array_reverse($months);
+    $month_nav = array_map(function ($m) use ($current_month) {
+        $elm = [
+            'label' => MONTH_NAMES[$m],
+            'class' => 'btn btn-success mb-2 me-3 ',
+            'href' => route("records", ['m' => $m])
+        ];
+
+        if ($m == $current_month) {
+            $elm['class'] = 'btn mb-2 me-3 btn-primary';
+        }
+
+        return $elm;
+    }, $months);
     $data = [
-        'active_records' => $active_records
+        'active_records' => $active_records,
+        'month_nav' => $month_nav
     ];
     view("record/list", $data);
 }
