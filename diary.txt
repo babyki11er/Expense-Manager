@@ -137,7 +137,9 @@ Note:	i want to create each view as an object, with properties but procedural fi
 <3>
 [ Index (Brief Analysis) ]
 	[x]:	analysis according to month, current month have the hightest priority
-	[@]:	filter the data by categories
+<4>
+[ Index (Brief Analysis) ]
+	[l]:	filter the data by categories
 [@]:	Records group by month, insert just the day in date column
 [ ]:	add summary on records.php
 [ ]:	filter by category in brief analysis page, group by months as well
@@ -154,6 +156,8 @@ Note:	i want to create each view as an object, with properties but procedural fi
 	+ url get requests with php extension show defalt PHP page instead
 
 [ BUGS ]
+	[@]:	index page, invalid data, total outcome has been greater than total income, due to the fact last month have left money as extra
+			might have to calculate curries from previous month, as a source of income this month, this is complicated stuffs, just have to look right
 	[ ]:	notification after updating a record saying id is #1
 	[x]:	records listing page, order by note not working
 	[x]:	records, update api adding an item already existed, errors in checking if an item already exists or not

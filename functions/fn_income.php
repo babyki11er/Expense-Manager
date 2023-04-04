@@ -24,7 +24,7 @@ function addIncome(int $amount, string $label, string $date, string $note, mysql
     return db_Insert($conn, INCOME, $income_to_add);
 }
 
-function _makeIncome(int $amount, string $label, string $date, string $note) : array
+function _makeIncome(int $amount, string $label, string $date, string $note): array
 {
     return [
         'amount' => $amount,
@@ -34,7 +34,7 @@ function _makeIncome(int $amount, string $label, string $date, string $note) : a
     ];
 }
 
-function updateIncome(int $id, int $amount, string $label, string $date, string $note, mysqli $conn) : int
+function updateIncome(int $id, int $amount, string $label, string $date, string $note, mysqli $conn): int
 {
     $income_to_update = _makeIncome($amount, $label, $date, $note);
     if (_checkIncome($id, $conn)) {
@@ -48,36 +48,40 @@ function updateIncome(int $id, int $amount, string $label, string $date, string 
     }
 }
 
-function deleteIncome(int $id, mysqli $conn) : bool
+function deleteIncome(int $id, mysqli $conn): bool
 {
     if (_checkIncome($id, $conn)) {
-        return db_Delete($conn, INCOME , $id);
+        return db_Delete($conn, INCOME, $id);
     }
     return false;
 }
 
-function listIncomes(mysqli $conn) : ?array
+function listIncomes(mysqli $conn): ?array
 {
     $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
     return $raw_incomes;
 }
 
-function getIncome(int $id, mysqli $conn) : ?array
+function getIncome(int $id, mysqli $conn): ?array
 {
     return db_SelectOne($conn, INCOME, ['id' => $id]);
 }
 
-function getTotalIncome(mysqli $conn): int
+function getTotalIncome(mysqli $conn, int $m = 0): int
 {
     // yellow, could have been refactored to use sum() from sql
-    $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
+    if (empty($m)) {
+        $raw_incomes = db_SelectAll($conn, INCOME, [], '*', 'date');
+    } else {
+        $raw_incomes = db_SelectAll($conn, INCOME, ['month(date)' => $m], '*', 'date');
+    }
     $total = array_reduce($raw_incomes, function ($carry, $raw) {
         return $carry + $raw['amount'];
     }, 0);
     return $total;
 }
 
-function _checkIncome(int $id, mysqli $conn) : bool
+function _checkIncome(int $id, mysqli $conn): bool
 {
     return !is_null(db_SelectOne($conn, INCOME, ['id' => $id], 'id'));
 }

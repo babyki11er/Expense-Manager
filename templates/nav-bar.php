@@ -1,10 +1,7 @@
 <?php
 // require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/functions.php';
 $conn = connectMysql();
-// yellow, of course
-$total_income = getTotalIncome($conn);
-$total_outcome = getTotalOutcome($conn);
-$remaining_amount = $total_income - $total_outcome;
+$remaining_amount = getRemainingBalance($conn);
 $display = displayMoney($remaining_amount);
 
 /*
