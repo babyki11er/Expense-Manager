@@ -14,7 +14,7 @@
         note        str
 */
 
-function _makeRecord(int $item_id, int $qty, string $date, string $note) : array
+function _makeRecord(int $item_id, int $qty, string $date, string $note): array
 {
     return [
         'item_id' => $item_id,
@@ -24,27 +24,31 @@ function _makeRecord(int $item_id, int $qty, string $date, string $note) : array
     ];
 }
 
-function listRecords(mysqli $conn): array
+function listRecords(mysqli $conn, int $month = 0): array
 {
     $order = getOrder(RECORD, 'date');
     if ($order === 'qty' || $order === 'note')
         $order .= ' DESC ';
-    $raw_records = db_SelectAll($conn, RECORD, [], '*', $order);
+    if (empty($month)) {
+        $raw_records = db_SelectAll($conn, RECORD, [], '*', $order);
+    } else {
+        $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month], '*', $order);
+    }
     return is_null($raw_records) ? [] :
-    array_map(function ($raw) use ($conn) {
-        $record_public = $raw;
-        $related_item_id = $raw['item_id'];
-        $related_item = getItemById($related_item_id, $conn);
-        // computed
-        $record_public['item_name'] = $related_item['name'];
-        $record_public['cost'] = $related_item['price'] * $raw['qty'];
-        $record_public['cat_str'] = $related_item['cat_str'];
-        $record_public['cat_id'] = $related_item['cat_id'];
-        return $record_public;
-    }, $raw_records);
+        array_map(function ($raw) use ($conn) {
+            $record_public = $raw;
+            $related_item_id = $raw['item_id'];
+            $related_item = getItemById($related_item_id, $conn);
+            // computed
+            $record_public['item_name'] = $related_item['name'];
+            $record_public['cost'] = $related_item['price'] * $raw['qty'];
+            $record_public['cat_str'] = $related_item['cat_str'];
+            $record_public['cat_id'] = $related_item['cat_id'];
+            return $record_public;
+        }, $raw_records);
 }
 
-function getRecord(mysqli $conn, int $id) : array 
+function getRecord(mysqli $conn, int $id): array
 {
     // yellow, there is no strict rule on what makes of a record, inconsistant shapes of data
     $raw_record = db_SelectOne($conn, RECORD, ['id' => $id]);
@@ -76,7 +80,7 @@ function updateRecord(int $id, int $item_id, int $qty, string $date, string $not
     return false;
 }
 
-function _checkRecord(int $id, mysqli $conn) : bool
+function _checkRecord(int $id, mysqli $conn): bool
 {
     return !is_null(db_SelectOne($conn, RECORD, ['id' => $id], 'id'));
 }
@@ -90,7 +94,7 @@ function deleteRecord(int $id, mysqli $conn): bool
 }
 
 // yellow?
-function getTotalOutcome(mysqli $conn, int $month=0): int
+function getTotalOutcome(mysqli $conn, int $month = 0): int
 {
     if (empty($month)) {
         $raw_records = db_SelectAll($conn, RECORD, []);
@@ -98,9 +102,9 @@ function getTotalOutcome(mysqli $conn, int $month=0): int
         $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month]);
     }
     return is_null($raw_records) ? 0 :
-    array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
-        $related_item = getItemById($raw_record['item_id'], $conn);
-        $cost = $related_item['price'] * $raw_record['qty'];
-        return $carry + $cost;
-    }, 0);
+        array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
+            $related_item = getItemById($raw_record['item_id'], $conn);
+            $cost = $related_item['price'] * $raw_record['qty'];
+            return $carry + $cost;
+        }, 0);
 }

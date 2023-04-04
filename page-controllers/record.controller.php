@@ -5,9 +5,13 @@ function list_(mysqli $conn): void
     if (isset($_GET['order'])) {
         setOrder(RECORD, $_GET['order']);
     }
-    $active_records = listRecords($conn);
+    $current_month = date('m');
+    if (isset($_GET['m']) && is_numeric($_GET['m']) && $_GET['m'] != $current_month) {
+        $current_month = $_GET['m'];
+    }
+    $active_records = listRecords($conn, $current_month);
     // make months nav elements
-    $current_month = $_GET['m'] ?? date('m');
+    // yellow, month_nav deserves its own function, all it does is return this nav elements with attributes
     $months = getMonths($conn);
     $months = array_reverse($months);
     $month_nav = array_map(function ($m) use ($current_month) {
