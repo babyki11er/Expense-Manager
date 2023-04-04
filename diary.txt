@@ -140,7 +140,11 @@ Note:	i want to create each view as an object, with properties but procedural fi
 <4>
 [ Index (Brief Analysis) ]
 	[l]:	filter the data by categories
-[@]:	Records group by month, insert just the day in date column
+[x]:	Records group by month, insert just the day in date column
+[bug]:	fix records listing page not remebering the month when sorting by id, for example
+[ ]:	i want a migrate web page, like migrate.php, enter database credentials through the HTML form, and it will create tables, and test data
+		user friendly and easy to try the app
+[ ]:	i want a simple read me file explaining how and why of this app, information that makes me look awesome
 [ ]:	add summary on records.php
 [ ]:	filter by category in brief analysis page, group by months as well
 [ ]:	toggle ascending and descending order, by using a second parameter, desc=1 or 0, and generate url dynamically

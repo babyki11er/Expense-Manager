@@ -30,8 +30,8 @@
     <table class=" table table-success table-bordered mt-3">
         <thead>
             <th>
-                <a href="?order=id">
-                    #
+                <a href="?order=date">
+                    Day
                 </a>
             </th>
             <th>
@@ -53,8 +53,8 @@
             </th>
             <th>Del/Edit</th>
             <th>
-                <a href="?order=date">
-                    Date
+                <a href="?order=id">
+                    #
                 </a>
             </th>
         </thead>
@@ -66,7 +66,7 @@
             ?>
                 <tr>
                     <td>
-                        <?= $record['id'] ?>
+                        <?= "<strong><{$record['day']}></strong> {$record['day_name']}" ?>
                     </td>
                     <td>
                         <?= $record['item_name'] ?>
@@ -99,7 +99,7 @@
                         </form>
                     </td>
                     <td>
-                        <?= $record['date'] ?>
+                        <?= $record['id'] ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -32,7 +32,8 @@ function listRecords(mysqli $conn, int $month = 0): array
     if (empty($month)) {
         $raw_records = db_SelectAll($conn, RECORD, [], '*', $order);
     } else {
-        $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month], '*', $order);
+        // yellow, of course
+        $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month], '*, date_format(date, "%a") as day_name, day(date) as day', $order);
     }
     return is_null($raw_records) ? [] :
         array_map(function ($raw) use ($conn) {
