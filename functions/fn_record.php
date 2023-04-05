@@ -109,3 +109,32 @@ function getTotalOutcome(mysqli $conn, int $month = 0): int
             return $carry + $cost;
         }, 0);
 }
+
+function make_daily_records(mysqli $conn, int $current_month): array
+{
+    $active_records = listRecords($conn, $current_month);
+    // dd($active_records);
+    $daily_records = [];
+    $i = 0;
+    $current_day = $active_records[0]['day'];
+    while (true) {
+        $coffee = [];
+        $coffee['day'] = $current_day;
+        $coffee['data'] = [];
+        $coffee['total_cost'] = 0;
+        $coffee['length'] = 0;
+        while ($active_records[$i]['day'] == $current_day && $i < count($active_records)) {
+            $coffee['data'][] = $active_records[$i];
+            $coffee['total_cost'] += $active_records[$i]['cost'];
+            $coffee['length']++;
+            $i++;
+        }
+        $current_day = $active_records[$i]['day'];
+        $daily_records[] = $coffee;
+        print_r($daily_records);
+        if ($i < count($active_records)) {
+            break;
+        }
+    }
+    return $daily_records;
+}
