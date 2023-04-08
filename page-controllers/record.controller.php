@@ -9,7 +9,8 @@ function list_(mysqli $conn): void
     if (isset($_GET['m']) && is_numeric($_GET['m']) && $_GET['m'] != $current_month) {
         $current_month = $_GET['m'];
     }
-    $active_records = listRecords($conn, $current_month);
+    // $active_records = listRecords($conn, $current_month);
+    $daily_records = make_daily_records($conn, $current_month);
     // make months nav elements
     // yellow, month_nav deserves its own function, all it does is return this nav elements with attributes
     $months = getMonths($conn);
@@ -28,7 +29,7 @@ function list_(mysqli $conn): void
         return $elm;
     }, $months);
     $data = [
-        'active_records' => $active_records,
+        'daily_records' => $daily_records,
         'month_nav' => $month_nav
     ];
     view("record/list", $data);

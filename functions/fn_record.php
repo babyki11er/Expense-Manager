@@ -110,6 +110,13 @@ function getTotalOutcome(mysqli $conn, int $month = 0): int
         }, 0);
 }
 
+/*
+Record for day:
+    day         int
+    data[]      array of record objects from that day
+    total_cost
+    length
+*/
 function make_daily_records(mysqli $conn, int $current_month): array
 {
     $active_records = listRecords($conn, $current_month);

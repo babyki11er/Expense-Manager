@@ -60,7 +60,9 @@
         </thead>
         <tbody>
             <?php
-            foreach ($active_records as $record) :
+            // be aware of two for each!
+            foreach ($daily_records as $record_info) :
+                foreach($record_info['data'] as $record):
                 $id = $record['id'];
                 $update_url = route("record/edit", ['id' => $id]);
             ?>
@@ -100,6 +102,19 @@
                     </td>
                     <td>
                         <?= $record['id'] ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <td>
+                    </td>
+                    <td class=" fw-bold text-end">
+                        Total Cost
+                    </td>
+                    <td colspan="2" class=" fw-bolder text-center">
+                        <?= displayMoney($record_info['total_cost']) ?>
+                    </td>
+                    <td colspan="4">
                     </td>
                 </tr>
             <?php endforeach; ?>
