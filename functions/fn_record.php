@@ -131,8 +131,8 @@ function make_daily_records(mysqli $conn, int $current_month): array
         }
         $current_day = $active_records[$i]['day'];
         $daily_records[] = $coffee;
-        print_r($daily_records);
-        if ($i < count($active_records)) {
+        // print_r($daily_records);
+        if ($i >= count($active_records)) {
             break;
         }
     }
