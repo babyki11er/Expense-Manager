@@ -30,11 +30,6 @@
     <table class=" table table-success table-bordered mt-3">
         <thead>
             <th>
-                <a href="?order=date">
-                    Day
-                </a>
-            </th>
-            <th>
                 <a href="?order=item_id">
                     Item
                 </a>
@@ -61,62 +56,62 @@
         <tbody>
             <?php
             // be aware of two for each!
-            foreach ($daily_records as $record_info) :
-                foreach($record_info['data'] as $record):
-                $id = $record['id'];
-                $update_url = route("record/edit", ['id' => $id]);
-            ?>
-                <tr>
+            foreach ($daily_records as $record_info) : ?>
+                <tr class=" table-dark">
                     <td>
-                        <?= "<strong><{$record['day']}></strong> {$record['day_name']}" ?>
+                        <!-- hard coded, yellow of course -->
+                        <?= "<strong>{$record_info['data'][0]['day']}, </strong> {$record_info['data'][0]['day_name']}" ?>
                     </td>
-                    <td>
-                        <?= $record['item_name'] ?>
-                    </td>
-                    <td>
-                        <?= $record['qty'] ?>
-                    </td>
-                    <td>
-                        <div>
-                            <?= displayMoney($record['cost']) ?>
-                        </div>
-                    </td>
-                    <td>
-                        <?= $record['cat_str'] ?>
-                    </td>
-                    <td>
-                        <?= $record['note'] ?>
-                    </td>
-                    <td>
-                        <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
-                            Update
-                        </a>
-                        <!-- $del_url = "api/del?selected=record&del&id=$id"; -->
-                        <form action="/api/del" method="post" class=" d-inline-block">
-                            <input type="hidden" name="selected" value="record">
-                            <input type="hidden" name="id" value="<?= $id ?>">
-                            <button class=" btn btn-sm btn-danger" name="del">
-                                Del
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <?= $record['id'] ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td>
-                    </td>
-                    <td class=" fw-bold text-end">
+                    <td class=" fw-bold text-end" colspan="3">
                         Total Cost
                     </td>
-                    <td colspan="2" class=" fw-bolder text-center">
+                    <td class=" fw-bolder text-center">
                         <?= displayMoney($record_info['total_cost']) ?>
                     </td>
                     <td colspan="4">
                     </td>
                 </tr>
+                <?php
+                foreach ($record_info['data'] as $record) :
+                    $id = $record['id'];
+                    $update_url = route("record/edit", ['id' => $id]);
+                ?>
+                    <tr>
+                        <td>
+                            <?= $record['item_name'] ?>
+                        </td>
+                        <td>
+                            <?= $record['qty'] ?>
+                        </td>
+                        <td>
+                            <div>
+                                <?= displayMoney($record['cost']) ?>
+                            </div>
+                        </td>
+                        <td>
+                            <?= $record['cat_str'] ?>
+                        </td>
+                        <td>
+                            <?= $record['note'] ?>
+                        </td>
+                        <td>
+                            <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
+                                Update
+                            </a>
+                            <!-- $del_url = "api/del?selected=record&del&id=$id"; -->
+                            <form action="/api/del" method="post" class=" d-inline-block">
+                                <input type="hidden" name="selected" value="record">
+                                <input type="hidden" name="id" value="<?= $id ?>">
+                                <button class=" btn btn-sm btn-danger" name="del">
+                                    Del
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <?= $record['id'] ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             <?php endforeach; ?>
         </tbody>
     </table>
