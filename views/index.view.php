@@ -17,7 +17,7 @@
         <?php endforeach; ?>
     </div>
     <div class=" p-2 ">
-        Excluding // Filters here
+        Excluding records with None category
         <!-- will save them in session variables for later, yellow -->
     </div>
     <form method="get" id="calc-form">
