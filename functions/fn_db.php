@@ -31,7 +31,7 @@ function getRemainingBalance(mysqli $conn): int
 {
     // yellow, of course
     $total_income = getTotalIncome($conn);
-    $total_outcome = getTotalOutcome($conn);
+    $total_outcome = getTotalOutcome($conn, 0, false);
     $remaining_amount = $total_income - $total_outcome;
     return $remaining_amount;
 }
