@@ -95,16 +95,21 @@ function deleteRecord(int $id, mysqli $conn): bool
 }
 
 // yellow?
-function getTotalOutcome(mysqli $conn, int $month = 0): int
+function getTotalOutcome(mysqli $conn, int $month = 0, bool $filtered=true): int
 {
+    // excluding None by default for now, im not sure if i should exclude categories at all and should just exclude by tags as they are more flexiable
+    $exclude_category = $filtered ? 'None' : '';
     if (empty($month)) {
         $raw_records = db_SelectAll($conn, RECORD, []);
     } else {
         $raw_records = db_SelectAll($conn, RECORD, ['month(date)' => $month]);
     }
     return is_null($raw_records) ? 0 :
-        array_reduce($raw_records, function ($carry, $raw_record) use ($conn) {
+        array_reduce($raw_records, function ($carry, $raw_record) use ($conn, $exclude_category) {
             $related_item = getItemById($raw_record['item_id'], $conn);
+            if ($related_item['cat_str'] == $exclude_category) {
+                return $carry;
+            }
             $cost = $related_item['price'] * $raw_record['qty'];
             return $carry + $cost;
         }, 0);
