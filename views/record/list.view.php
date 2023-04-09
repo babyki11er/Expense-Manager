@@ -14,6 +14,9 @@
     </div>
     <div class=" d-flex justify-content-between mt-3">
         <a href="<?= route("record/add"); ?>" class=" btn btn-dark">Add New Record</a>
+        <a href="#" class=" btn btn-primary">
+            Total Spent => <?= displayMoney($total_spent) ?>
+        </a>
         <form action="" method="get">
             <div class=" input-group">
                 <input type="text" name="q" value="" class=" form-control">
@@ -26,7 +29,6 @@
             </div>
         </form>
     </div>
-
     <table class=" table table-success table-bordered mt-3">
         <thead>
             <th>
@@ -52,8 +54,8 @@
                     #
                 </a>
             </th>
-        </thead>
         <tbody>
+            </thead>
             <?php
             // be aware of two for each!
             foreach ($daily_records as $record_info) : ?>

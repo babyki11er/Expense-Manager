@@ -11,6 +11,9 @@ function list_(mysqli $conn): void
     }
     // $active_records = listRecords($conn, $current_month);
     $daily_records = make_daily_records($conn, $current_month);
+    $total_spent = array_reduce($daily_records, function($carry, $record) {
+        return $carry + $record['total_cost'];
+    }, 0);
     // make months nav elements
     // yellow, month_nav deserves its own function, all it does is return this nav elements with attributes
     $months = getMonths($conn);
@@ -30,7 +33,8 @@ function list_(mysqli $conn): void
     }, $months);
     $data = [
         'daily_records' => $daily_records,
-        'month_nav' => $month_nav
+        'month_nav' => $month_nav,
+        'total_spent' => $total_spent
     ];
     view("record/list", $data);
 }
