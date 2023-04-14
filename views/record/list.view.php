@@ -32,6 +32,11 @@
     <table class=" table table-success table-bordered mt-3">
         <thead>
             <th>
+                <a href="?order=id">
+                    #
+                </a>
+            </th>
+            <th>
                 <a href="?order=item_id">
                     Item
                 </a>
@@ -49,11 +54,6 @@
                 </a>
             </th>
             <th>Del/Edit</th>
-            <th>
-                <a href="?order=id">
-                    #
-                </a>
-            </th>
         <tbody>
             </thead>
             <?php
@@ -62,15 +62,19 @@
                 <tr class=" table-dark">
                     <td>
                         <!-- hard coded, yellow of course -->
-                        <?= "<strong>{$record_info['data'][0]['day']}, </strong> {$record_info['data'][0]['day_name']}" ?>
+                        <?= "<strong>{$record_info['data'][0]['day']}</strong>" ?>
                     </td>
-                    <td class=" fw-bold text-end" colspan="3">
+                    <td class=" fw-bold text-end">
                         Total Cost
                     </td>
-                    <td class=" fw-bolder text-center">
+                    <td class=" fw-bolder text-center" colspan="2">
                         <?= displayMoney($record_info['total_cost']) ?>
                     </td>
-                    <td colspan="4">
+                    <td>
+                        <?= $record_info['data'][0]['day_name'] ?>
+                    </td>
+                    <td colspan="2">
+                        <!-- yellow, want a form with input for summary note for the day, then the button to submit -->
                     </td>
                 </tr>
                 <?php
@@ -79,6 +83,9 @@
                     $update_url = route("record/edit", ['id' => $id]);
                 ?>
                     <tr>
+                        <td>
+                            <?= $record['id'] ?>
+                        </td>
                         <td>
                             <?= $record['item_name'] ?>
                         </td>
@@ -108,9 +115,6 @@
                                     Del
                                 </button>
                             </form>
-                        </td>
-                        <td>
-                            <?= $record['id'] ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

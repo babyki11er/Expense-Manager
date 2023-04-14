@@ -159,7 +159,7 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [ ]:	export records.json for analysis since right now app is not ready for deep stuffs which is the primary reason why I wrote this
 
 <Refactor>
-	[ ]:	make record id first column
+	[x]:	make record id first column
 	[ ]:	navigation bar with current page indicator color
 	[ ]:	put all control code in router to main-controller file
 	[ ]:	design a function that will do all the requires
