@@ -84,7 +84,9 @@
                 ?>
                     <tr>
                         <td>
-                            <?= $record['id'] ?>
+                            <a href="<?= $update_url; ?>">
+                                <?= $record['id'] ?>
+                            </a>
                         </td>
                         <td>
                             <?= $record['item_name'] ?>
@@ -104,9 +106,6 @@
                             <?= $record['note'] ?>
                         </td>
                         <td>
-                            <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
-                                Update
-                            </a>
                             <!-- $del_url = "api/del?selected=record&del&id=$id"; -->
                             <form action="/api/del" method="post" class=" d-inline-block">
                                 <input type="hidden" name="selected" value="record">
