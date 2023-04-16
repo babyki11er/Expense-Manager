@@ -1,10 +1,6 @@
 <?php
 // routing
-$uri = $_SERVER["REQUEST_URI"];
-$path = parse_url($uri)['path'];
-if ($path === '/') {
-    $path .= 'index';
-}
+$path = get_current_path_uri();
 // echo $path . "<br>";
 
 const Apis = [

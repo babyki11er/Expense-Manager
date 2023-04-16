@@ -117,6 +117,16 @@ function url(string $path = null): string
     return $url;
 }
 
+function get_current_path_uri(): string
+{
+    $uri = $_SERVER["REQUEST_URI"];
+    $path = parse_url($uri)['path'];
+    if ($path === '/') {
+        $path .= 'index';
+    }
+    return $path;
+}
+
 // MVC view part
 function view(string $path, array $data = null): void
 {
@@ -131,7 +141,7 @@ function view(string $path, array $data = null): void
         }
     }
     partial_view('header');
-    partial_view('nav-bar');
+    partial_view('nav-bar', ['current_page' => $path]);
     // alert box here
     echo getNoti();
     require_once VIEW_DIR . "/$path.view.php";
