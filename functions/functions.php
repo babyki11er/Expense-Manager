@@ -130,11 +130,12 @@ function view(string $path, array $data = null): void
             ${$key} = xss_sanitize($value);
         }
     }
-    require_once TEMPLATE_DIR . '/header.php';
+    require_once PARTIAL_DIR . '/header.partial.php';
+    require_once PARTIAL_DIR . "/nav-bar.partial.php";
     // alert box here
     echo getNoti();
     require_once VIEW_DIR . "/$path.view.php";
-    require_once TEMPLATE_DIR . '/footer.php';
+    require_once PARTIAL_DIR . '/footer.partial.php';
     return;
 }
 

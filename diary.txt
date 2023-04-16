@@ -147,11 +147,12 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [x]:	add summary on records.php
 
 <9>
-[@]:	filter the data by categories
+[X]:	filter the data by categories, will create tags for the task
 <14>
 <15>
-[@]:	remove the order session variable in records and make date the default order
 [x]:	UI for records, edit link for id, delete icon somewhere, and remove the control column
+[@]:	remove the order session variable in records and make date the default order
+[@]:	make navigation bar responsive to current page
 [@bug]:	fix records listing page not remebering the month when sorting by id, for example
 [ ]:	i want a migrate web page, like migrate.php, enter database credentials through the HTML form, and it will create tables, and test data
 		user friendly and easy to try the app

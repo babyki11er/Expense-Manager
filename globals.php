@@ -3,7 +3,7 @@
 const ROOT_DIR = __DIR__;
 const VIEW_DIR = ROOT_DIR . '/views';
 const API_DIR = ROOT_DIR . '/api';
-const TEMPLATE_DIR = ROOT_DIR . '/templates';
+const PARTIAL_DIR = VIEW_DIR . '/partial';
 const PAGE_CONTROLLER = ROOT_DIR . '/page-controllers';
 
 const CATEGORY = 'category';

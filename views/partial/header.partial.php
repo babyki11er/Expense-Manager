@@ -15,4 +15,3 @@
 </head>
 
 <body>
-    <?php require_once TEMPLATE_DIR . "/nav-bar.php" ?>
