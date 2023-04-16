@@ -66,7 +66,7 @@ function displayItem(array $item): string
 */
 
 // new experiemental function
-function xss_sanitize(mixed &$data) : mixed
+function xss_sanitize(mixed &$data): mixed
 {
     if (gettype($data) === 'string') {
         return htmlentities($data);
@@ -126,17 +126,29 @@ function view(string $path, array $data = null): void
     // array to variable
     if (!is_null($data)) {
         foreach ($data as $key => $value) {
-            // dynamic variable name, will be sanitizing for XSS later
+            // dynamic variable getting sanitized for XSS
             ${$key} = xss_sanitize($value);
         }
     }
-    require_once PARTIAL_DIR . '/header.partial.php';
-    require_once PARTIAL_DIR . "/nav-bar.partial.php";
+    partial_view('header');
+    partial_view('nav-bar');
     // alert box here
     echo getNoti();
     require_once VIEW_DIR . "/$path.view.php";
-    require_once PARTIAL_DIR . '/footer.partial.php';
+    partial_view('footer');
     return;
+}
+
+function partial_view(string $name, array $data = null): void
+{
+    // copy paste from view function
+    if (!is_null($data)) {
+        foreach ($data as $key => $value) {
+            // dynamic variable getting sanitized for XSS
+            ${$key} = xss_sanitize($value);
+        }
+    }
+    require_once PARTIAL_DIR . "/$name.partial.php";
 }
 
 function load_controller(string $page): void
@@ -284,7 +296,7 @@ function dd($data, $showType = false, $die = true): void
 }
 
 // log debug messages to file
-function coffee_log(string $message, string $brief=null) : void
+function coffee_log(string $message, string $brief = null): void
 {
     $file = "coffee.log";
     file_put_contents($file, $message, FILE_APPEND);
