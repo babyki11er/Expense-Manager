@@ -2,6 +2,7 @@
 // controller
 function main(): void
 {
+    // red! what is this code doing here? page related controller just don't connect to database directly
     $conn = connectMysql();
     $current_day = (int) date("d"); // later give option to choose
     $current_month = (int) date("m");

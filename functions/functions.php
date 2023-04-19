@@ -141,12 +141,29 @@ function view(string $path, array $data = null): void
         }
     }
     partial_view('header');
-    partial_view('nav-bar', ['current_page' => $path]);
+    navigation_controller();
     // alert box here
     echo getNoti();
     require_once VIEW_DIR . "/$path.view.php";
     partial_view('footer');
     return;
+}
+
+// i don't know where to move this code, don't really belong here
+function navigation_controller(): void
+{
+    $path = get_current_path_uri();
+    if (array_key_exists($path, Pages)) {
+        $current_page = Pages[$path];
+        if ($current_page == 'record@add') {
+            $current_page = 'insert-record';
+        } else {
+            $current_page = explode('@', $current_page)[0];
+        }
+    } else {
+        $current_page = '404';
+    }
+    partial_view('nav-bar', ['current_page' => $current_page]);
 }
 
 function partial_view(string $name, array $data = null): void
