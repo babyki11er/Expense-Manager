@@ -53,6 +53,7 @@
                     Note
                 </a>
             </th>
+            <th>Del/Edit</th>
         <tbody>
             </thead>
             <?php
@@ -87,15 +88,8 @@
                                 <?= $record['id'] ?>
                             </a>
                         </td>
-                        <td class=" d-flex justify-content-between">
+                        <td class="">
                             <?= $record['item_name'] ?>
-                            <form action="/api/del" method="post" class="">
-                                <input type="hidden" name="selected" value="record">
-                                <input type="hidden" name="id" value="<?= $id ?>">
-                                <button class=" btn btn-danger" name="del">
-                                    del
-                                </button>
-                            </form>
                         </td>
                         <td>
                             <?= $record['qty'] ?>
@@ -110,6 +104,19 @@
                         </td>
                         <td>
                             <?= $record['note'] ?>
+                        </td>
+                        <td>
+                            <a href="<?= $update_url ?>" class=" btn btn-sm btn-primary">
+                                Update
+                            </a>
+                            <!-- $del_url = "api/del?selected=record&del&id=$id"; -->
+                            <form action="/api/del" method="post" class=" d-inline-block">
+                                <input type="hidden" name="selected" value="record">
+                                <input type="hidden" name="id" value="<?= $id ?>">
+                                <button class=" btn btn-sm btn-danger" name="del">
+                                    Del
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

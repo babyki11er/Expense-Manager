@@ -20,7 +20,6 @@ $butt_colors = [
     "insert-record" => "btn-primary",
 ];
 
-echo $current_page;
 $butt_colors[$current_page] = "btn-warning";
 
 ?>
