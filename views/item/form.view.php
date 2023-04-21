@@ -24,7 +24,7 @@
         </label>
         <div class=" input-group mb-3">
             <span class="input-group-text">Name</span>
-            <input name="name" type="text" id="" placeholder="Name for new Item" class=" form-control" required value="<?= $item['name']; ?>" />
+            <input autofocus name="name" type="text" id="" placeholder="Name for new Item" class=" form-control" required value="<?= $item['name']; ?>" />
             <span class="input-group-text">Price</span>
             <input name="price" type="number" id="" placeholder="Insert Pirce" value="<?= $item['price']; ?>" class=" form-control" step="50" />
             <span class="input-group-text">Category</span>

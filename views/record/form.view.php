@@ -33,7 +33,7 @@
                         <?php endif; ?>
                         Item
                     </span>
-                    <input list="suggestionMenu" type="text" name="item_name" id="item_name" class=" form-control" required autocomplete="off" value="<?= $record['item_name'] ?>">
+                    <input autofocus list="suggestionMenu" type="text" name="item_name" id="item_name" class=" form-control" required autocomplete="off" value="<?= $record['item_name'] ?>">
                     <datalist id="suggestionMenu">
                         <?php foreach ($items as $item) : ?>
                             <option value="<?= displayItem($item) ?>" data-itemId="<?= $item['id'] ?>" class="suggestion">
