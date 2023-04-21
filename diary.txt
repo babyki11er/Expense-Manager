@@ -153,9 +153,12 @@ Note:	i want to create each view as an object, with properties but procedural fi
 [x]:	UI for records, edit link for id, delete icon somewhere, and remove the control column
 
 <19>
+<20>
 [x]:	make navigation bar responsive to current page
-[@]:	remove the order session variable in records and make date the default order
+[@]:	focus on text input in insert pages
+[l]:	remove the order session variable in records and make date the default order
 [@bug]:	fix records listing page not remebering the month when sorting by id, for example
+[@]:	add color status for remaining button in nav-bar
 [ ]:	i want a migrate web page, like migrate.php, enter database credentials through the HTML form, and it will create tables, and test data
 		user friendly and easy to try the app
 [ ]:	i want a simple read me file explaining how and why of this app, information that makes me look awesome

@@ -13,14 +13,14 @@ if ($current_page == '404') {
 using a key/value pair because if else conditionals are ugly and unprofessional
 */
 $butt_colors = [
-    "index" => "btn-primary",
-    "income" => "btn-primary",
-    "item" => "btn-primary",
-    "category" => "btn-primary",
-    "insert-record" => "btn-primary",
+    "index" => "btn-success",
+    "income" => "btn-success",
+    "item" => "btn-success",
+    "category" => "btn-success",
+    "insert-record" => "btn-success"
 ];
 
-$butt_colors[$current_page] = "btn-warning";
+$butt_colors[$current_page] = "btn-primary";
 
 ?>
 <nav>
