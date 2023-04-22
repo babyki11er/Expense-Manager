@@ -11,7 +11,8 @@
         note        str
 */
 
-class Schedule {
+class Schedule
+{
     private int $item_id;
     private string $item_name;
     private int $qty;
@@ -38,59 +39,87 @@ class Schedule {
         $this->cat_id = $item['cat_id'];
     }
 
-    public static function getScheduleById(int $id, mysqli $conn) : Schedule
+    public static function getScheduleById(int $id, mysqli $conn)
     {
         // do select query
-        $schedule = new Schedule();
-        $schedule->db_id = $id;
-        return $schedule;
+        // $schedule = new Schedule();
+        $stmt = $conn->prepare("SELECT * FROM pending WHERE id=?;");
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            // dd($stmt->fetch(), true);
+            $result = $stmt->get_result();
+            die($result->fetch_object());
+            return null;
+        } else {
+            return null;
+        }
     }
 
-    public static function listSchedules(mysqli $conn) : array
+    public static function listSchedules(mysqli $conn): array
     {
         // returns array of existing listSchedules
         return [];
     }
 
-    private static function validateSchedule(Schedule $schedule) : bool
+    private static function validateSchedule(Schedule $schedule): bool
     {
-
+        return true;
     }
 
-    public function dbSave() : int
+    public function dbSave(): int
     {
-        $stmt = $this->conn->prepare("INSERT INTO schedule (item_id, qty, date, note) VALUES (?, ?, ?, ?);");
+        $stmt = $this->conn->prepare("INSERT INTO pending (item_id, qty, date, note) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("iiss", $this->item_id, $this->qty, $this->date, $this->note);
-        return $this->conn->insert_id;
+        if ($stmt->execute()) {
+            $this->db_id = $this->conn->insert_id;
+            return $this->db_id;
+        } else {
+            -1;
+        }
     }
 
-    public function dbDelete() : int
+    public function dbDelete(): int
     // returns the id of deleted id
     // works only if db_id is not -1, ie, if the schedule is saved into the db
     {
-
+        if ($this->inDb()) {
+            $stmt = $this->conn->prepare("DELETE FROM pending WHERE id=?;");
+            $stmt->bind_param("i", $this->db_id);
+            if ($stmt->execute()) {
+                $this->db_id = -1;
+                return $this->db_id;
+            }
+        }
+        return -1;
     }
 
-    public function dbUpdate(Schedule $updated_schedule) : bool
+    public function dbUpdate(Schedule $updated_schedule): ?Schedule
     // works only if db_id is not -1, ie, if the schedule is saved into the db
     {
-
+        // wtf code, yellow?
+        if ($this->inDb() && Schedule::validateSchedule($updated_schedule)) {
+            $this->dbDelete();
+            $id = $updated_schedule->dbSave();
+            $updated_schedule->db_id = $id;
+            return $updated_schedule;
+        }
+        return null;
     }
-    public function apply() : int
+
+    private function inDb(): bool
+    // check if the current object is saved in database
+    {
+        return $this->db_id != -1;
+    }
+    public function apply(): int
     // returns the id of inserted record
     {
 
         return 0;
     }
 
-    public function getItemName() : string
-    {
-        return $this->item_name;
-    }
-
-    public function display() : void
+    public function display(): void
     {
         dd((array) $this);
     }
-
 }
