@@ -1,5 +1,4 @@
 <?php
-
 $conn = connectMysql();
 
 // assume api_name is already valid

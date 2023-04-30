@@ -4,8 +4,8 @@ function connectMysql()
 {
     // config db here
     $_hostname = 'localhost';
-    $_username = 'sid';
-    $_password = 'six';
+    $_username = 'dev';
+    $_password = 'php';
     $_dbname = 'expense_tracker';
     $conn = mysqli_connect($_hostname, $_username, $_password, $_dbname);
     return $conn;

@@ -24,7 +24,7 @@ class Schedule
     private int $db_id = -1;
     private mysqli $conn;
 
-    public function __construct(int $item_id, int $qty, string $date, string $note, mysqli $conn)
+    public function __construct(int $item_id, int $qty, string $date, string $note, mysqli $conn = null)
     {
         $this->item_id = $item_id;
         $this->qty = $qty;
@@ -48,7 +48,7 @@ class Schedule
         if ($stmt->execute()) {
             // dd($stmt->fetch(), true);
             $result = $stmt->get_result();
-            die($result->fetch_object());
+            dd($result->fetch_object("Schedule"));
             return null;
         } else {
             return null;
