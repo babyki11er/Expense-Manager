@@ -7,6 +7,9 @@
 -- Server version: 10.11.2-MariaDB
 -- PHP Version: 8.2.3
 
+create database `expense_manager`;
+use expense_manager;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
